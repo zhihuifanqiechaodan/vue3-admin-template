@@ -1,0 +1,25 @@
+{
+  "name": "vue3-element-admin",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "element-plus": "^2.2.6",
+    "js-cookie": "^3.0.1",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.14",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.16"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "sass": "^1.50.1",
+    "vite": "^2.9.5",
+    "vite-plugin-svg-icons": "^2.0.0"
+  }
+}

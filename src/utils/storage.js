@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 
-export const getToken = (key) => Cookies.get(key)
+export const getCookies = (key) => Cookies.get(key)
 
-export const setToken = (key, value) => Cookies.set(Tkey, value)
+export const setCookies = (key, value) => Cookies.set(Tkey, value)
 
-export const removeToken = (key) => Cookies.remove(key)
+export const removeCookies = (key) => Cookies.remove(key)

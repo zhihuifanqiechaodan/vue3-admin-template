@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on"
+        <el-form ref="refLoginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on"
             label-position="left">
 
             <div class="title-container">
@@ -9,56 +9,104 @@
 
             <el-form-item prop="username">
                 <span class="svg-container">
-                    <svg-icon icon-class="user" />
+                    <svg-icon name="user" />
                 </span>
-                <el-input ref="username" v-model="loginForm.username" placeholder="Username" name="username" type="text"
-                    tabindex="1" autocomplete="on" />
+                <el-input ref="refUsername" v-model="loginForm.username" placeholder="Username" name="username"
+                    type="text" tabindex="1" autocomplete="on" />
             </el-form-item>
 
-            <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
-                <el-form-item prop="password">
-                    <span class="svg-container">
-                        <svg-icon icon-class="password" />
-                    </span>
-                    <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType"
-                        placeholder="Password" name="password" tabindex="2" autocomplete="on"
-                        @keyup.native="checkCapslock" @blur="capsTooltip = false" @keyup.enter.native="handleLogin" />
-                    <span class="show-pwd" @click="showPwd">
-                        <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-                    </span>
-                </el-form-item>
-            </el-tooltip>
+            <el-form-item prop="password">
+                <span class="svg-container">
+                    <svg-icon name="password" />
+                </span>
+                <el-input ref="refPassword" v-model="loginForm.password" :type="passwordType" placeholder="Password"
+                    name="password" tabindex="2" autocomplete="on" @keyup.enter.native="handleLogin" />
+                <span class="show-pwd" @click="showPwd()">
+                    <svg-icon :name="passwordType === 'password' ? 'eye' : 'eye-open'" />
+                </span>
+            </el-form-item>
 
             <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;"
-                @click.native.prevent="handleLogin">Login</el-button>
-
-            <div style="position:relative">
-                <div class="tips">
-                    <span>Username : admin</span>
-                    <span>Password : any</span>
-                </div>
-                <div class="tips">
-                    <span style="margin-right:18px;">Username : editor</span>
-                    <span>Password : any</span>
-                </div>
-
-                <el-button class="thirdparty-button" type="primary" @click="showDialog = true">
-                    Or connect with
-                </el-button>
-            </div>
+                @click.native.prevent="handleLogin()">Login</el-button>
         </el-form>
-
-        <el-dialog title="Or connect with" :visible.sync="showDialog">
-            Can not be simulated on local, so please combine you own business simulation! ! !
-            <br>
-            <br>
-            <br>
-            <social-sign />
-        </el-dialog>
     </div>
 </template>
     
-<script setup lang='ts'>
+<script setup>
+import { nextTick, onMounted, reactive, toRefs } from 'vue'
+import { useUserStore } from '@/store/user'
+
+const validateUsername = (rule, value, callback) => {
+    if (!value) {
+        callback(new Error('Please enter the correct user name'))
+    } else {
+        callback()
+    }
+}
+const validatePassword = (rule, value, callback) => {
+    if (value.length < 6) {
+        callback(new Error('The password can not be less than 6 digits'))
+    } else {
+        callback()
+    }
+}
+
+const state = reactive({
+    refLoginForm: null,
+    refUsername: null,
+    refPassword: null,
+    loginForm: {
+        username: 'admin',
+        password: '123456789'
+    },
+    loginRules: {
+        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+    },
+    passwordType: 'password',
+    loading: false,
+    showDialog: false,
+    redirect: undefined,
+    otherQuery: {}
+})
+
+const { refLoginForm, refUsername, refPassword, loginForm, loginRules, passwordType, loading } = toRefs(state)
+
+onMounted(() => {
+    if (state.loginForm.username === '') {
+        state.refUsername.focus()
+    } else if (state.loginForm.password === '') {
+        state.refPassword.focus()
+    }
+})
+
+// 密码展示/隐藏
+const showPwd = () => {
+    if (state.passwordType === 'password') {
+        state.passwordType = ''
+    } else {
+        state.passwordType = 'password'
+    }
+    nextTick(() => {
+        state.refPassword.focus()
+    })
+}
+
+// 登录
+const handleLogin = () => {
+    state.refLoginForm.validate(valid => {
+        if (valid) {
+            state.loading = true
+            const userStore = useUserStore()
+            userStore.login(state.loginForm)
+            state.loading = false
+
+        } else {
+            console.log('error submit!!')
+            return false
+        }
+    })
+}
 
 </script>
     
@@ -79,25 +127,33 @@ $cursor: #fff;
 /* reset element-ui css */
 .login-container {
     .el-input {
+        flex: 1;
         display: inline-block;
         height: 47px;
-        width: 85%;
 
-        input {
-            background: transparent;
-            border: 0px;
-            -webkit-appearance: none;
-            border-radius: 0px;
-            padding: 12px 5px 12px 15px;
-            color: $light_gray;
-            height: 47px;
-            caret-color: $cursor;
+        .el-input__wrapper {
+            width: 100%;
+            padding: 0;
+            background-color: transparent;
+            box-shadow: none;
 
-            &:-webkit-autofill {
-                box-shadow: 0 0 0px 1000px $bg inset !important;
-                -webkit-text-fill-color: $cursor  !important;
+            input {
+                background: transparent;
+                border: 0px;
+                -webkit-appearance: none;
+                border-radius: 0px;
+                padding: 12px 5px 12px 15px;
+                color: $light_gray;
+                height: 47px;
+                caret-color: $cursor;
+
+                &:-webkit-autofill {
+                    box-shadow: 0 0 0px 1000px $bg inset !important;
+                    -webkit-text-fill-color: $cursor  !important;
+                }
             }
         }
+
     }
 
     .el-form-item {
@@ -125,27 +181,15 @@ $light_gray: #eee;
         width: 520px;
         max-width: 100%;
         padding: 160px 35px 0;
+        box-sizing: border-box;
         margin: 0 auto;
         overflow: hidden;
-    }
-
-    .tips {
-        font-size: 14px;
-        color: #fff;
-        margin-bottom: 10px;
-
-        span {
-            &:first-of-type {
-                margin-right: 16px;
-            }
-        }
     }
 
     .svg-container {
         padding: 6px 5px 6px 15px;
         color: $dark_gray;
         vertical-align: middle;
-        width: 30px;
         display: inline-block;
     }
 
@@ -169,18 +213,6 @@ $light_gray: #eee;
         color: $dark_gray;
         cursor: pointer;
         user-select: none;
-    }
-
-    .thirdparty-button {
-        position: absolute;
-        right: 0;
-        bottom: 6px;
-    }
-
-    @media only screen and (max-width: 470px) {
-        .thirdparty-button {
-            display: none;
-        }
     }
 }
 </style>

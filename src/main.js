@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 
-import { getToken } from './utils/storage'
+import { getCookies } from './utils/storage'
 
 import 'normalize.css' // a modern alternative to CSS resets
 
@@ -15,16 +15,15 @@ import router from './router'
 
 const app = createApp(App)
 
-
 import 'virtual:svg-icons-register'
-import svgIcon from '@/icons/SvgIcon.vue'
+import svgIcon from '@/components/SvgIcon/index.vue'
 
 import './permission' // permission control
 
 app
     .component('svg-icon', svgIcon)
     .use(ElementPlus, {
-        size: getToken('size') || 'medium' // set element-ui default size
+        size: getCookies('size') || 'medium' // set element-ui default size
     })
     .use(createPinia())
     .use(router)

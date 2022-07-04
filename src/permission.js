@@ -1,5 +1,6 @@
 import router from './router'
-import { useUserStore } from './store/user'
+import { useUserStore } from '@/store/user'
+import { usePermissionStore } from '@/store/permission'
 import { ElMessage } from 'element-plus'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
@@ -20,7 +21,50 @@ router.beforeEach(async (to, from, next) => {
     // determine whether the user has logged in
     const hasToken = getCookies('Fanqie-Token')
 
+    const userStore = useUserStore()
+
+    const permissionStore = usePermissionStore()
+
+
     if (hasToken) {
+
+        if (to.path === '/login') {
+            // if is logged in, redirect to the home page
+            next({ path: '/' })
+            NProgress.done() // hack: https://github.com/PanJiaChen/vue-element-admin/pull/2939
+        } else {
+
+            const hasRoles = userStore.roles && userStore.roles.length > 0
+
+            if (hasRoles) {
+
+                next()
+
+            } else {
+                try {
+                    // get user info
+                    // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
+                    const { roles } = await userStore.getInfo()
+
+                    // generate accessible routes map based on roles
+                    const accessRoutes = await permissionStore.generateRoutes(roles)
+
+                    accessRoutes.forEach(route => {
+                        router.addRoute(route)
+                    })
+
+                    // hack method to ensure that addRoutes is complete
+                    // set the replace: true, so the navigation will not leave a history record
+                    next({ ...to, replace: true })
+                } catch (error) {
+                    // remove token and go to login page to re-login
+                    await userStore.resetToken()
+                    ElMessage.error(error || 'Has Error')
+                    next(`/login?redirect=${to.path}`)
+                    NProgress.done()
+                }
+            }
+        }
 
     } else {
         /* has no token*/

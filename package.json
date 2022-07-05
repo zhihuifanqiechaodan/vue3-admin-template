@@ -16,6 +16,7 @@
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1",
     "pinia": "^2.0.14",
+    "screenfull": "^6.0.2",
     "vue": "^3.2.25",
     "vue-router": "^4.0.16"
   },

@@ -8,9 +8,9 @@
 
             <error-log class="errLog-container right-menu-item hover-effect" />
 
-            <!-- <screenfull id="screenfull" class="right-menu-item hover-effect" />
+            <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
-            <el-tooltip content="Global Size" effect="dark" placement="bottom">
+            <!-- <el-tooltip content="Global Size" effect="dark" placement="bottom">
                 <size-select id="size-select" class="right-menu-item hover-effect" />
             </el-tooltip> -->
 
@@ -48,6 +48,7 @@ import Hamburger from './Hamburger.vue'
 import Breadcrumb from './Breadcrumb.vue'
 import Search from './Search.vue'
 import ErrorLog from './ErrorLog.vue'
+import Screenfull from './Screenfull.vue'
 import { useSettingsStore } from '@/store/settings'
 import { useUserStore } from '@/store/user'
 

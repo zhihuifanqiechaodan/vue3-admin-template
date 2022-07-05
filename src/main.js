@@ -23,7 +23,7 @@ import './permission' // permission control
 app
     .component('svg-icon', svgIcon)
     .use(ElementPlus, {
-        size: getCookies('size') || 'medium' // set element-ui default size
+        size: getCookies('size') || 'small' // set element-ui default size
     })
     .use(createPinia())
     .use(router)

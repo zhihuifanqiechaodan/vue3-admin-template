@@ -35,6 +35,12 @@ const init = () => {
     }
 }
 
+const destroy = () => {
+    if (screenfull.isEnabled) {
+        screenfull.off('change', change)
+    }
+}
+
 init()
 
 onBeforeUnmount(() => {

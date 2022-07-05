@@ -20,6 +20,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
     "fast-glob": "^3.2.11",
+    "path-browserify": "^1.0.1",
     "sass": "^1.50.1",
     "vite": "^2.9.5",
     "vite-plugin-svg-icons": "^2.0.1"

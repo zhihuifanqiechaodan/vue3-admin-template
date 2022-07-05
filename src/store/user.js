@@ -5,7 +5,7 @@ import { addUserLogin, addUserInfo } from '@/api/user'
 export const useUserStore = defineStore('user', {
     state: () => {
         return {
-            token: getCookies(), // 登录信息
+            token: getCookies('Fanqie-Token'), // 登录信息
             userInfo: null, // 用户信息
             roles: [] // 路由权限
         }

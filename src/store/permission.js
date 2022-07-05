@@ -49,6 +49,7 @@ export const usePermissionStore = defineStore('permission', {
         generateRoutes(roles) {
             return new Promise((resolve, reject) => {
                 const accessedRoutes = roles.includes('admin') ? asyncRoutes || [] : filterAsyncRoutes(asyncRoutes, roles)
+                this.addRoutes = accessedRoutes
                 this.routes = constantRoutes.concat(accessedRoutes)
                 resolve(accessedRoutes)
             })

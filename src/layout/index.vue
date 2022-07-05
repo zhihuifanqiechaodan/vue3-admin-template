@@ -1,14 +1,35 @@
 <template>
-    <div class="app-wrapper">
+    <div :class="classObj" class="app-wrapper">
         <Sidebar class="sidebar-container" />
-        <div class="main-container">
-            <router-view />
+        <div :class="{ hasTagsView: needTagsView }" class="main-container">
+            <div :class="{ 'fixed-header': fixedHeader }">
+                <navbar />
+                <!-- <tags-view v-if="needTagsView" /> -->
+            </div>
+            <app-main />
+            <!-- <right-panel v-if="showSettings">
+                <settings />
+            </right-panel> -->
         </div>
     </div>
 </template>
     
 <script setup >
-import { Sidebar } from './components'
+import { AppMain, Sidebar, Navbar } from './components'
+import { useSettingsStore } from '@/store/settings'
+import { computed } from 'vue';
+
+const settingsStore = useSettingsStore()
+
+const classObj = computed(() => {
+    return {
+        hideSidebar: !settingsStore.sidebarStatus,
+        openSidebar: settingsStore.sidebarStatus,
+    }
+})
+
+const needTagsView = computed(() => settingsStore.tagsView)
+const fixedHeader = computed(() => settingsStore.fixedHeader)
 
 </script>
     

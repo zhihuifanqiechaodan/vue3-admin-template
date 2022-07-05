@@ -25,7 +25,7 @@ router.beforeEach(async (to, from, next) => {
 
     const permissionStore = usePermissionStore()
 
-
+    
     if (hasToken) {
 
         if (to.path === '/login') {

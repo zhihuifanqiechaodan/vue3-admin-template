@@ -62,12 +62,12 @@ export const asyncRoutes = [
         children: [
             {
                 path: 'index',
-                component: () => import('@/views/icons/index'),
+                component: () => import('@/views/icons/index.vue'),
                 name: 'Icons',
                 meta: { title: 'Icons', icon: 'icon', noCache: true }
             }
         ]
-    },
+    }
 ]
 
 const router = createRouter({

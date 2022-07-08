@@ -94,27 +94,14 @@
   .hideSidebar {
     .sidebar-container {
       width: 54px !important;
+
+      .svg-icon {
+        margin-right: 0;
+      }
     }
 
     .main-container {
       margin-left: 54px;
-    }
-
-    .submenu-title-noDropdown {
-      padding: 0 !important;
-      position: relative;
-
-      .el-tooltip {
-        padding: 0 !important;
-
-        .svg-icon {
-          margin-left: 20px;
-        }
-
-        .sub-el-icon {
-          margin-left: 19px;
-        }
-      }
     }
 
     .el-submenu {

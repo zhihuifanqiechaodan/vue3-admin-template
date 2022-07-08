@@ -13,7 +13,7 @@ import { computed } from 'vue'
 import { useSettingsStore } from '@/store/settings'
 
 const settingsStore = useSettingsStore()
-const isActive = computed(() => settingsStore.sidebarStatus)
+const isActive = computed(() => settingsStore.sidebarOpenStatus)
 
 const toggleClick = () => {
     settingsStore.toggleSideBar()

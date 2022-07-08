@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import defaultSettings from '@/settings'
 import { setCookies, getCookies } from '@/utils/storage'
-const { showSettings, tagsView, fixedHeader, sidebarStatus, sidebarLogo } = defaultSettings
+const { showSettings, tagsView, fixedHeader, sidebarOpenStatus, sidebarLogo } = defaultSettings
+
 
 export const useSettingsStore = defineStore('settings', {
     state: () => {
@@ -10,17 +11,22 @@ export const useSettingsStore = defineStore('settings', {
             tagsView: tagsView, // tags展示状态
             fixedHeader: fixedHeader, // 固定头部
             sidebarLogo: sidebarLogo, // 侧边栏logo
-            sidebarStatus: getCookies('sidebarStatus') ? !!+getCookies('sidebarStatus') : sidebarStatus // 侧边栏状态
+            sidebarOpenStatus: getCookies('sidebarOpenStatus') ? !!+getCookies('sidebarOpenStatus') : sidebarOpenStatus, // 侧边栏状态
+            size: getCookies('sidebarOpenStatus') || 'small' // 组件默认大小
         }
     },
     actions: {
         toggleSideBar() {
-            this.sidebarStatus = !this.sidebarStatus
-            if (this.sidebarStatus) {
-                setCookies('sidebarStatus', 1)
+            this.sidebarOpenStatus = !this.sidebarOpenStatus
+            if (this.sidebarOpenStatus) {
+                setCookies('sidebarOpenStatus', 1)
             } else {
-                setCookies('sidebarStatus', 0)
+                setCookies('sidebarOpenStatus', 0)
             }
+        },
+        setSize(size) {
+            this.size = size
+            setCookies('size', size)
         },
     }
 })

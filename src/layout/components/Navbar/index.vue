@@ -10,9 +10,9 @@
 
             <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
-            <!-- <el-tooltip content="Global Size" effect="dark" placement="bottom">
+            <el-tooltip content="Global Size" effect="dark" placement="bottom">
                 <size-select id="size-select" class="right-menu-item hover-effect" />
-            </el-tooltip> -->
+            </el-tooltip>
 
 
             <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -49,11 +49,12 @@ import Breadcrumb from './Breadcrumb.vue'
 import Search from './Search.vue'
 import ErrorLog from './ErrorLog.vue'
 import Screenfull from './Screenfull.vue'
+import SizeSelect from './SizeSelect.vue'
 import { useSettingsStore } from '@/store/settings'
 import { useUserStore } from '@/store/user'
 
 const settingsStore = useSettingsStore()
-const isActive = computed(() => settingsStore.sidebarStatus)
+const isActive = computed(() => settingsStore.sidebarOpenStatus)
 
 const userStore = useUserStore()
 const avatar = computed(() => userStore.userInfo.avatar)

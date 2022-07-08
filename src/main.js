@@ -15,8 +15,6 @@ import App from './App.vue'
 import { createPinia } from 'pinia' // pinia
 import router from './router'
 
-const app = createApp(App)
-
 import 'virtual:svg-icons-register'
 import svgIcon from '@/components/SvgIcon/index.vue'
 
@@ -24,14 +22,21 @@ import './permission' // permission control
 
 import { useErrorLogStore } from '@/store/errorLog'
 
+const app = createApp(App)
+
+const ElementPlusOptions = {
+    size: getCookies('size') || 'small' // set element-ui default size
+}
 app
     .component('svg-icon', svgIcon)
-    .use(ElementPlus, {
-        size: getCookies('size') || 'small' // set element-ui default size
-    })
+    .use(ElementPlus, ElementPlusOptions)
     .use(createPinia())
     .use(router)
     .mount('#app')
+
+Object.assign(app.config.globalProperties, {
+    $ELEMENT_PLUS: ElementPlusOptions
+})
 
 const errorLogStore = useErrorLogStore()
 // you can set in settings.js

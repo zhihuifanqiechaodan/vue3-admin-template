@@ -2,7 +2,7 @@
     <div :class="{ 'has-logo': showLogo }">
         <Logo v-if="showLogo" :collapse="!isCollapse" />
         <el-scrollbar wrap-class="scrollbar-wrapper">
-            <el-menu :default-active="activeMenu" :collapse="isCollapse" :unique-opened="false"
+            <el-menu :default-active="activeMenu" :collapse="!isCollapse" :unique-opened="false"
                 :collapse-transition="false" mode="vertical" :background-color="variablesJson.menuBg"
                 :text-color="variablesJson.menuText" :active-text-color="variablesJson.menuActiveText">
                 <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
@@ -22,7 +22,7 @@ import SidebarItem from './SidebarItem.vue'
 
 const settingsStore = useSettingsStore()
 const showLogo = computed(() => settingsStore.sidebarLogo)
-const isCollapse = computed(() => settingsStore.sidebarStatus)
+const isCollapse = computed(() => settingsStore.sidebarOpenStatus)
 
 const route = useRoute()
 const activeMenu = computed(() => {

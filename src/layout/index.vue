@@ -23,8 +23,8 @@ const settingsStore = useSettingsStore()
 
 const classObj = computed(() => {
     return {
-        hideSidebar: !settingsStore.sidebarStatus,
-        openSidebar: settingsStore.sidebarStatus,
+        hideSidebar: !settingsStore.sidebarOpenStatus,
+        openSidebar: settingsStore.sidebarOpenStatus,
     }
 })
 

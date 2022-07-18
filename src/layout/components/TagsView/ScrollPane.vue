@@ -6,7 +6,7 @@
 </template>
     
 <script setup>
-import { onMounted, onUnmounted, reactive, toRefs, } from 'vue';
+import { onBeforeUnmount, onMounted, onUnmounted, reactive, toRefs, } from 'vue';
 
 const emits = defineEmits(['scroll'])
 
@@ -74,8 +74,9 @@ onMounted(() => {
     refScrollContainer.value.wrap$.addEventListener('scroll', emitScroll, true)
 })
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
     refScrollContainer.value.wrap$.removeEventListener('scroll', emitScroll)
+
 })
 
 defineExpose({

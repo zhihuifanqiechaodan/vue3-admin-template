@@ -28,5 +28,11 @@ export const useSettingsStore = defineStore('settings', {
             this.size = size
             setCookies('size', size)
         },
+        changeSetting({ key, value }) {
+            // eslint-disable-next-line no-prototype-builtins
+            if (this.hasOwnProperty(key)) {
+                this[key] = value
+            }
+        }
     }
 })

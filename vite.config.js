@@ -9,6 +9,12 @@ function resolve(dir) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
+  resolve: {
+    alias: {
+      '@': resolve('src')
+    }
+  },
   plugins: [
     vue(),
     createSvgIconsPlugin({
@@ -29,10 +35,5 @@ export default defineConfig({
        */
       // customDomId: '__svg__icons__dom__',
     }),
-  ],
-  resolve: {
-    alias: {
-      '@': resolve('src')
-    }
-  }
+  ]
 })

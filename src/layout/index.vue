@@ -4,7 +4,7 @@
         <div :class="{ hasTagsView: needTagsView }" class="main-container">
             <div :class="{ 'fixed-header': fixedHeader }">
                 <navbar />
-                <!-- <tags-view v-if="needTagsView" /> -->
+                <tags-view v-if="needTagsView" />
             </div>
             <app-main />
             <!-- <right-panel v-if="showSettings">
@@ -15,7 +15,7 @@
 </template>
     
 <script setup >
-import { AppMain, Sidebar, Navbar } from './components'
+import { Navbar, TagsView, AppMain, Sidebar } from './components'
 import { useSettingsStore } from '@/store/settings'
 import { computed } from 'vue';
 

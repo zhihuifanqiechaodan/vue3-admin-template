@@ -6,7 +6,7 @@
 </template>
     
 <script setup>
-import { onBeforeUnmount, onMounted, onUnmounted, reactive, toRefs, } from 'vue';
+import { onBeforeUnmount, onMounted, reactive, toRefs, } from 'vue';
 
 const emits = defineEmits(['scroll'])
 

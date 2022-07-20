@@ -36,6 +36,3 @@ const linkProps = () => {
 }
 
 </script>
-
-<style lang="scss" scoped>
-</style>

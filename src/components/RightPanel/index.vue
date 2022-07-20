@@ -2,8 +2,7 @@
     <div ref="refRightPanel" :class="{ show: show }" class="rightPanel-container">
         <div class="rightPanel-background" />
         <div class="rightPanel">
-            <div class="handle-button"
-                :style="{ 'top': buttonTop + 'px', 'background-color': elementVariablesJson.theme }"
+            <div class="handle-button" :style="{ 'top': buttonTop + 'px', 'background-color': buttonBackgroundColor }"
                 @click="show = !show">
                 <svg-icon :name="show ? 'close' : 'setting'" />
             </div>
@@ -16,7 +15,6 @@
 
 <script setup>
 import { onBeforeUnmount, onMounted, reactive, toRefs, watch } from 'vue';
-import elementVariables from '@/styles/element-variables.scss'
 import { addClass, removeClass } from '@/utils/index'
 
 const props = defineProps({
@@ -27,6 +25,10 @@ const props = defineProps({
     buttonTop: {
         default: 250,
         type: Number
+    },
+    buttonBackgroundColor: {
+        default: '#1890ff',
+        type: String
     }
 })
 
@@ -36,24 +38,6 @@ const state = reactive({
 })
 
 const { show, refRightPanel } = toRefs(state)
-
-//change  scss variable to js
-//导出scss定义的样式变量
-//vite无法获取scss变量https://github.com/vitejs/vite/issues/1279
-const dillScssExportToJson = (scssExportJson) => {
-    const jsonString = scssExportJson.replace(/:export\s*/, '').replace(/[\s+\r\n]/g, '')
-    const scssJson = {}
-    jsonString
-        .slice(1, jsonString.length - 2)
-        .split(';')
-        .forEach((fItem) => {
-            const arr = fItem.split(':')
-            scssJson[arr[0]] = arr[1]
-        })
-    return scssJson
-}
-const elementVariablesJson = dillScssExportToJson(elementVariables)
-console.log(elementVariablesJson);
 
 const addEventClick = () => {
     window.addEventListener('click', closeSidebar)

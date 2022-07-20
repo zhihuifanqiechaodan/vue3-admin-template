@@ -3,18 +3,20 @@
         <template
             v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow">
             <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-                <el-menu-item :index="resolvePath(onlyOneChild.path)">
-                    <item :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+                <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
+                    <svg-icon v-if="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
+                        :name="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
                     <template #title>
-                        {{ onlyOneChild.meta.title }}
+                        <span> {{ onlyOneChild.meta.title }}</span>
                     </template>
                 </el-menu-item>
             </app-link>
         </template>
 
         <el-sub-menu v-else :index="resolvePath(item.path)">
-            <template #title>
-                <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
+            <template v-if="item.meta" #title>
+                <svg-icon :name="item.meta && item.meta.icon" />
+                <span> {{ item.meta.title }}</span>
             </template>
             <sidebar-item v-for="child in item.children" :key="child.path" :is-nest="true" :item="child"
                 :base-path="resolvePath(child.path)" class="nest-menu" />
@@ -33,6 +35,11 @@ const props = defineProps({
     item: {
         type: Object,
         required: true
+    },
+    //用于判断是不是子Item,设置响应的样式
+    isNest: {
+        type: Boolean,
+        default: false
     },
     //基础路径，用于拼接
     basePath: {

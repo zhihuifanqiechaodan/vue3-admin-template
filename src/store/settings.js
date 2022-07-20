@@ -7,6 +7,8 @@ const { showSettings, tagsView, fixedHeader, sidebarOpenStatus, sidebarLogo } = 
 export const useSettingsStore = defineStore('settings', {
     state: () => {
         return {
+            layout: 'classic',
+            sidebarWidth: 210,
             showSettings: showSettings, // 展示设置
             tagsView: tagsView, // tags展示状态
             fixedHeader: fixedHeader, // 固定头部

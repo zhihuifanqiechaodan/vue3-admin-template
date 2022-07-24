@@ -1,6 +1,6 @@
 <template>
     <el-dropdown trigger="click" @command="handleSetSize">
-        <div>
+        <div class="size-select">
             <svg-icon class-name="size-icon" name="size" />
         </div>
         <template #dropdown>
@@ -58,5 +58,9 @@ const handleSetSize = (size) => {
 }
 </script>
     
-<style>
+<style lang="scss" scoped>
+.size-select {
+    display: flex;
+    align-items: center;
+}
 </style>

@@ -21,8 +21,10 @@ export const useSettingsStore = defineStore('settings', {
         toggleSideBar() {
             this.sidebarOpenStatus = !this.sidebarOpenStatus
             if (this.sidebarOpenStatus) {
+                this.sidebarWidth = 210
                 setCookies('sidebarOpenStatus', 1)
             } else {
+                this.sidebarWidth = 64
                 setCookies('sidebarOpenStatus', 0)
             }
         },

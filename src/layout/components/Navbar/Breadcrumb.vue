@@ -76,10 +76,7 @@ watch(
 </script>
     
 <style lang="scss" scoped>
-.app-breadcrumb.el-breadcrumb {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 50px;
+.app-breadcrumb {
     margin-left: 8px;
 
     .no-redirect {

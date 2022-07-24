@@ -33,5 +33,9 @@ const sidebarWidth = computed(() => settingsStore.sidebarWidth)
 .classic-container {
     display: flex;
     flex-direction: row;
+
+    .main-container {
+        flex: 1;
+    }
 }
 </style>

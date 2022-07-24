@@ -136,10 +136,11 @@ watch(() => state.show, (newValue) => {
     
 <style lang="scss" scoped>
 .header-search {
+    display: flex;
+    align-items: center;
 
     .search-icon {
         cursor: pointer;
-        vertical-align: middle;
     }
 
     .header-search-select {
@@ -151,6 +152,10 @@ watch(() => state.show, (newValue) => {
         border-radius: 0;
         display: inline-block;
         vertical-align: middle;
+
+        ::v-deep .el-input__wrapper.is-focus {
+            box-shadow: none !important;
+        }
 
         ::v-deep .el-input__inner {
             border-radius: 0;

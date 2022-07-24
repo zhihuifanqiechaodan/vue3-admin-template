@@ -1,21 +1,22 @@
 <template>
     <div class="navbar">
-        <hamburger id="hamburger-container" :is-active="isActive" class="hamburger-container" />
-        <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-
+        <div class="left-menu">
+            <hamburger id="hamburger-container" :is-active="isActive" class="hamburger-container" />
+            <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+        </div>
         <div class="right-menu">
             <search id="header-search" class="right-menu-item" />
 
-            <error-log class="errLog-container right-menu-item hover-effect" />
+            <error-log class="errLog-container right-menu-item " />
 
-            <screenfull id="screenfull" class="right-menu-item hover-effect" />
+            <screenfull id="screenfull" class="right-menu-item " />
 
             <el-tooltip content="Global Size" effect="dark" placement="bottom">
-                <size-select id="size-select" class="right-menu-item hover-effect" />
+                <size-select id="size-select" class="right-menu-item " />
             </el-tooltip>
 
 
-            <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+            <el-dropdown class="avatar-container right-menu-item " trigger="click">
                 <div class="avatar-wrapper">
                     <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar">
                     <i class="el-icon-caret-bottom" />
@@ -64,57 +65,46 @@ const avatar = computed(() => userStore.userInfo.avatar)
 
 <style lang="scss" scoped>
 .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 50px;
-    overflow: hidden;
-    position: relative;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    box-sizing: border-box;
 
-    .hamburger-container {
-        line-height: 46px;
-        height: 100%;
-        float: left;
-        cursor: pointer;
-        transition: background .3s;
-        -webkit-tap-highlight-color: transparent;
+    .left-menu {
+        display: flex;
+        align-items: center;
 
-        &:hover {
-            background: rgba(0, 0, 0, .025)
+        .hamburger-container {
+            cursor: pointer;
+            transition: background .3s;
+            -webkit-tap-highlight-color: transparent;
+
+            &:hover {
+                background: rgba(0, 0, 0, .025)
+            }
         }
-    }
 
-    .breadcrumb-container {
-        float: left;
-    }
-
-    .errLog-container {
-        display: inline-block;
-        vertical-align: top;
+        .breadcrumb-container {
+            float: left;
+        }
     }
 
     .right-menu {
-        float: right;
-        height: 100%;
-        line-height: 50px;
-
-        &:focus {
-            outline: none;
-        }
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
 
         .right-menu-item {
-            display: inline-block;
-            padding: 0 8px;
-            height: 100%;
+            padding: 0 10px;
             color: #5a5e66;
-            vertical-align: text-bottom;
+            cursor: pointer;
+            transition: background .3s;
 
-            &.hover-effect {
-                cursor: pointer;
-                transition: background .3s;
-
-                &:hover {
-                    background: rgba(0, 0, 0, .025)
-                }
+            &:hover {
+                background: rgba(0, 0, 0, .025)
             }
         }
 

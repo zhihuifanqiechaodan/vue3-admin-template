@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="screen-full">
         <svg-icon :name="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="click" />
     </div>
 </template>
@@ -47,15 +47,10 @@ onBeforeUnmount(() => {
     destroy()
 })
 </script>
-    
-<style scoped>
-.screenfull-svg {
-    display: inline-block;
-    cursor: pointer;
-    fill: #5a5e66;
-    ;
-    width: 20px;
-    height: 20px;
-    vertical-align: 10px;
+
+<style lang="scss" scoped>
+.screen-full {
+    display: flex;
+    align-items: center;
 }
 </style>

@@ -126,11 +126,13 @@ onBeforeUnmount(() => {
 }
 
 .handle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 48px;
     height: 48px;
     position: absolute;
     left: -48px;
-    text-align: center;
     font-size: 24px;
     border-radius: 6px 0 0 6px !important;
     z-index: 0;
@@ -138,10 +140,5 @@ onBeforeUnmount(() => {
     cursor: pointer;
     color: #fff;
     line-height: 48px;
-
-    i {
-        font-size: 24px;
-        line-height: 48px;
-    }
 }
 </style>

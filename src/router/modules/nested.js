@@ -25,33 +25,33 @@ const nestedRouter = {
           name: 'Menu1-1',
           meta: { title: 'Menu 1-1' }
         },
-        {
-          path: 'menu1-2',
-          component: () => import('@/views/nested/menu1/menu1-2.vue'),
-          name: 'Menu1-2',
-          redirect: '/nested/menu1/menu1-2/menu1-2-1',
-          meta: { title: 'Menu 1-2' },
-          children: [
-            {
-              path: 'menu1-2-1',
-              component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1.vue'),
-              name: 'Menu1-2-1',
-              meta: { title: 'Menu 1-2-1' }
-            },
-            {
-              path: 'menu1-2-2',
-              component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2.vue'),
-              name: 'Menu1-2-2',
-              meta: { title: 'Menu 1-2-2' }
-            }
-          ]
-        },
-        {
-          path: 'menu1-3',
-          component: () => import('@/views/nested/menu1/menu1-3.vue'),
-          name: 'Menu1-3',
-          meta: { title: 'Menu 1-3' }
-        }
+        // {
+        //   path: 'menu1-2',
+        //   component: () => import('@/views/nested/menu1/menu1-2.vue'),
+        //   name: 'Menu1-2',
+        //   redirect: '/nested/menu1/menu1-2/menu1-2-1',
+        //   meta: { title: 'Menu 1-2' },
+        //   children: [
+        //     {
+        //       path: 'menu1-2-1',
+        //       component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1.vue'),
+        //       name: 'Menu1-2-1',
+        //       meta: { title: 'Menu 1-2-1' }
+        //     },
+        //     {
+        //       path: 'menu1-2-2',
+        //       component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2.vue'),
+        //       name: 'Menu1-2-2',
+        //       meta: { title: 'Menu 1-2-2' }
+        //     }
+        //   ]
+        // },
+        // {
+        //   path: 'menu1-3',
+        //   component: () => import('@/views/nested/menu1/menu1-3.vue'),
+        //   name: 'Menu1-3',
+        //   meta: { title: 'Menu 1-3' }
+        // }
       ]
     },
     {

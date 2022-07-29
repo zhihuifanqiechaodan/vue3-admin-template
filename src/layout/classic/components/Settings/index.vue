@@ -20,7 +20,7 @@
 
             <div class="drawer-item">
                 <span>Sidebar Logo</span>
-                <el-switch v-model="sidebarLogo" class="drawer-switch" />
+                <el-switch v-model="menuLogo" class="drawer-switch" />
             </div>
 
         </div>
@@ -57,13 +57,13 @@ const tagsView = computed({
     }
 })
 
-const sidebarLogo = computed({
+const menuLogo = computed({
     get() {
-        return settingsStore.sidebarLogo
+        return settingsStore.menuLogo
     },
     set(val) {
         settingsStore.changeSetting({
-            key: 'sidebarLogo',
+            key: 'menuLogo',
             value: val
         })
     }

@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <div class="left-menu">
-            <hamburger id="hamburger-container" :is-active="isActive" class="hamburger-container" />
+            <hamburger id="hamburger-container" class="hamburger-container" />
             <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
         </div>
         <div class="right-menu">
@@ -51,11 +51,7 @@ import Search from './Search.vue'
 import ErrorLog from './ErrorLog.vue'
 import Screenfull from './Screenfull.vue'
 import SizeSelect from './SizeSelect.vue'
-import { useSettingsStore } from '@/store/settings'
 import { useUserStore } from '@/store/user'
-
-const settingsStore = useSettingsStore()
-const isActive = computed(() => settingsStore.sidebarOpenStatus)
 
 const userStore = useUserStore()
 const avatar = computed(() => userStore.userInfo.avatar)

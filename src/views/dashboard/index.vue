@@ -1,5 +1,16 @@
 <template>
-    <div class="app-container">dashboard</div>
+    <div class="app-container">
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px;">dashboard</div>
+    </div>
 </template>
     
 <script setup>

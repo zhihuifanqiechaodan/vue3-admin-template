@@ -16,7 +16,7 @@
     
 <script setup >
 import RightPanel from '@/components/RightPanel/index.vue'
-import { Navbar, TagsView, Settings, AppMain, Sidebar } from '@/layout/components'
+import { Navbar, TagsView, Settings, AppMain, Sidebar } from './components/index'
 import { useSettingsStore } from '@/store/settings'
 import { computed } from 'vue';
 
@@ -25,7 +25,6 @@ const settingsStore = useSettingsStore()
 const needTagsView = computed(() => settingsStore.tagsView)
 const fixedHeader = computed(() => settingsStore.fixedHeader)
 const showSettings = computed(() => settingsStore.showSettings)
-const sidebarWidth = computed(() => settingsStore.sidebarWidth)
 
 </script>
 

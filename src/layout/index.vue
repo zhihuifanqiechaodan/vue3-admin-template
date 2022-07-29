@@ -1,27 +1,20 @@
 <template>
-    <component :is="layout" class="layout-container" />
+    <component :is="layoutMode" />
 </template>
     
 <script setup>
-import Standard from './container/standard.vue'
-import Classic from './container/classic.vue'
-import Streamline from './container/streamline.vue'
+import Standard from "@/layout/standard/index.vue"
+import Classic from '@/layout/classic/index.vue'
+import Streamline from '@/layout/streamline/index.vue'
 import { useSettingsStore } from '@/store/settings'
 import { computed } from 'vue';
 
 const settingsStore = useSettingsStore()
 
 const layoutEnum = {
-    'standard': Standard,
-    'classic': Classic,
-    'streamline': Streamline
+    'Standard': Standard,
+    'Classic': Classic,
+    'Streamline': Streamline
 }
-const layout = computed(() => layoutEnum[settingsStore.layout])
+const layoutMode = computed(() => layoutEnum[settingsStore.layoutMode])
 </script>
-
-<style lang="scss" scoped>
-.layout-container {
-    height: 100%;
-    width: 100%;
-}
-</style>

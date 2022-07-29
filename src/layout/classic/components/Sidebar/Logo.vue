@@ -1,7 +1,7 @@
 <template>
-    <div class="sidebar-logo-container" :class="{ 'collapse': collapse }">
+    <div class="sidebar-logo-container" :class="{ 'menuCollapse': menuCollapse }">
         <transition name="sidebarLogoFade">
-            <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
+            <router-link v-if="menuCollapse" key="menuCollapse" class="sidebar-logo-link" to="/">
                 <img v-if="logo" :src="logo" class="sidebar-logo">
                 <h1 v-else class="sidebar-title">{{ title }} </h1>
             </router-link>
@@ -17,7 +17,7 @@
 import { reactive, toRefs } from 'vue'
 defineProps({
     // 侧边栏展开状态
-    collapse: {
+    menuCollapse: {
         type: Boolean,
         required: true
     }
@@ -73,7 +73,7 @@ const { title, logo } = toRefs(state)
         }
     }
 
-    &.collapse {
+    &.menuCollapse {
         .sidebar-logo {
             margin-right: 0px;
         }

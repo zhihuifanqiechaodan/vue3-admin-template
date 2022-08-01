@@ -15,7 +15,7 @@ export default {
   // 是否显示Logo
   menuLogo: true,
   // 默认全局尺寸, 可选值 large / default /small
-  size: "small",
+  size: "large",
 
   /**
    * 侧边栏菜单

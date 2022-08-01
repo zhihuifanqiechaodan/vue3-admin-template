@@ -33,8 +33,9 @@
 </template>
     
 <script setup>
-import { nextTick, onMounted, reactive, toRefs } from 'vue'
+import { nextTick, onMounted, reactive, toRefs, watch } from 'vue'
 import { useUserStore } from '@/store/user'
+import { useRouter, useRoute } from 'vue-router';
 
 const validateUsername = (rule, value, callback) => {
     if (!value) {
@@ -72,15 +73,27 @@ const state = reactive({
 
 const { refLoginForm, refUsername, refPassword, loginForm, loginRules, passwordType, loading } = toRefs(state)
 
-onMounted(() => {
-    if (state.loginForm.username === '') {
-        state.refUsername.focus()
-    } else if (state.loginForm.password === '') {
-        state.refPassword.focus()
+const getOtherQuery = (query) => {
+    return Object.keys(query).reduce((acc, cur) => {
+        if (cur !== 'redirect') {
+            acc[cur] = query[cur]
+        }
+        return acc
+    }, {})
+}
+
+const router = useRouter()
+const route = useRoute()
+watch(route, (route) => {
+    const { query } = route
+    if (query) {
+        state.redirect = query.redirect
+        state.otherQuery = getOtherQuery(query)
     }
+}, {
+    immediate: true
 })
 
-// 密码展示/隐藏
 const showPwd = () => {
     if (state.passwordType === 'password') {
         state.passwordType = ''
@@ -92,7 +105,6 @@ const showPwd = () => {
     })
 }
 
-// 登录
 const handleLogin = () => {
     state.refLoginForm.validate(valid => {
         if (valid) {
@@ -100,13 +112,21 @@ const handleLogin = () => {
             const userStore = useUserStore()
             userStore.login(state.loginForm)
             state.loading = false
-            
+            router.push({ path: state.redirect || '/', query: state.otherQuery })
         } else {
             console.log('error submit!!')
             return false
         }
     })
 }
+
+onMounted(() => {
+    if (state.loginForm.username === '') {
+        state.refUsername.focus()
+    } else if (state.loginForm.password === '') {
+        state.refPassword.focus()
+    }
+})
 
 </script>
     

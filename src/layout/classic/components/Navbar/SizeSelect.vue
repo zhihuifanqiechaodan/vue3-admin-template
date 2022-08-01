@@ -1,21 +1,21 @@
 <template>
-    <el-dropdown trigger="click" @command="handleSetSize">
-        <div class="size-select">
-            <svg-icon class-name="size-icon" name="size" />
-        </div>
-        <template #dropdown>
-            <el-dropdown-menu>
+    <div class="size-select">
+        <el-dropdown trigger="click" @command="handleSetSize">
+            <svg-icon class="size" name="size" />
+            <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item v-for="item of sizeOptions" :key="item.value" :disabled="size === item.value"
-                        :command="item.value">
-                        {{
-                                item.label
-                        }}
-                    </el-dropdown-item>
+                    <el-dropdown-menu>
+                        <el-dropdown-item v-for="item of sizeOptions" :key="item.value" :disabled="size === item.value"
+                            :command="item.value">
+                            {{
+                                    item.label
+                            }}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
                 </el-dropdown-menu>
-            </el-dropdown-menu>
-        </template>
-    </el-dropdown>
+            </template>
+        </el-dropdown>
+    </div>
 </template>
     
 <script setup >
@@ -62,5 +62,18 @@ const handleSetSize = (size) => {
 .size-select {
     display: flex;
     align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    transition: background .3s;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(0, 0, 0, .025)
+    }
+
+    .size {
+        font-size: 18px;
+        color: #5a5e66;
+    }
 }
 </style>

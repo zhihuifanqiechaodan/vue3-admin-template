@@ -1,8 +1,8 @@
 <template>
-    <div :class="{ 'show': show }" class="header-search">
-        <svg-icon class-name="search-icon" name="search" @click.stop="click" />
+    <div @click.stop="click" :class="{ 'show': show }" class="search-container">
+        <svg-icon class="search" name="search" />
         <el-select ref="refHeaderSearchSelect" v-model="search" :remote-method="querySearch" filterable
-            default-first-option remote placeholder="Search" class="header-search-select" @change="change">
+            default-first-option remote placeholder="Search" @change="change" class="search-container-select">
             <el-option v-for="item in options" :key="item.path" :value="item" :label="item.title.join(' > ')" />
         </el-select>
     </div>
@@ -135,44 +135,71 @@ watch(() => state.show, (newValue) => {
 </script>
     
 <style lang="scss" scoped>
-.header-search {
+.search-container {
     display: flex;
     align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    transition: background .3s;
+    cursor: pointer;
 
-    .search-icon {
-        cursor: pointer;
+    &:hover {
+        background: rgba(0, 0, 0, .025)
     }
 
-    .header-search-select {
+    .search {
         font-size: 18px;
-        transition: width 0.2s;
+        color: #5a5e66;
+    }
+
+    .search-container-select {
+        font-size: 18px;
+        transition: width 0.3s;
         width: 0;
         overflow: hidden;
         background: transparent;
         border-radius: 0;
         display: inline-block;
         vertical-align: middle;
-
-        ::v-deep .el-input__wrapper.is-focus {
-            box-shadow: none !important;
-        }
-
-        ::v-deep .el-input__inner {
-            border-radius: 0;
-            border: 0;
-            padding-left: 0;
-            padding-right: 0;
-            box-shadow: none !important;
-            border-bottom: 1px solid #d9d9d9;
-            vertical-align: middle;
-        }
     }
 
     &.show {
-        .header-search-select {
+
+        &:hover {
+            background: transparent;
+        }
+
+        .search-container-select {
             width: 210px;
             margin-left: 10px;
         }
+    }
+}
+</style>
+
+
+<style lang="scss">
+.search-container-select {
+    .el-input__wrapper {
+        box-shadow: none !important;
+    }
+
+    .el-input.is-focus .el-input__wrapper {
+        box-shadow: none !important;
+    }
+
+    .el-input__wrapper.is-focus {
+        box-shadow: none !important;
+    }
+
+    .el-input__inner {
+        border-radius: 0;
+        border: 0;
+        padding-left: 0;
+        padding-right: 0;
+        box-shadow: none;
+        border-bottom: 1px solid #d9d9d9;
+        vertical-align: middle;
     }
 }
 </style>

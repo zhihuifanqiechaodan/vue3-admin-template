@@ -81,7 +81,7 @@ onBeforeUnmount(() => {
 .showRightPanel {
     overflow: hidden;
     position: relative;
-    width: calc(100% - 15px);
+    /* width: calc(100% - 15px); */
 }
 </style>
 

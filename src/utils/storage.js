@@ -1,7 +1,15 @@
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
-export const getCookies = (key) => Cookies.get(key)
+const TokenKey = "Fanqie-Token";
 
-export const setCookies = (key, value) => Cookies.set(key, value)
+export const getCookies = (key) => Cookies.get(key);
 
-export const removeCookies = (key) => Cookies.remove(key)
+export const setCookies = (key, value) => Cookies.set(key, value);
+
+export const removeCookies = (key) => Cookies.remove(key);
+
+export const getToken = () => getCookies(TokenKey);
+
+export const setToken = (token) => setCookies(TokenKey, token);
+
+export const removeToken = () => removeCookies(TokenKey);

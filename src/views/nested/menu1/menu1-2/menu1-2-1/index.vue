@@ -1,5 +1,15 @@
-<template functional>
-  <div style="padding:30px;">
-    <el-alert :closable="false" title="menu 1-2-1" type="warning" />
-  </div>
+<template>
+    <div class="person"></div>
 </template>
+<script>
+export default {
+
+};
+</script>
+
+<style>
+.person {
+    color: #000;
+    padding-bottom: 1px;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="errorLogs.length > 0">
+    <div v-if="errorLogs.length > 0" class="errLog-container">
         <el-badge :is-dot="true" style="line-height: 25px;margin-top: -5px;" @click.native="dialogTableVisible = true">
             <el-button style="padding: 8px 10px;" size="small" type="danger">
                 <svg-icon icon-class="bug" />
@@ -66,12 +66,25 @@ const clearAll = () => {
 }
 
 </script>
+
     
-<style scoped>
-.message-title {
-    font-size: 16px;
-    color: #333;
-    font-weight: bold;
-    padding-right: 8px;
+<style scoped lang="scss">
+.errLog-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transition: background .3s;
+
+
+    &:hover {
+        background: rgba(0, 0, 0, .025)
+    }
+
+    .message-title {
+        font-size: 16px;
+        color: #333;
+        font-weight: bold;
+        padding-right: 8px;
+    }
 }
 </style>

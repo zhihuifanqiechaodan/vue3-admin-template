@@ -21,7 +21,7 @@ const nestedRouter = {
       children: [
         {
           path: 'menu1-1',
-          component: () => import('@/views/nested/menu1/menu1-1.vue'),
+          component: () => import('@/views/nested/menu1/menu1-1/index.vue'),
           name: 'Menu1-1',
           meta: { title: 'Menu 1-1' }
         },

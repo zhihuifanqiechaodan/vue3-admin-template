@@ -1,5 +1,5 @@
 <template>
-    <el-breadcrumb class="app-breadcrumb" separator="/">
+    <el-breadcrumb separator="/" class="breadcrumb-container">
         <transition-group name="breadcrumb">
             <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
                 <span v-if="item.redirect === 'noRedirect' || index == levelList.length - 1" class="no-redirect">{{
@@ -76,12 +76,19 @@ watch(
 </script>
     
 <style lang="scss" scoped>
-.app-breadcrumb {
-    margin-left: 8px;
+.breadcrumb-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: 10px;
 
     .no-redirect {
         color: #97a8be;
         cursor: text;
+    }
+
+    a {
+        font-weight: normal;
     }
 }
 </style>

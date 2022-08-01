@@ -15,23 +15,23 @@ export const useSettingsStore = defineStore('settings', {
             // 展示设置
             showSettings,
             // 是否固定header
-            fixedHeader: getCookies('fixedHeader') !== undefined ? getCookies('fixedHeader') : fixedHeader,
+            fixedHeader: getCookies('fixedHeader') ? JSON.parse(getCookies('fixedHeader')) : fixedHeader,
             // 是否展示tagsView
-            tagsView: getCookies('tagsView') !== undefined ? getCookies('tagsView') : fixedHeader,
+            tagsView: getCookies('tagsView') ? JSON.parse(getCookies('tagsView')) : tagsView,
             // 是否显示Logo
-            menuLogo: getCookies('menuLogo') !== undefined ? getCookies('menuLogo') : menuLogo,
+            menuLogo: getCookies('menuLogo') ? JSON.parse(getCookies('menuLogo')) : menuLogo,
 
             /**
              * 侧边栏菜单
              */
             //菜单宽度(展开时)，单位px
-            menuWidth: getCookies('menuWidth') !== undefined ? getCookies('menuWidth') : menuWidth,
+            menuWidth: getCookies('menuWidth') ? JSON.parse(getCookies('menuWidth')) : menuWidth,
             // 是否水平折叠收起菜单
             menuCollapse: getCookies('menuCollapse') ? JSON.parse(getCookies('menuCollapse')) : menuCollapse,
-            menuBackgroundColor: getCookies('menuBackgroundColor') !== undefined ? getCookies('menuBackgroundColor') : menuBackgroundColor,
-            menuTextColor: getCookies('menuTextColor') !== undefined ? getCookies('menuTextColor') : menuTextColor,
-            menuActiveBackgroundColor: getCookies('menuActiveBackgroundColor') !== undefined ? getCookies('menuActiveBackgroundColor') : menuActiveBackgroundColor,
-            menuActiveTextColor: getCookies('menuActiveTextColor') !== undefined ? getCookies('menuActiveTextColor') : menuActiveTextColor,
+            menuBackgroundColor: getCookies('menuBackgroundColor') ? JSON.parse(getCookies('menuBackgroundColor')) : menuBackgroundColor,
+            menuTextColor: getCookies('menuTextColor') ? JSON.parse(getCookies('menuTextColor')) : menuTextColor,
+            menuActiveBackgroundColor: getCookies('menuActiveBackgroundColor') ? JSON.parse(getCookies('menuActiveBackgroundColor')) : menuActiveBackgroundColor,
+            menuActiveTextColor: getCookies('menuActiveTextColor') ? JSON.parse(getCookies('menuActiveTextColor')) : menuActiveTextColor,
             menuDefaultIcon
         }
     },

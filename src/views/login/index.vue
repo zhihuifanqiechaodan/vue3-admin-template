@@ -84,14 +84,12 @@ const getOtherQuery = (query) => {
 
 const router = useRouter()
 const route = useRoute()
-watch(route, (route) => {
+watch(() => route.path, (route) => {
     const { query } = route
     if (query) {
         state.redirect = query.redirect
         state.otherQuery = getOtherQuery(query)
     }
-}, {
-    immediate: true
 })
 
 const showPwd = () => {

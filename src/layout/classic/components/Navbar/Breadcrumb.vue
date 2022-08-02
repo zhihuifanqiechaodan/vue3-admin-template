@@ -68,8 +68,7 @@ watch(
     () => route.path,
     () => {
         getBreadcrumb()
-    },
-    { immediate: true }
+    }
 )
 
 

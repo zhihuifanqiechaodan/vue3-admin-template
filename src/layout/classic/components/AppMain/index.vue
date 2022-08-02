@@ -1,21 +1,21 @@
 <template>
-    <section class="app-main">
-        <router-view v-slot="{ Component }">
-            <transition name="fade-transform" mode="out-in">
-                <keep-alive :include="cachedViews">
-                    <div :key="key">
-                        <component :is="Component" />
-                    </div>
-                </keep-alive>
-            </transition>
-        </router-view>
-    </section>
+    <router-view v-slot="{ Component }">
+        <transition name="fade-transform" mode="out-in">
+            <keep-alive :include="cachedViews">
+                <div :key="key" class="app-main">
+                    <component :is="Component" />
+                </div>
+            </keep-alive>
+        </transition>
+    </router-view>
 </template>
     
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router'
 import { useTagsViewStore } from '@/store/tagsView'
+import { useSettingsStore } from '@/store/settings'
+
 
 const route = useRoute()
 const key = computed(() => route.path)
@@ -23,39 +23,28 @@ const key = computed(() => route.path)
 const tagsViewStore = useTagsViewStore()
 const cachedViews = computed(() => tagsViewStore.cachedViews)
 
+const settingsStore = useSettingsStore()
+const needTagsView = computed(() => settingsStore.tagsView)
+const fixedHeader = computed(() => settingsStore.fixedHeader)
 
+const mainPaddingTop = computed({
+    get() {
+        if (fixedHeader.value) {
+            if (needTagsView.value) {
+                return `${50 + 40}px`
+            } else {
+                return `50px`
+            }
+
+        } else {
+            return `0px`
+        }
+    }
+})
 </script>
-    
+
 <style lang="scss" scoped>
 .app-main {
-    /* 50= navbar  50  */
-    min-height: calc(100vh - 50px);
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.fixed-header+.app-main {
-    padding-top: 50px;
-}
-
-.hasTagsView {
-    .app-main {
-        /* 84 = navbar + tags-view = 50 + 34 */
-        min-height: calc(100vh - 84px);
-    }
-
-    .fixed-header+.app-main {
-        padding-top: 84px;
-    }
-}
-</style>
-
-<style lang="scss">
-// fix css style bug in open el-dialog
-.el-popup-parent--hidden {
-    .fixed-header {
-        padding-right: 15px;
-    }
+    padding-top: v-bind(mainPaddingTop);
 }
 </style>

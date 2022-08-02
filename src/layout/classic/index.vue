@@ -1,7 +1,7 @@
 <template>
     <div class="classic-container">
         <Sidebar />
-        <div :class="{ hasTagsView: needTagsView }" class="main-container">
+        <el-scrollbar class="main-container">
             <div :class="{ 'fixed-header': fixedHeader }">
                 <navbar />
                 <tags-view v-if="needTagsView" />
@@ -10,7 +10,7 @@
             <right-panel v-if="showSettings">
                 <settings />
             </right-panel>
-        </div>
+        </el-scrollbar>
     </div>
 </template>
     
@@ -21,11 +21,9 @@ import { useSettingsStore } from '@/store/settings'
 import { computed } from 'vue';
 
 const settingsStore = useSettingsStore()
-
 const needTagsView = computed(() => settingsStore.tagsView)
 const fixedHeader = computed(() => settingsStore.fixedHeader)
 const showSettings = computed(() => settingsStore.showSettings)
-
 </script>
 
 <style lang="scss" scoped>
@@ -34,7 +32,17 @@ const showSettings = computed(() => settingsStore.showSettings)
     flex-direction: row;
 
     .main-container {
+        position: relative;
         flex: 1;
+        height: 100vh;
+
+        .fixed-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+        }
     }
 }
 </style>

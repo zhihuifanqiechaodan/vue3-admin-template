@@ -17,11 +17,7 @@
 <script setup >
 import Hamburger from './Hamburger.vue'
 import Breadcrumb from './Breadcrumb.vue'
-import Search from './Search.vue'
-import ErrorLog from './ErrorLog.vue'
-import Screenfull from './Screenfull.vue'
-import SizeSelect from './SizeSelect.vue'
-import User from './User.vue';
+import { Search, ErrorLog, Screenfull, SizeSelect, User } from '@/layout/components/index';
 </script>
 
 <style lang="scss" scoped>

@@ -85,6 +85,3 @@ const resolvePath = (routePath) => {
     return path.resolve(props.basePath, routePath)
 }
 </script>
-    
-<style>
-</style>

@@ -2,7 +2,8 @@
     <div @click.stop="click" :class="{ 'show': show }" class="search-container">
         <svg-icon class="search" name="search" />
         <el-select ref="refHeaderSearchSelect" v-model="search" :remote-method="querySearch" filterable
-            default-first-option remote placeholder="Search" @change="change" class="search-container-select">
+            default-first-option remote placeholder="Search" @change="change" size="default"
+            class="search-container-select">
             <el-option v-for="item in options" :key="item.path" :value="item" :label="item.title.join(' > ')" />
         </el-select>
     </div>

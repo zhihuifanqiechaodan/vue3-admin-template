@@ -22,7 +22,7 @@ export const useSettingsStore = defineStore("settings", {
       /**
        * 全局
        */
-      // 布局方式
+      // 布局方式 Classic 经典布局 Default默认布局 Streamline 精简布局
       layoutMode: getCookies("layoutMode") || layoutMode,
       // 默认全局尺寸, 可选值 large / default /small
       size: getCookies("size") || size,

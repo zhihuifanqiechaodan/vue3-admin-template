@@ -26,19 +26,31 @@ const cachedViews = computed(() => tagsViewStore.cachedViews)
 const settingsStore = useSettingsStore()
 const needTagsView = computed(() => settingsStore.tagsView)
 const fixedHeader = computed(() => settingsStore.fixedHeader)
+const layoutMode = computed(() => settingsStore.layoutMode)
 
 const mainPaddingTop = computed({
     get() {
-        if (fixedHeader.value) {
-            if (needTagsView.value) {
-                return `${50 + 40}px`
-            } else {
-                return `50px`
-            }
+        let mainPaddingTop = ''
+        switch (layoutMode.value) {
+            case 'Default':
+                mainPaddingTop = `${20 + 40 + 10}px`
+                break;
+            case 'Classic':
+                if (fixedHeader.value) {
+                    if (needTagsView.value) {
+                        mainPaddingTop = `${50 + 40}px`
+                    } else {
+                        mainPaddingTop = '50px'
+                    }
 
-        } else {
-            return `0px`
+                } else {
+                    mainPaddingTop = '0px'
+                }
+                break;
+            default:
+                break;
         }
+        return mainPaddingTop
     }
 })
 </script>

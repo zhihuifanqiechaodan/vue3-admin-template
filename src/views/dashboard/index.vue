@@ -1,6 +1,6 @@
 <template>
     <div class="app-container">
-        <div style="height: 200px;">dashboard</div>
+        <div style="height: 200px; background-color: red;">dashboard</div>
         <div style="height: 200px;">dashboard</div>
         <div style="height: 200px;">dashboard</div>
         <div style="height: 200px;">dashboard</div>
@@ -18,4 +18,8 @@
 </script>
     
 <style>
+.app-container {
+    background-color: #ffffff;
+    padding: 20px;
+}
 </style>

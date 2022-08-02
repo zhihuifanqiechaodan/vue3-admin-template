@@ -34,7 +34,6 @@ const logout = async () => {
     display: flex;
     align-items: center;
     height: 100%;
-    margin-right: 15px;
     padding: 0 10px;
     transition: background .3s;
     cursor: pointer;
@@ -55,6 +54,7 @@ const logout = async () => {
 
         .user-name {
             padding-left: 5px;
+            white-space: nowrap;
         }
     }
 }

@@ -4,8 +4,8 @@ export default {
    */
   // 页面标题
   title: "Vue3 Element Admin",
-  // 布局方式
-  layoutMode: "Classic",
+  // 布局方式 Classic 经典布局 Default 默认布局 Streamline 精简布局
+  layoutMode: "Default",
   // 全局设置状态
   showSettings: true,
   // 是否展示tagsView

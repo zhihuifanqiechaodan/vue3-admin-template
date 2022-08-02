@@ -17,17 +17,18 @@ import { useSettingsStore } from "@/store/settings";
 import { usePermissionStore } from "@/store/permission";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import SidebarItem from "./SidebarItem.vue";
+import SidebarItem from "@/layout/components/Sidebar/SidebarItem.vue";
 
 const settingsStore = useSettingsStore();
 const showLogo = computed(() => settingsStore.menuLogo);
 const menuCollapse = computed(() => settingsStore.menuCollapse);
 const menuBackgroundColor = computed(() => settingsStore.menuBackgroundColor);
+const menuTextColor = computed(() => settingsStore.menuTextColor);
+const menuActiveTextColor = computed(() => settingsStore.menuActiveTextColor);
 const menuActiveBackgroundColor = computed(
     () => settingsStore.menuActiveBackgroundColor
 );
-const menuTextColor = computed(() => settingsStore.menuTextColor);
-const menuActiveTextColor = computed(() => settingsStore.menuActiveTextColor);
+const layoutMode = computed(() => settingsStore.layoutMode)
 const menuWidth = computed({
     get() {
         return settingsStore.menuWidth + "px";
@@ -36,7 +37,20 @@ const menuWidth = computed({
 
 const menuHeight = computed({
     get() {
-        return showLogo.value ? "calc(100vh - 50px)" : "calc(100vh - 0px)";
+        let menuHeight = ''
+        // 默认布局
+        switch (layoutMode.value) {
+            case 'Default':
+                // logo 50 上下margin 20
+                menuHeight = showLogo.value ? `calc(100vh - ${50 + 40}px)` : "calc(100vh - 40px)";
+                break;
+            case 'Classic':
+                menuHeight = showLogo.value ? "calc(100vh - 50px)" : "calc(100vh - 0px)";
+                break;
+            default:
+                break;
+        }
+        return menuHeight
     },
 });
 

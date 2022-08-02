@@ -1,6 +1,6 @@
 <template>
     <div class="classic-container">
-        <Sidebar />
+        <sidebar />
         <el-scrollbar class="main-container">
             <div :class="{ 'fixed-header': fixedHeader }">
                 <navbar />
@@ -16,7 +16,8 @@
     
 <script setup >
 import RightPanel from '@/components/RightPanel/index.vue'
-import { Navbar, TagsView, Settings, AppMain, Sidebar } from './components/index'
+import { Navbar, TagsView, Settings, } from '@/layout/classic/components/index'
+import { Sidebar, AppMain } from '@/layout/components/index';
 import { useSettingsStore } from '@/store/settings'
 import { computed } from 'vue';
 

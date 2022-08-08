@@ -7,7 +7,7 @@ export default {
   // 布局方式 Classic 经典布局 Default 默认布局 Streamline 精简布局
   layoutMode: "Default",
   // 全局设置状态
-  showSettings: true,
+  showSettings: false,
   // 是否展示tagsView
   tagsView: true,
   // 是否固定header

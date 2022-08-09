@@ -3,7 +3,7 @@
         <svg-icon @click="handleDrawerOpen" name="setting" class="setting" />
     </div>
     <div class="drawer-wrapper">
-        <el-drawer @close="handleDrawerClose" v-model="showSettings" title="系统配置" direction="rtl" size="310px">
+        <el-drawer v-model="showSettings" title="系统配置" direction="rtl" size="310px">
             <el-divider>布局方式</el-divider>
             <div class="layout-wrapper">
                 <el-row :gutter="20">
@@ -50,9 +50,15 @@ import { computed } from 'vue';
 import { useSettingsStore } from '@/store/settings';
 
 const settingsStore = useSettingsStore()
-const showSettings = computed(() => settingsStore.showSettings)
-const layoutMode = computed(() => settingsStore.layoutMode)
-
+const showSettings = computed({
+    get() { return settingsStore.showSettings },
+    set() {
+        settingsStore.changeSetting({
+            key: 'showSettings',
+            value: !settingsStore.showSettings
+        })
+    }
+})
 const handleDrawerOpen = () => {
     settingsStore.changeSetting({
         key: 'showSettings',
@@ -60,13 +66,7 @@ const handleDrawerOpen = () => {
     })
 }
 
-const handleDrawerClose = () => {
-    settingsStore.changeSetting({
-        key: 'showSettings',
-        value: false
-    })
-}
-
+const layoutMode = computed(() => settingsStore.layoutMode)
 const handleLayoutMode = (mode) => {
     settingsStore.changeSetting({
         key: 'layoutMode',

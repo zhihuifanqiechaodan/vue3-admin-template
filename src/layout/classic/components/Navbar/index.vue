@@ -10,6 +10,7 @@
             <screenfull />
             <size-select />
             <user />
+            <Setting />
         </div>
     </div>
 </template>
@@ -17,7 +18,7 @@
 <script setup >
 import Hamburger from './Hamburger.vue'
 import Breadcrumb from './Breadcrumb.vue'
-import { Search, ErrorLog, Screenfull, SizeSelect, User } from '@/layout/components/index';
+import { Search, ErrorLog, Screenfull, SizeSelect, User, Setting } from '@/layout/components/index';
 </script>
 
 <style lang="scss" scoped>
@@ -41,6 +42,7 @@ import { Search, ErrorLog, Screenfull, SizeSelect, User } from '@/layout/compone
         align-items: center;
         justify-content: flex-end;
         height: 100%;
+        margin-right: 10px;
 
         .right-menu-item {
             padding: 0 10px;

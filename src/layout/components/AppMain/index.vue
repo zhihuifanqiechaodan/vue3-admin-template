@@ -31,24 +31,17 @@ const layoutMode = computed(() => settingsStore.layoutMode)
 const mainPaddingTop = computed({
     get() {
         let mainPaddingTop = ''
-        switch (layoutMode.value) {
-            case 'Default':
-                mainPaddingTop = `${20 + 40 + 10}px`
-                break;
-            case 'Classic':
-                if (fixedHeader.value) {
-                    if (needTagsView.value) {
-                        mainPaddingTop = `${50 + 40}px`
-                    } else {
-                        mainPaddingTop = '50px'
-                    }
-
+        if (layoutMode.value === 'Classic') {
+            if (fixedHeader.value) {
+                if (needTagsView.value) {
+                    mainPaddingTop = `${50 + 40}px`
                 } else {
-                    mainPaddingTop = '0px'
+                    mainPaddingTop = '50px'
                 }
-                break;
-            default:
-                break;
+
+            } else {
+                mainPaddingTop = '0px'
+            }
         }
         return mainPaddingTop
     }

@@ -1,13 +1,16 @@
 <template>
     <div class="default-container">
         <sidebar class="sidebar" />
-        <el-scrollbar class="main-container">
+        <div class="main-container">
             <div class="fixed-header">
                 <tags-view class="tags-view" />
                 <navbar />
             </div>
-            <app-main />
-        </el-scrollbar>
+            <el-scrollbar class="main-scrollbar">
+                <app-main />
+            </el-scrollbar>
+        </div>
+
     </div>
 </template>
 <script setup>
@@ -26,22 +29,14 @@ import { TagsView, Navbar } from '@/layout/default/components/index'
     }
 
     .main-container {
-        position: relative;
         flex: 1;
-        height: 100vh;
-        padding: 0 20px;
-        padding-bottom: 20px;
+        padding: 20px;
         box-sizing: border-box;
 
         .fixed-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
             padding-bottom: 10px;
             box-sizing: border-box;
             background-color: #f5f5f5;
@@ -50,6 +45,11 @@ import { TagsView, Navbar } from '@/layout/default/components/index'
                 flex: 1;
                 margin-right: 10px;
             }
+        }
+
+        .main-scrollbar {
+            // navbar height 50 padding 上下各20
+            height: calc(100vh - 90px);
         }
     }
 }

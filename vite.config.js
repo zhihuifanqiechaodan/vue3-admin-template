@@ -9,7 +9,12 @@ function resolve(dir) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/",
+  base: "/vue3-element-admin",
+  server: {
+    open: true,
+    host: "0.0.0.0",
+    port: 8080,
+  },
   resolve: {
     alias: {
       "@": resolve("src"),
@@ -36,9 +41,4 @@ export default defineConfig({
       // customDomId: '__svg__icons__dom__',
     }),
   ],
-  server: {
-    open: true,
-    host: "0.0.0.0",
-    port: 8080,
-  },
 });

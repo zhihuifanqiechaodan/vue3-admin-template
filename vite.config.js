@@ -9,7 +9,7 @@ function resolve(dir) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "./",
+  base: "/",
   resolve: {
     alias: {
       "@": resolve("src"),

@@ -15,6 +15,7 @@ const {
   menuActiveBackgroundColor,
   menuActiveTextColor,
   menuDefaultIcon,
+  menuUniqueOpened,
 } = defaultSettings;
 export const useSettingsStore = defineStore("settings", {
   state: () => {
@@ -42,20 +43,27 @@ export const useSettingsStore = defineStore("settings", {
       menuWidth: getCookies("menuWidth", menuWidth),
       // 是否水平折叠收起菜单
       menuCollapse: getCookies("menuCollapse", menuCollapse),
+      // 背景色
       menuBackgroundColor: getCookies(
         "menuBackgroundColor",
         menuBackgroundColor
       ),
+      // 文字颜色
       menuTextColor: getCookies("menuTextColor", menuTextColor),
+      // 激活项背景色
       menuActiveBackgroundColor: getCookies(
         "menuActiveBackgroundColor",
         menuActiveBackgroundColor
       ),
+      // 激活项文字色
       menuActiveTextColor: getCookies(
         "menuActiveTextColor",
         menuActiveTextColor
       ),
+      // 菜单项默认图标
       menuDefaultIcon,
+      // 是否只保持一个子菜单的展开(手风琴)
+      menuUniqueOpened: getCookies("menuActiveTextColor", menuUniqueOpened),
     };
   },
   actions: {

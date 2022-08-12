@@ -1,7 +1,7 @@
 <template>
     <div class="menu-horizontal">
-        <Logo v-if="showLogo" :menuCollapse="menuCollapse" class="logo" />
-        <el-menu :default-active="activeMenu" :collapse="menuCollapse" :collapse-transition="false" mode="horizontal"
+        <Logo v-if="showLogo" class="logo" />
+        <el-menu :default-active="activeMenu" :collapse-transition="false" mode="horizontal"
             :background-color="menuBackgroundColor" :text-color="menuTextColor" :active-text-color="menuActiveTextColor"
             class="horizontal-menus">
             <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
@@ -18,7 +18,6 @@ import SidebarItem from "@/layout/components/Sidebar/SidebarItem.vue";
 
 const settingsStore = useSettingsStore();
 const showLogo = computed(() => settingsStore.menuLogo);
-const menuCollapse = computed(() => settingsStore.menuCollapse);
 const menuBackgroundColor = computed(() => settingsStore.menuBackgroundColor);
 const menuTextColor = computed(() => settingsStore.menuTextColor);
 const menuActiveTextColor = computed(() => settingsStore.menuActiveTextColor);

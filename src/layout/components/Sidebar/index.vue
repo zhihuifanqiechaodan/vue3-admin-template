@@ -4,7 +4,7 @@
         <el-scrollbar class="vertical-menus-scrollbar">
             <el-menu :default-active="activeMenu" :collapse="menuCollapse" :collapse-transition="false" mode="vertical"
                 :background-color="menuBackgroundColor" :text-color="menuTextColor"
-                :active-text-color="menuActiveTextColor" class="vertical-menus">
+                :active-text-color="menuActiveTextColor" :unique-opened="menuUniqueOpened" class="vertical-menus">
                 <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
             </el-menu>
         </el-scrollbar>
@@ -25,6 +25,7 @@ const menuCollapse = computed(() => settingsStore.menuCollapse);
 const menuBackgroundColor = computed(() => settingsStore.menuBackgroundColor);
 const menuTextColor = computed(() => settingsStore.menuTextColor);
 const menuActiveTextColor = computed(() => settingsStore.menuActiveTextColor);
+const menuUniqueOpened = computed(() => settingsStore.menuUniqueOpened);
 const menuActiveBackgroundColor = computed(
     () => settingsStore.menuActiveBackgroundColor
 );

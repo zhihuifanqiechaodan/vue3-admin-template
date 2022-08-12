@@ -41,6 +41,17 @@
                     </el-col>
                 </el-row>
             </div>
+            <el-divider>Classic布局</el-divider>
+            <div class="navbar-menu">
+                <div class="navbar-menu-item">
+                    <div class="label">开启 Tags-View</div>
+                    <el-switch v-model="tagsView" size="default" class="value" />
+                </div>
+                <div class="navbar-menu-item">
+                    <div class="label">固定 Header</div>
+                    <el-switch v-model="fixedHeader" size="default" class="value" />
+                </div>
+            </div>
             <el-divider>导航菜单</el-divider>
             <div class="navbar-menu">
                 <div class="navbar-menu-item">
@@ -52,11 +63,15 @@
                     <el-color-picker v-model="menuTextColor" size="default" class="value" />
                 </div>
                 <div class="navbar-menu-item">
+                    <div class="label">导航菜单激活项背景色</div>
+                    <el-color-picker v-model="menuActiveBackgroundColor" size="default" class="value" />
+                </div>
+                <div class="navbar-menu-item">
                     <div class="label">导航菜单栏激活项文字颜色</div>
                     <el-color-picker v-model="menuActiveTextColor" size="default" class="value" />
                 </div>
                 <div class="navbar-menu-item">
-                    <div class="label">显示侧边菜单顶栏(LOGO栏)</div>
+                    <div class="label">导航菜单(LOGO)</div>
                     <el-switch v-model="menuLogo" size="default" class="value" />
                 </div>
                 <div class="navbar-menu-item">
@@ -68,6 +83,10 @@
                 <div class="navbar-menu-item">
                     <div class="label">侧边菜单水平折叠</div>
                     <el-switch v-model="menuCollapse" size="default" class="value" />
+                </div>
+                <div class="navbar-menu-item">
+                    <div class="label">侧边菜单手风琴</div>
+                    <el-switch v-model="menuUniqueOpened" size="default" class="value" />
                 </div>
             </div>
         </el-drawer>
@@ -85,6 +104,24 @@ const showSettings = computed({
         settingsStore.changeSetting({
             key: 'showSettings',
             value: !settingsStore.showSettings
+        })
+    }
+})
+const fixedHeader = computed({
+    get() { return settingsStore.fixedHeader },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'fixedHeader',
+            value
+        })
+    }
+})
+const tagsView = computed({
+    get() { return settingsStore.tagsView },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'tagsView',
+            value
         })
     }
 })
@@ -106,6 +143,17 @@ const menuTextColor = computed({
     set(value) {
         settingsStore.changeSetting({
             key: 'menuTextColor',
+            value
+        })
+    }
+});
+const menuActiveBackgroundColor = computed({
+    get() {
+        return settingsStore.menuActiveBackgroundColor
+    },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'menuActiveBackgroundColor',
             value
         })
     }
@@ -150,6 +198,17 @@ const menuCollapse = computed({
     set(value) {
         settingsStore.changeSetting({
             key: 'menuCollapse',
+            value: value
+        })
+    }
+});
+const menuUniqueOpened = computed({
+    get() {
+        return settingsStore.menuUniqueOpened
+    },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'menuUniqueOpened',
             value: value
         })
     }

@@ -23,12 +23,12 @@ export const useSettingsStore = defineStore("settings", {
       /**
        * 全局
        */
+      // 展示设置
+      showSettings,
       // 布局方式 Classic 经典布局 Default默认布局 Streamline 精简布局
       layoutMode: getCookies("layoutMode", layoutMode),
       // 默认全局尺寸, 可选值 large / default /small
       size: getCookies("size", size),
-      // 展示设置
-      showSettings,
       // 是否固定header
       fixedHeader: getCookies("fixedHeader", fixedHeader),
       // 是否展示tagsView
@@ -39,6 +39,8 @@ export const useSettingsStore = defineStore("settings", {
       /**
        * 侧边栏菜单
        */
+      // 菜单项默认图标
+      menuDefaultIcon,
       //菜单宽度(展开时)，单位px
       menuWidth: getCookies("menuWidth", menuWidth),
       // 是否水平折叠收起菜单
@@ -60,23 +62,40 @@ export const useSettingsStore = defineStore("settings", {
         "menuActiveTextColor",
         menuActiveTextColor
       ),
-      // 菜单项默认图标
-      menuDefaultIcon,
       // 是否只保持一个子菜单的展开(手风琴)
       menuUniqueOpened: getCookies("menuActiveTextColor", menuUniqueOpened),
     };
   },
   actions: {
-    setSize(size) {
-      this.size = size;
-      setCookies("size", size);
-    },
     changeSetting({ key, value }) {
       // eslint-disable-next-line no-prototype-builtins
       if (this.hasOwnProperty(key)) {
         this[key] = value;
         setCookies(key, value);
       }
+    },
+    restoreDefault() {
+      this.changeSetting({ key: "layoutMode", value: layoutMode });
+      this.changeSetting({ key: "size", value: size });
+      this.changeSetting({ key: "fixedHeader", value: fixedHeader });
+      this.changeSetting({ key: "tagsView", value: tagsView });
+      this.changeSetting({ key: "menuLogo", value: menuLogo });
+      this.changeSetting({ key: "menuWidth", value: menuWidth });
+      this.changeSetting({ key: "menuCollapse", value: menuCollapse });
+      this.changeSetting({
+        key: "menuBackgroundColor",
+        value: menuBackgroundColor,
+      });
+      this.changeSetting({ key: "menuTextColor", value: menuTextColor });
+      this.changeSetting({
+        key: "menuActiveBackgroundColor",
+        value: menuActiveBackgroundColor,
+      });
+      this.changeSetting({
+        key: "menuActiveTextColor",
+        value: menuActiveTextColor,
+      });
+      this.changeSetting({ key: "menuUniqueOpened", value: menuUniqueOpened });
     },
   },
 });

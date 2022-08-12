@@ -44,7 +44,10 @@ const instance = getCurrentInstance()
 const handleSetSize = (size) => {
     const { $message, $ELEMENT_PLUS } = instance.appContext.app.config.globalProperties
     $ELEMENT_PLUS.size = size
-    settingsStore.setSize(size)
+    settingsStore.changeSetting({
+        key: 'size',
+        value: size
+    })
     // refreshView()
     $message({
         message: 'Switch Size Success',

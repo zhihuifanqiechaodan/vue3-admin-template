@@ -89,6 +89,14 @@
                     <el-switch v-model="menuUniqueOpened" size="default" class="value" />
                 </div>
             </div>
+            <div class="default-config">
+                <el-popconfirm @confirm="restoreDefault" confirm-button-text="确认" cancel-button-text="取消"
+                    title="确定要恢复全部配置到默认值吗？">
+                    <template #reference>
+                        <el-button type="info" size="default">恢复默认</el-button>
+                    </template>
+                </el-popconfirm>
+            </div>
         </el-drawer>
     </div>
 </template>
@@ -214,7 +222,6 @@ const menuUniqueOpened = computed({
     }
 });
 
-
 const handleDrawerOpen = () => {
     settingsStore.changeSetting({
         key: 'showSettings',
@@ -229,6 +236,8 @@ const handleLayoutMode = (mode) => {
         value: mode
     })
 }
+
+const restoreDefault = () => settingsStore.restoreDefault()
 </script>
 
 <style lang="scss" scoped>
@@ -396,6 +405,11 @@ const handleLayoutMode = (mode) => {
             }
         }
     }
+
+    .default-config {
+        display: flex;
+        justify-content: center;
+    }
 }
 </style>
 
@@ -407,6 +421,12 @@ const handleLayoutMode = (mode) => {
 
     .el-drawer__header {
         margin-bottom: 0;
+    }
+}
+
+.default-config {
+    .el-button {
+        width: 100%;
     }
 }
 </style>

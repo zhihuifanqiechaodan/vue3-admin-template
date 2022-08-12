@@ -1,6 +1,6 @@
 <template>
-    <div class="size-select">
-        <el-dropdown trigger="click" @command="handleSetSize">
+    <div @click="handleDropdownClick" class="size-select">
+        <el-dropdown ref="refDropdown" trigger="contextmenu" @command="handleSetSize">
             <svg-icon class="size" name="size" />
             <template #dropdown>
                 <el-dropdown-menu>
@@ -31,9 +31,10 @@ const state = reactive({
         { label: 'Large', value: 'large' },
         { label: 'Default', value: 'default' },
         { label: 'Small', value: 'small' }
-    ]
+    ],
+    refDropdown: null
 })
-const { sizeOptions } = toRefs(state)
+const { sizeOptions, refDropdown } = toRefs(state)
 
 const settingsStore = useSettingsStore()
 const size = computed(() => settingsStore.size)
@@ -55,6 +56,10 @@ const handleSetSize = (size) => {
             path: '/redirect' + fullPath
         })
     })
+}
+
+const handleDropdownClick = () => {
+    state.refDropdown.handleOpen()
 }
 </script>
     

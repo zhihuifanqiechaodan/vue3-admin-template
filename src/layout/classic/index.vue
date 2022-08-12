@@ -7,15 +7,11 @@
                 <tags-view v-if="needTagsView" />
             </div>
             <app-main />
-            <right-panel v-if="showSettings">
-                <settings />
-            </right-panel>
         </el-scrollbar>
     </div>
 </template>
     
 <script setup >
-import RightPanel from '@/components/RightPanel/index.vue'
 import { Navbar, TagsView, Settings, } from '@/layout/classic/components/index'
 import { Sidebar, AppMain } from '@/layout/components/index';
 import { useSettingsStore } from '@/store/settings'
@@ -24,7 +20,6 @@ import { computed } from 'vue';
 const settingsStore = useSettingsStore()
 const needTagsView = computed(() => settingsStore.tagsView)
 const fixedHeader = computed(() => settingsStore.fixedHeader)
-const showSettings = computed(() => settingsStore.showSettings)
 </script>
 
 <style lang="scss" scoped>

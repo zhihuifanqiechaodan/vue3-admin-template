@@ -31,7 +31,7 @@ const menuActiveBackgroundColor = computed(
 const layoutMode = computed(() => settingsStore.layoutMode)
 const menuWidth = computed({
     get() {
-        return settingsStore.menuWidth + "px";
+        return settingsStore.menuCollapse ? '64px' : settingsStore.menuWidth + "px";
     },
 });
 
@@ -95,6 +95,10 @@ const routes = computed(() => permissionStore.routes);
     .el-menu-item .svg-icon {
         margin-right: 5px;
         width: 24px;
+    }
+
+    .el-menu-item.is-active {
+        background-color: v-bind(menuActiveBackgroundColor);
     }
 }
 </style>

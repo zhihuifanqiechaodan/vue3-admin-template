@@ -19,7 +19,6 @@
     
 <style>
 .app-container {
-    background-color: #ffffff;
-    padding: 20px;
+    margin: 20px;
 }
 </style>

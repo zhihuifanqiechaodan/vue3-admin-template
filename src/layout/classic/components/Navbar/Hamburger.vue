@@ -12,7 +12,10 @@ const settingsStore = useSettingsStore()
 const menuCollapse = computed(() => settingsStore.menuCollapse)
 
 const toggleClick = () => {
-    settingsStore.toggleSideBar()
+    settingsStore.changeSetting({
+        key: 'menuCollapse',
+        value: !settingsStore.menuCollapse
+    })
 }
 </script>
 

@@ -6,7 +6,6 @@ import request from "@/utils/request";
  * @returns
  */
 export function addUserLogin(data) {
-  console.log(data);
   if (data.username === "admin") {
     return Promise.resolve({ data: { token: "fanqie-token" } });
   } else {

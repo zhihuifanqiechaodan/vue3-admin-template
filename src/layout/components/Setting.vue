@@ -1,6 +1,6 @@
 <template>
-    <div class="setting-wrapper">
-        <svg-icon @click="handleDrawerOpen" name="setting" class="setting" />
+    <div @click="handleDrawerOpen" class="setting-wrapper">
+        <svg-icon name="setting" class="setting" />
     </div>
     <div class="drawer-wrapper">
         <el-drawer v-model="showSettings" title="系统配置" direction="rtl" size="310px">
@@ -41,6 +41,35 @@
                     </el-col>
                 </el-row>
             </div>
+            <el-divider>导航菜单</el-divider>
+            <div class="navbar-menu">
+                <div class="navbar-menu-item">
+                    <div class="label">导航菜单栏背景色</div>
+                    <el-color-picker v-model="menuBackgroundColor" size="default" class="value" />
+                </div>
+                <div class="navbar-menu-item">
+                    <div class="label">导航菜单栏文字颜色</div>
+                    <el-color-picker v-model="menuTextColor" size="default" class="value" />
+                </div>
+                <div class="navbar-menu-item">
+                    <div class="label">导航菜单栏激活项文字颜色</div>
+                    <el-color-picker v-model="menuActiveTextColor" size="default" class="value" />
+                </div>
+                <div class="navbar-menu-item">
+                    <div class="label">显示侧边菜单顶栏(LOGO栏)</div>
+                    <el-switch v-model="menuLogo" size="default" class="value" />
+                </div>
+                <div class="navbar-menu-item">
+                    <div class="label">侧边菜单宽度(展开时)</div>
+                    <el-input v-model="menuWidth" type="number" :step="10" size="default" class="value">
+                        <template #append>px</template>
+                    </el-input>
+                </div>
+                <div class="navbar-menu-item">
+                    <div class="label">侧边菜单水平折叠</div>
+                    <el-switch v-model="menuCollapse" size="default" class="value" />
+                </div>
+            </div>
         </el-drawer>
     </div>
 </template>
@@ -59,6 +88,74 @@ const showSettings = computed({
         })
     }
 })
+const menuBackgroundColor = computed({
+    get() {
+        return settingsStore.menuBackgroundColor
+    },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'menuBackgroundColor',
+            value
+        })
+    }
+});
+const menuTextColor = computed({
+    get() {
+        return settingsStore.menuTextColor
+    },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'menuTextColor',
+            value
+        })
+    }
+});
+const menuActiveTextColor = computed({
+    get() {
+        return settingsStore.menuActiveTextColor
+    },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'menuActiveTextColor',
+            value
+        })
+    }
+});
+const menuLogo = computed({
+    get() {
+        return settingsStore.menuLogo
+    },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'menuLogo',
+            value
+        })
+    }
+});
+const menuWidth = computed({
+    get() {
+        return settingsStore.menuWidth
+    },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'menuWidth',
+            value
+        })
+    }
+});
+const menuCollapse = computed({
+    get() {
+        return settingsStore.menuCollapse
+    },
+    set(value) {
+        settingsStore.changeSetting({
+            key: 'menuCollapse',
+            value: value
+        })
+    }
+});
+
+
 const handleDrawerOpen = () => {
     settingsStore.changeSetting({
         key: 'showSettings',
@@ -97,9 +194,7 @@ const handleLayoutMode = (mode) => {
 }
 
 .drawer-wrapper {
-    .el-row {
-        margin-bottom: 20px;
-    }
+
 
     .layout-wrapper {
         .default {
@@ -226,11 +321,31 @@ const handleLayoutMode = (mode) => {
             }
         }
     }
+
+    .navbar-menu {
+        .navbar-menu-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+
+            .label {
+                margin-right: 10px;
+            }
+
+            .value {
+                flex: 1;
+            }
+        }
+    }
 }
 </style>
 
 <style lang="scss">
 .drawer-wrapper {
+    .el-row {
+        margin-bottom: 20px;
+    }
+
     .el-drawer__header {
         margin-bottom: 0;
     }

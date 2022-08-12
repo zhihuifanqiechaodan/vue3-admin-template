@@ -100,7 +100,6 @@ export const resetRouter = () => {
   router.getRoutes().forEach((route) => {
     const { name } = route;
     if (name && asyncRoutes.find((item) => item.name === name)) {
-      console.log(name);
       router.removeRoute(name);
     }
   });

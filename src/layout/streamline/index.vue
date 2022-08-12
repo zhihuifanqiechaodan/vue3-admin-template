@@ -15,6 +15,7 @@ import { Navbar } from '@/layout/streamline/components/index';
 .streamline-container {
     .main-container {
         height: calc(100vh - 50px);
+        background-color: #F5F5F5;
     }
 }
 </style>

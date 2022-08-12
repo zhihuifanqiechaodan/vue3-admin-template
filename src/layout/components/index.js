@@ -1,4 +1,5 @@
 export { default as Sidebar } from "@/layout/components/Sidebar/index.vue";
+export { default as MenuHorizontal } from "@/layout/components/Sidebar/MenuHorizontal.vue";
 export { default as AppMain } from "@/layout/components/AppMain/index.vue";
 export { default as ErrorLog } from "@/layout/components/ErrorLog.vue";
 export { default as Search } from "@/layout/components/Search.vue";

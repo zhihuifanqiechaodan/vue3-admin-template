@@ -14,14 +14,8 @@
 </template>
     
 <script setup>
-import { reactive, toRefs } from 'vue'
-defineProps({
-    // 侧边栏展开状态
-    menuCollapse: {
-        type: Boolean,
-        required: true
-    }
-})
+import { reactive, toRefs, computed } from 'vue'
+import { useSettingsStore } from "@/store/settings";
 
 const state = reactive({
     title: 'Vue Element Admin',
@@ -29,6 +23,17 @@ const state = reactive({
 })
 
 const { title, logo } = toRefs(state)
+
+const settingsStore = useSettingsStore();
+const menuBackgroundColor = computed(() => settingsStore.menuBackgroundColor);
+
+defineProps({
+    // 侧边栏展开状态
+    menuCollapse: {
+        type: Boolean,
+        required: true
+    }
+})
 </script>
     
 <style lang="scss" scoped>
@@ -46,7 +51,7 @@ const { title, logo } = toRefs(state)
     width: 100%;
     height: 50px;
     line-height: 50px;
-    background: #2b2f3a;
+    background: v-bind(menuBackgroundColor);
     text-align: center;
     overflow: hidden;
 

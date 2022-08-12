@@ -2,9 +2,11 @@ import Cookies from "js-cookie";
 
 const TokenKey = "Fanqie-Token";
 
-export const getCookies = (key) => Cookies.get(key);
+export const getCookies = (key, defaultValue) =>
+  Cookies.get(key) ? JSON.parse(Cookies.get(key)) : defaultValue;
 
-export const setCookies = (key, value) => Cookies.set(key, value);
+export const setCookies = (key, value) =>
+  Cookies.set(key, JSON.stringify(value));
 
 export const removeCookies = (key) => Cookies.remove(key);
 

@@ -3,7 +3,7 @@ export default {
    * 全局
    */
   // 页面标题
-  title: "Vue3 Element Admin",
+  title: "Vue3 Admin Template",
   // 布局方式 Classic 经典布局 Default 默认布局 Streamline 精简布局
   layoutMode: "Default",
   // 默认全局尺寸, 可选值 large / default /small

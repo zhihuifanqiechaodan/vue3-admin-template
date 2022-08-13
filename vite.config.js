@@ -9,7 +9,7 @@ function resolve(dir) {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/vue3-element-admin",
+  base: "/vue3-admin-template/",
   server: {
     open: true,
     host: "0.0.0.0",

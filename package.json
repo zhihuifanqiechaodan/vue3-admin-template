@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite -- mode local",
-    "build": "vite build",
+    "build:test": "vite build",
+    "build:prod": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {

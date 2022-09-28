@@ -1,8 +1,8 @@
 ## 简介
 
-[vue3-admin-template](https://GaoYu-92Boy.github.io/vue3-admin-template) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-plus](https://github.com/element-plus/element-plus)实现。它使用了最新的前端技术栈，内置了 i18n 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。
+[vue3-admin-template](https://zhihuifanqiechaodan.github.io/vue3-admin-template) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-plus](https://github.com/element-plus/element-plus)实现。它使用了最新的前端技术栈，内置了 i18n 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。
 
-- [在线预览](https://GaoYu-92Boy.github.io/vue3-admin-template)
+- [在线预览](https://zhihuifanqiechaodan.github.io/vue3-admin-template)
 
 ## 前序准备
 
@@ -85,7 +85,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/GaoYu-92Boy/vue3-admin-template.git
+git clone https://github.com/zhihuifanqiechaodan/vue3-admin-template.git
 
 # 进入项目目录
 cd vue3-admin-template
@@ -130,7 +130,7 @@ npm run lint -- --fix
 
 ## Online Demo
 
-[在线 Demo](https://GaoYu-92Boy.github.io/vue3-admin-template)
+[在线 Demo](https://zhihuifanqiechaodan.github.io/vue3-admin-template)
 
 ## Donate
 

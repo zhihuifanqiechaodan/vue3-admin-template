@@ -1,6 +1,3 @@
----
-theme: fancy
----
 # 介绍
 
 [vue3-admin-template](https://github.com/zhihuifanqiechaodan/vue3-admin-template.git) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-plus](https://github.com/element-plus/element-plus.git)实现。它使用了最新的前端技术栈，内置了动态路由，权限验证，提供了多种布局方式，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。

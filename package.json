@@ -6,7 +6,8 @@
     "dev": "vite -- mode local",
     "build:test": "vite build",
     "build:prod": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "sh deploy.sh"
   },
   "dependencies": {
     "axios": "^0.27.2",

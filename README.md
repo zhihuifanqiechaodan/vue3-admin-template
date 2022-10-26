@@ -1,33 +1,27 @@
-## 简介
+---
+theme: fancy
+---
+# 介绍
 
-[vue3-admin-template](https://zhihuifanqiechaodan.github.io/vue3-admin-template) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-plus](https://github.com/element-plus/element-plus)实现。它使用了最新的前端技术栈，内置了 i18n 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。
+[vue3-admin-template](https://github.com/zhihuifanqiechaodan/vue3-admin-template.git) 是一个后台前端解决方案，它基于 [vue](https://github.com/vuejs/vue) 和 [element-plus](https://github.com/element-plus/element-plus.git)实现。它使用了最新的前端技术栈，内置了动态路由，权限验证，提供了多种布局方式，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。
 
-- [在线预览](https://zhihuifanqiechaodan.github.io/vue3-admin-template)
+> 建议
+> 
+> 本项目的定位是管理后台开发模版，适合当基础模板来进行二次开发，部分公共组件会在后续持续集成，欢迎提issues。
 
-## 前序准备
-
-你需要在本地安装 [node](http://nodejs.org/) 和 [git](https://git-scm.com/)。本项目技术栈基于 [ES2015+](http://es6.ruanyifeng.com/)、[vue](https://cn.vuejs.org/index.html)、[pinia](https://github.com/vuejs/pinia)、[vue-router](https://router.vuejs.org/zh-cn/) 、[vite](https://github.com/vitejs/vite) 、[axios](https://github.com/axios/axios) 和 [element-plus](https://github.com/element-plus/element-plus)，提前了解和学习这些知识会对使用本项目有很大的帮助。
-
-<p align="center">
-  <img width="900" src="https://wpimg.wallstcn.com/a5894c1b-f6af-456e-82df-1151da0839bf.png">
-</p>
 
 ## 功能
 
-```
+```js
 - 登录 / 注销
 
 - 权限验证
   - 页面权限
   - 指令权限
   - 权限配置
-  - 二步登录
 
 - 多环境发布
-  - dev
-  - sit
-  - stage
-  - prod
+  - dev sit stage prod
 
 - 全局功能
   - 国际化多语言
@@ -36,54 +30,45 @@
   - 动态面包屑
   - 快捷导航(标签页)
   - Svg Sprite 图标
-  - 本地/后端 mock 数据
   - Screenfull全屏
-  - 自适应收缩侧边栏
+```
+## 前序准备
+你需要在本地安装 [node](http://nodejs.org/) 和 [git](https://git-scm.com/)。本项目技术栈基于 [ES2015+](http://es6.ruanyifeng.com/)、[element-plus](https://github.com/element-plus/element-plus.git)、[axios](https://github.com/axios/axios.git[)、[pinia](https://github.com/vuejs/pinia.git)、[vue-router](https://github.com/vuejs/vue-router.git)和[vite](https://github.com/vitejs/vite.git)和提前了解和学习这些知识会对使用本项目有很大的帮助。
 
-- 编辑器
-  - 富文本
-  - Markdown
-  - JSON 等多格式
+## 目录结构
+本项目已经为你生成了一个完整的开发框架，提供了涵盖中后台开发的各类功能和坑位，下面是整个项目的目录结构。
 
-- Excel
-  - 导出excel
-  - 导入excel
-  - 前端可视化excel
-  - 导出zip
-
-- 表格
-  - 动态表格
-  - 拖拽表格
-  - 内联编辑
-
-- 错误页面
-  - 401
-  - 404
-
-- 組件
-  - 头像上传
-  - 返回顶部
-  - 拖拽Dialog
-  - 拖拽Select
-  - 拖拽看板
-  - 列表拖拽
-  - SplitPane
-  - Dropzone
-  - Sticky
-  - CountTo
-
-- 综合实例
-- 错误日志
-- Dashboard
-- 引导页
-- ECharts 图表
-- Clipboard(剪贴复制)
-- Markdown2html
+```js
+├── README.md
+├── deploy.sh
+├── index.html
+├── jsconfig.json
+├── package.json
+├── public
+│   └── favicon.ico
+├── src
+│   ├── App.vue
+│   ├── api
+│   ├── assets
+│   ├── components
+│   ├── icons
+│   ├── layout
+│   ├── main.js
+│   ├── permission.js
+│   ├── router
+│   ├── settings.js
+│   ├── store
+│   ├── styles
+│   ├── utils
+│   └── views
+├── vite.config.js
+├── yarn.loc
+└──.env.prod
 ```
 
-## 开发
+## 安装
 
-```bash
+```js
 # 克隆项目
 git clone https://github.com/zhihuifanqiechaodan/vue3-admin-template.git
 
@@ -91,47 +76,35 @@ git clone https://github.com/zhihuifanqiechaodan/vue3-admin-template.git
 cd vue3-admin-template
 
 # 安装依赖
-npm install
+yarn install
 
-# 建议不要直接使用 cnpm 安装依赖，会有各种诡异的 bug。可以通过如下操作解决 npm 下载速度慢的问题
-npm install --registry=https://registry.npm.taobao.org
-
-# 启动服务
-npm run dev
+# 本地开发 启动项目
+yarn dev
 ```
 
-浏览器访问 http://localhost:9527
+> TIP
+> 
+> 强烈建议使用yarn安装依赖，避免使用npm或者cnpm安装，可能会有各种诡异的 bug。
 
-## 发布
+启动完成后，当你看到下面的页面说明你操作成功了。
 
-```bash
-# 构建测试环境
-npm run build:test
+- 默认布局
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f2ae304dca124ba4bb6c065c595fb194~tplv-k3u1fbpfcp-watermark.image?)
+- 经典布局
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4b8dce0a0ec1438eb2b5d458a3335aa9~tplv-k3u1fbpfcp-watermark.image?)
+- 单栏布局
+![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f434480d59874512a90213f5b7d091e2~tplv-k3u1fbpfcp-watermark.image?)
+- 全局管理
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/850bc947654b4863b680519d6bb9b4f1~tplv-k3u1fbpfcp-watermark.image?)
+接下来你可以修改代码进行业务开发了，本项目内建了常用公共组件、全局路由管理等等各种实用的功能来辅助开发，你可以通过查看已有的工具类和封装方法来使用。
 
-# 构建生产环境
-npm run build:prod
-```
+> 建议
+> 
+> 使用前建议将目前项目中已有的配置和文件夹工具类先行查看一番，方便后续使用。
 
 ## 其它
+基于[vue3-admin-template](https://github.com/zhihuifanqiechaodan/vue3-admin-template.git)模版开发管理后台，你可以通过微量的改造来达到符合你司项目的需求。
 
-```bash
-# 预览发布环境效果
-npm run preview
+对于一些开发中常遇到的问题和解决方案欢迎讨论。
 
-# 预览发布环境效果 + 静态资源分析
-npm run preview -- --report
-
-# 代码格式检查
-npm run lint
-
-# 代码格式检查并自动修复
-npm run lint -- --fix
-```
-
-## Online Demo
-
-[在线 Demo](https://zhihuifanqiechaodan.github.io/vue3-admin-template)
-
-## Donate
-
-如果你觉得这个项目帮助到了你，想要参加一起讨论请添加 wx：abu673395239
+欢迎您提供宝贵的意见和建议，也欢迎提issues增加和修改功能或组件，另外如果可以的话请给个start，感谢～

@@ -1,10 +1,10 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 /* Layout */
-import Layout from "@/layout/index.vue";
+import Layout from '@/layout/index.vue'
 
 /* Router Modules */
-import nestedRouter from "./modules/nested";
+import nestedRouter from './modules/nested'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -34,36 +34,36 @@ import nestedRouter from "./modules/nested";
  */
 export const constantRoutes = [
   {
-    path: "/redirect",
+    path: '/redirect',
     component: Layout,
     hidden: true,
     children: [
       {
-        path: "/redirect/:path(.*)",
-        component: () => import("@/views/redirect/index.vue"),
-      },
-    ],
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index.vue')
+      }
+    ]
   },
   {
-    path: "/login",
-    component: () => import("@/views/login/index.vue"),
-    hidden: true,
+    path: '/login',
+    component: () => import('@/views/login/index.vue'),
+    hidden: true
   },
   {
-    path: "/",
+    path: '/',
     component: Layout,
-    redirect: "/dashboard",
+    redirect: '/dashboard',
     children: [
       {
-        path: "dashboard",
-        component: () => import("@/views/dashboard/index.vue"),
-        name: "Dashboard",
-        meta: { title: "Dashboard", icon: "dashboard", affix: true },
-      },
-    ],
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        name: 'Dashboard',
+        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+      }
+    ]
   },
-  nestedRouter,
-];
+  nestedRouter
+]
 
 /**
  * asyncRoutes
@@ -71,38 +71,38 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: "/icon",
+    path: '/icon',
     component: Layout,
-    name: "Icons",
+    name: 'Icons',
     meta: {
-      title: "Icons",
-      icon: "lock",
-      roles: ["admin"], // you can set roles in root nav
+      title: 'Icons',
+      icon: 'lock',
+      roles: ['admin'] // you can set roles in root nav
     },
     children: [
       {
-        path: "index",
-        component: () => import("@/views/icons/index.vue"),
-        name: "IconsIndex",
-        meta: { title: "Icons", icon: "icon", noCache: true, roles: ["dev"] },
-      },
-    ],
-  },
-];
+        path: 'index',
+        component: () => import('@/views/icons/index.vue'),
+        name: 'IconsIndex',
+        meta: { title: 'Icons', icon: 'icon', noCache: true, roles: ['dev'] }
+      }
+    ]
+  }
+]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: constantRoutes,
-});
+  routes: constantRoutes
+})
 
 // 重置路由为静态路由
 export const resetRouter = () => {
   router.getRoutes().forEach((route) => {
-    const { name } = route;
+    const { name } = route
     if (name && asyncRoutes.find((item) => item.name === name)) {
-      router.removeRoute(name);
+      router.removeRoute(name)
     }
-  });
-};
+  })
+}
 
-export default router;
+export default router

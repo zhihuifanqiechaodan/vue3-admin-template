@@ -3,11 +3,11 @@ export default {
    * 全局
    */
   // 页面标题
-  title: "Vue3 Admin Template",
+  title: 'Vue3 Admin Template',
   // 布局方式 Classic 经典布局 Default 默认布局 Streamline 精简布局
-  layoutMode: "Default",
+  layoutMode: 'Default',
   // 默认全局尺寸, 可选值 large / default /small
-  size: "large",
+  size: 'large',
   // 全局设置状态
   showSettings: false,
   // 是否固定header
@@ -25,17 +25,17 @@ export default {
   // 是否水平折叠收起菜单
   menuCollapse: false,
   // 背景色
-  menuBackgroundColor: "#304156",
+  menuBackgroundColor: '#304156',
   // 文字颜色
-  menuTextColor: "#bfcbd9",
+  menuTextColor: '#bfcbd9',
   // 激活项背景色
-  menuActiveBackgroundColor: "#304156",
+  menuActiveBackgroundColor: '#304156',
   // 激活项文字色
-  menuActiveTextColor: "#409EFF",
+  menuActiveTextColor: '#409EFF',
   // 菜单项默认图标
-  menuDefaultIcon: "el-icon-Minus",
+  menuDefaultIcon: 'el-icon-Minus',
   // 是否只保持一个子菜单的展开(手风琴)
   menuUniqueOpened: false,
   // The default is only used in the production env，If you want to also use it in dev, you can pass ['production', 'development']
-  errorLog: ["production", "local"],
-};
+  errorLog: ['production', 'local']
+}

@@ -24,7 +24,7 @@ const nestedRouter = {
           component: () => import('@/views/nested/menu1/menu1-1/index.vue'),
           name: 'Menu1-1',
           meta: { title: 'Menu 1-1' }
-        },
+        }
         // {
         //   path: 'menu1-2',
         //   component: () => import('@/views/nested/menu1/menu1-2.vue'),

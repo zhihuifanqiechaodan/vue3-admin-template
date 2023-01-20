@@ -7,7 +7,10 @@
     "build:test": "vite build",
     "build:prod": "vite build",
     "preview": "vite preview",
-    "deploy": "sh deploy.sh"
+    "deploy": "sh deploy.sh",
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
+    "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -24,8 +27,14 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.9.0",
     "fast-glob": "^3.2.11",
+    "husky": "^8.0.3",
     "path-browserify": "^1.0.1",
+    "prettier": "^2.8.3",
     "sass": "^1.50.1",
     "vite": "^2.9.5",
     "vite-plugin-svg-icons": "^2.0.1"

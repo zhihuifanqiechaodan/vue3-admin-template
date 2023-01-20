@@ -1,15 +1,13 @@
 <template>
-    <div class="person"></div>
+  <div class="person"></div>
 </template>
 <script>
-export default {
-
-};
+export default {}
 </script>
 
 <style>
 .person {
-    color: #000;
-    padding-bottom: 1px;
+  color: #000;
+  padding-bottom: 1px;
 }
 </style>

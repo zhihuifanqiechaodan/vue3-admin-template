@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+PATH="/usr/local/bin:$PATH"
+
+pnpm lint && pnpm format

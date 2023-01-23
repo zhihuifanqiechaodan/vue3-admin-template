@@ -1,6 +1,6 @@
 <template>
   <div class="menu-horizontal">
-    <Logo v-if="showLogo" class="logo" />
+    <Logo v-if="showLogo" :menuCollapse="false" class="logo" />
     <el-menu
       :default-active="activeMenu"
       :collapse-transition="false"

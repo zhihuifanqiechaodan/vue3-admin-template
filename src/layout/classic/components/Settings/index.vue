@@ -14,11 +14,6 @@
       </div>
 
       <div class="drawer-item">
-        <span>Fixed Header</span>
-        <el-switch v-model="fixedHeader" class="drawer-switch" />
-      </div>
-
-      <div class="drawer-item">
         <span>Sidebar Logo</span>
         <el-switch v-model="menuLogo" class="drawer-switch" />
       </div>
@@ -31,18 +26,6 @@ import { computed } from 'vue'
 import { useSettingsStore } from '@/store/settings'
 
 const settingsStore = useSettingsStore()
-
-const fixedHeader = computed({
-  get() {
-    return settingsStore.fixedHeader
-  },
-  set(val) {
-    settingsStore.changeSetting({
-      key: 'fixedHeader',
-      value: val
-    })
-  }
-})
 
 const tagsView = computed({
   get() {

@@ -1,11 +1,6 @@
 <template>
   <div ref="refTagsViewContainer" class="tags-view-container">
-    <scroll-pane
-      ref="refScrollPane"
-      class="tags-view-wrapper"
-      @scroll="handleScroll"
-      :refTag="refTag"
-    >
+    <el-scrollbar @scroll="handleScroll" class="tags-view-wrapper">
       <router-link
         v-for="tag in visitedViews"
         ref="refTag"
@@ -24,7 +19,7 @@
           @click.prevent.stop="closeSelectedTag(tag)"
         />
       </router-link>
-    </scroll-pane>
+    </el-scrollbar>
     <ul
       v-show="visible"
       :style="{ left: left + 'px', top: top + 'px' }"
@@ -41,7 +36,6 @@
 </template>
 
 <script setup>
-import ScrollPane from './ScrollPane.vue'
 import path from 'path-browserify'
 import { computed, nextTick, onMounted, reactive, toRefs, watch } from 'vue'
 import { usePermissionStore } from '@/store/permission'

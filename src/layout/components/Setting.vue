@@ -66,10 +66,6 @@
           <div class="label">开启 Tags-View</div>
           <el-switch v-model="tagsView" size="default" class="value" />
         </div>
-        <div class="navbar-menu-item">
-          <div class="label">固定 Header</div>
-          <el-switch v-model="fixedHeader" size="default" class="value" />
-        </div>
       </div>
       <el-divider>导航菜单</el-divider>
       <div class="navbar-menu">
@@ -159,17 +155,6 @@ const showSettings = computed({
     settingsStore.changeSetting({
       key: 'showSettings',
       value: !settingsStore.showSettings
-    })
-  }
-})
-const fixedHeader = computed({
-  get() {
-    return settingsStore.fixedHeader
-  },
-  set(value) {
-    settingsStore.changeSetting({
-      key: 'fixedHeader',
-      value
     })
   }
 })

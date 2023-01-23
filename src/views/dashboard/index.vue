@@ -8,6 +8,7 @@
     </el-radio-group>
 
     <div v-for="item in filterFamily" :key="item">{{ item.name }}</div>
+    <div style="height: 1000px"></div>
   </div>
 </template>
 

@@ -10,8 +10,6 @@ export default {
   size: 'large',
   // 全局设置状态
   showSettings: false,
-  // 是否固定header
-  fixedHeader: false,
   // 是否展示tagsView
   tagsView: true,
   // 是否显示Logo

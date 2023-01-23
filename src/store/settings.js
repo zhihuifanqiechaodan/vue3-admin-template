@@ -6,7 +6,6 @@ const {
   menuWidth,
   showSettings,
   tagsView,
-  fixedHeader,
   menuLogo,
   menuCollapse,
   size,
@@ -29,8 +28,6 @@ export const useSettingsStore = defineStore('settings', {
       layoutMode: getCookies('layoutMode', layoutMode),
       // 默认全局尺寸, 可选值 large / default /small
       size: getCookies('size', size),
-      // 是否固定header
-      fixedHeader: getCookies('fixedHeader', fixedHeader),
       // 是否展示tagsView
       tagsView: getCookies('tagsView', tagsView),
       // 是否显示Logo
@@ -77,7 +74,6 @@ export const useSettingsStore = defineStore('settings', {
     restoreDefault() {
       this.changeSetting({ key: 'layoutMode', value: layoutMode })
       this.changeSetting({ key: 'size', value: size })
-      this.changeSetting({ key: 'fixedHeader', value: fixedHeader })
       this.changeSetting({ key: 'tagsView', value: tagsView })
       this.changeSetting({ key: 'menuLogo', value: menuLogo })
       this.changeSetting({ key: 'menuWidth', value: menuWidth })

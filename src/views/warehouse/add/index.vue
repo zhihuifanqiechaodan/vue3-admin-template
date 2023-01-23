@@ -261,10 +261,9 @@ const handleSkuEnter = (row, index) => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .app-container {
   padding: 20px;
-
   .form-item {
     display: flex;
     align-items: center;
@@ -282,6 +281,18 @@ const handleSkuEnter = (row, index) => {
       width: 100px;
       text-align: right;
     }
+  }
+}
+</style>
+
+<style lang="scss">
+.form-item {
+  .el-input {
+    width: 200px;
+  }
+
+  .el-checkbox {
+    margin-left: 10px;
   }
 }
 </style>

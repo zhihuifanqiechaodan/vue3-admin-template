@@ -84,6 +84,7 @@ watch(
   align-items: center;
   height: 100%;
   margin-left: 10px;
+  white-space: nowrap;
 
   .no-redirect {
     color: #97a8be;

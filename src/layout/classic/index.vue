@@ -1,8 +1,8 @@
 <template>
   <div class="classic-container">
-    <sidebar />
+    <sidebar class="sidebar" />
     <el-scrollbar class="main-container">
-      <div :class="{ 'fixed-header': fixedHeader }">
+      <div class="fixed-header">
         <navbar />
         <tags-view v-if="needTagsView" />
       </div>
@@ -18,21 +18,42 @@ import { useSettingsStore } from '@/store/settings'
 import { computed } from 'vue'
 
 const settingsStore = useSettingsStore()
+
 const needTagsView = computed(() => settingsStore.tagsView)
-const fixedHeader = computed(() => settingsStore.fixedHeader)
+// 侧边栏宽度
+const menuWidth = computed(() =>
+  settingsStore.menuCollapse ? '64px' : `${settingsStore.menuWidth}px`
+)
 </script>
 
 <style lang="scss" scoped>
 .classic-container {
-  display: flex;
-  flex-direction: row;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: #f5f5f5;
+
+  .sidebar {
+    z-index: 1001;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    overflow: hidden;
+    transition: width 0.28s;
+    background-color: #304156;
+    font-size: 0;
+  }
 
   .main-container {
     position: relative;
-    flex: 1;
-    height: 100vh;
+    min-height: 100%;
+    margin-left: v-bind(menuWidth);
+    transition: margin-left 0.28s;
 
     .fixed-header {
+      z-index: 1;
       position: absolute;
       top: 0;
       left: 0;

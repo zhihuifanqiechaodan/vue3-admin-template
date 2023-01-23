@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
+import vitePluginVueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -22,6 +23,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    vitePluginVueSetupExtend(),
     createSvgIconsPlugin({
       // 指定需要缓存的图标文件夹
       iconDirs: [path.resolve(process.cwd(), 'src/icons')],

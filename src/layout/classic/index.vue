@@ -1,13 +1,15 @@
 <template>
   <div class="classic-container">
     <sidebar class="sidebar" />
-    <el-scrollbar class="main-container">
+    <div class="main-container">
       <div class="fixed-header">
         <navbar />
-        <tags-view v-if="needTagsView" />
+        <tags-view />
       </div>
-      <app-main />
-    </el-scrollbar>
+      <el-scrollbar class="main-scrollbar">
+        <app-main />
+      </el-scrollbar>
+    </div>
   </div>
 </template>
 
@@ -19,7 +21,6 @@ import { computed } from 'vue'
 
 const settingsStore = useSettingsStore()
 
-const needTagsView = computed(() => settingsStore.tagsView)
 // 侧边栏宽度
 const menuWidth = computed(() =>
   settingsStore.menuCollapse ? '64px' : `${settingsStore.menuWidth}px`
@@ -53,12 +54,12 @@ const menuWidth = computed(() =>
     transition: margin-left 0.28s;
 
     .fixed-header {
-      z-index: 1;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
       background-color: #ffffff;
+    }
+
+    .main-scrollbar {
+      // navbar height 50 tags-view 40
+      height: calc(100vh - 90px);
     }
   }
 }

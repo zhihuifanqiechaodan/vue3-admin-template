@@ -13,34 +13,13 @@
 <script setup>
 import { computed } from 'vue'
 import { useTagsViewStore } from '@/store/tagsView'
-import { useSettingsStore } from '@/store/settings'
 
 const tagsViewStore = useTagsViewStore()
 const cachedViews = computed(() => tagsViewStore.cachedViews)
-
-const settingsStore = useSettingsStore()
-const needTagsView = computed(() => settingsStore.tagsView)
-const layoutMode = computed(() => settingsStore.layoutMode)
-
-const mainPaddingTop = computed({
-  get() {
-    let mainPaddingTop = ''
-    if (layoutMode.value === 'Classic') {
-      if (needTagsView.value) {
-        mainPaddingTop = `${50 + 40}px`
-      } else {
-        mainPaddingTop = '50px'
-      }
-    }
-    return mainPaddingTop
-  }
-})
 </script>
 
 <style lang="scss" scoped>
 .app-main {
-  padding-top: v-bind(mainPaddingTop);
-
   /* fade */
   .fade-enter-active,
   .fade-leave-active {

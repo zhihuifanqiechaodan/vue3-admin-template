@@ -60,13 +60,6 @@
           </el-col>
         </el-row>
       </div>
-      <el-divider>Classic布局</el-divider>
-      <div class="navbar-menu">
-        <div class="navbar-menu-item">
-          <div class="label">开启 Tags-View</div>
-          <el-switch v-model="tagsView" size="default" class="value" />
-        </div>
-      </div>
       <el-divider>导航菜单</el-divider>
       <div class="navbar-menu">
         <div class="navbar-menu-item">
@@ -155,17 +148,6 @@ const showSettings = computed({
     settingsStore.changeSetting({
       key: 'showSettings',
       value: !settingsStore.showSettings
-    })
-  }
-})
-const tagsView = computed({
-  get() {
-    return settingsStore.tagsView
-  },
-  set(value) {
-    settingsStore.changeSetting({
-      key: 'tagsView',
-      value
     })
   }
 })

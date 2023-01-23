@@ -9,11 +9,6 @@
       </div>
 
       <div class="drawer-item">
-        <span>Open Tags-View</span>
-        <el-switch v-model="tagsView" class="drawer-switch" />
-      </div>
-
-      <div class="drawer-item">
         <span>Sidebar Logo</span>
         <el-switch v-model="menuLogo" class="drawer-switch" />
       </div>
@@ -26,18 +21,6 @@ import { computed } from 'vue'
 import { useSettingsStore } from '@/store/settings'
 
 const settingsStore = useSettingsStore()
-
-const tagsView = computed({
-  get() {
-    return settingsStore.tagsView
-  },
-  set(val) {
-    settingsStore.changeSetting({
-      key: 'tagsView',
-      value: val
-    })
-  }
-})
 
 const menuLogo = computed({
   get() {

@@ -55,10 +55,8 @@ const menuHeight = computed({
     // 默认布局
     switch (layoutMode.value) {
       case 'Default':
-        // logo 50 上下margin 20
-        menuHeight = showLogo.value
-          ? `calc(100vh - ${50 + 40}px)`
-          : 'calc(100vh - 40px)'
+        // logo 50
+        menuHeight = showLogo.value ? `calc(100% - 50px)` : '100%'
         break
       case 'Classic':
         menuHeight = showLogo.value ? 'calc(100vh - 50px)' : 'calc(100vh - 0px)'

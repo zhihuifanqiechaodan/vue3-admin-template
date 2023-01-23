@@ -15,22 +15,43 @@
 <script setup>
 import { Sidebar, AppMain } from '@/layout/components/index'
 import { TagsView, Navbar } from '@/layout/default/components/index'
+import { useSettingsStore } from '@/store/settings'
+import { computed } from 'vue'
+
+const settingsStore = useSettingsStore()
+// 侧边栏宽度 + 20偏差
+const menuWidth = computed(() =>
+  settingsStore.menuCollapse
+    ? 'calc(64px + 20px)'
+    : `${settingsStore.menuWidth + 20}px`
+)
 </script>
 <style lang="scss" scoped>
 .default-container {
-  display: flex;
-  flex-direction: row;
+  position: relative;
+  height: 100%;
+  width: 100%;
   background-color: #f5f5f5;
 
   .sidebar {
-    margin: 20px;
-    margin-right: 0;
+    z-index: 1001;
+    position: fixed;
+    top: 20px;
+    bottom: 0;
+    left: 20px;
+    height: calc(100vh - 40px);
+    overflow: hidden;
+    transition: width 0.28s;
+    background-color: #304156;
+    font-size: 0;
   }
 
   .main-container {
-    flex: 1;
-    padding: 20px;
-    box-sizing: border-box;
+    position: relative;
+    min-height: 100%;
+    margin-left: v-bind(menuWidth);
+    padding: 20px 0;
+    transition: margin-left 0.28s;
 
     .fixed-header {
       display: flex;

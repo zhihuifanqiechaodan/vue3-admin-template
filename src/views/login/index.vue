@@ -49,6 +49,7 @@
       <el-button
         :loading="loading"
         type="primary"
+        size="large"
         style="width: 100%; margin-bottom: 30px"
         @click.prevent="handleLogin"
         >Login</el-button
@@ -58,9 +59,12 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, reactive, toRefs, watch } from 'vue'
+import { nextTick, onMounted, reactive, toRefs } from 'vue'
 import { useUserStore } from '@/store/user'
 import { useRouter, useRoute } from 'vue-router'
+
+const router = useRouter()
+const route = useRoute()
 
 const validateUsername = (rule, value, callback) => {
   if (!value) {
@@ -69,6 +73,7 @@ const validateUsername = (rule, value, callback) => {
     callback()
   }
 }
+
 const validatePassword = (rule, value, callback) => {
   if (value.length < 6) {
     callback(new Error('The password can not be less than 6 digits'))
@@ -117,19 +122,6 @@ const getOtherQuery = (query) => {
   }, {})
 }
 
-const router = useRouter()
-const route = useRoute()
-watch(
-  () => route.path,
-  (route) => {
-    const { query } = route
-    if (query) {
-      state.redirect = query.redirect
-      state.otherQuery = getOtherQuery(query)
-    }
-  }
-)
-
 const showPwd = () => {
   if (state.passwordType === 'password') {
     state.passwordType = ''
@@ -142,11 +134,11 @@ const showPwd = () => {
 }
 
 const handleLogin = () => {
-  state.refLoginForm.validate((valid) => {
+  state.refLoginForm.validate(async (valid) => {
     if (valid) {
       state.loading = true
       const userStore = useUserStore()
-      userStore.login(state.loginForm)
+      await userStore.login(state.loginForm)
       state.loading = false
       router.push({ path: state.redirect || '/', query: state.otherQuery })
     } else {
@@ -157,10 +149,15 @@ const handleLogin = () => {
 }
 
 onMounted(() => {
+  const { query } = route
   if (state.loginForm.username === '') {
     state.refUsername.focus()
   } else if (state.loginForm.password === '') {
     state.refPassword.focus()
+  }
+  if (query) {
+    state.redirect = query.redirect
+    state.otherQuery = getOtherQuery(query)
   }
 })
 </script>
@@ -195,7 +192,7 @@ $cursor: #fff;
       input {
         background: transparent;
         border: 0px;
-        -webkit-appearance: none;
+        appearance: none;
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
         color: $light_gray;

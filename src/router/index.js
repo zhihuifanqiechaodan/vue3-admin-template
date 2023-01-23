@@ -87,6 +87,38 @@ export const asyncRoutes = [
         meta: { title: 'Icons', icon: 'icon', noCache: true, roles: ['dev'] }
       }
     ]
+  },
+  {
+    path: '/warehouse',
+    component: Layout,
+    name: 'Warehouse',
+    meta: {
+      title: '入库管理',
+      icon: 'lock',
+      roles: ['admin'] // you can set roles in root nav
+    },
+    children: [
+      {
+        path: 'warehouse-add',
+        component: () => import('@/views/warehouse/add/index.vue'),
+        name: 'WarehouseAdd',
+        meta: {
+          title: '入库操作',
+          icon: 'icon',
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'warehouse-fast-add',
+        component: () => import('@/views/warehouse/fast-add/index.vue'),
+        name: 'WarehouseFastAdd',
+        meta: {
+          title: '快速入库操作',
+          icon: 'icon',
+          roles: ['admin']
+        }
+      }
+    ]
   }
 ]
 

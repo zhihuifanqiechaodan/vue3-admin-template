@@ -4,7 +4,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/layout/index.vue'
 
 /* Router Modules */
-import nestedRouter from './modules/nested'
+// import nestedRouter from './modules/nested'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -61,8 +61,8 @@ export const constantRoutes = [
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
-  },
-  nestedRouter
+  }
+  // nestedRouter
 ]
 
 /**

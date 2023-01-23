@@ -77,11 +77,12 @@ const moveToTarget = (currentTag) => {
 }
 
 onMounted(() => {
-  refScrollContainer.value.wrap$.addEventListener('scroll', emitScroll, true)
+  console.log(refScrollContainer.value)
+  refScrollContainer.value.wrapRef.addEventListener('scroll', emitScroll, true)
 })
 
 onBeforeUnmount(() => {
-  refScrollContainer.value.wrap$.removeEventListener('scroll', emitScroll)
+  refScrollContainer.value.wrapRef.removeEventListener('scroll', emitScroll)
 })
 
 defineExpose({

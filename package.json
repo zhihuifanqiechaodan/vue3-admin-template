@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "element-plus": "^2.2.6",
+    "element-plus": "^2.2.28",
     "fuse.js": "^6.6.2",
     "js-cookie": "^3.0.1",
     "normalize.css": "^8.0.1",
@@ -23,7 +23,7 @@
     "pinia": "^2.0.14",
     "screenfull": "^6.0.2",
     "vue": "^3.2.25",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",

@@ -51,7 +51,7 @@
         <el-input v-model="beizhu" placeholder="前台客服留言" />
       </div>
     </div>
-    <el-table :data="goodsList" style="width: 100%">
+    <el-table :data="goodsList">
       <el-table-column label="SKU">
         <template #default="{ row, $index }">
           <el-input
@@ -65,7 +65,7 @@
         <template #default="{ row, $index }">
           <el-input
             v-model="row.brand"
-            @keyup.enter="handleBrandEnter(row)"
+            @keyup.enter="handleAutoFoucs"
             :id="$index + '_brand'"
           ></el-input>
         </template>
@@ -74,7 +74,7 @@
         <template #default="{ row, $index }">
           <el-input
             v-model="row.no"
-            @keyup.enter="handleNoEnter(row)"
+            @keyup.enter="handleAutoFoucs"
             :id="$index + '_no'"
           ></el-input>
         </template>
@@ -83,7 +83,7 @@
         <template #default="{ row, $index }">
           <el-input
             v-model="row.title"
-            @keyup.enter="handleTitleEnter(row)"
+            @keyup.enter="handleAutoFoucs"
             :id="$index + '_title'"
           ></el-input>
         </template>
@@ -92,7 +92,7 @@
         <template #default="{ row, $index }">
           <el-input
             v-model="row.spec"
-            @keyup.enter="handleSpecEnter(row)"
+            @keyup.enter="handleAutoFoucs"
             :id="$index + '_spec'"
           ></el-input>
         </template>
@@ -258,18 +258,6 @@ const handleSkuEnter = (row, index) => {
   }
 
   // sku不存在
-}
-const handleBrandEnter = (row) => {
-  row.brand && handleAutoFoucs()
-}
-const handleNoEnter = (row) => {
-  row.no && handleAutoFoucs()
-}
-const handleTitleEnter = (row) => {
-  row.title && handleAutoFoucs()
-}
-const handleSpecEnter = (row) => {
-  row.spec && handleAutoFoucs()
 }
 </script>
 

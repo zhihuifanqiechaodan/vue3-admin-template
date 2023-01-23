@@ -6,6 +6,7 @@
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+
 const { params, query } = route
 const { path } = params
 

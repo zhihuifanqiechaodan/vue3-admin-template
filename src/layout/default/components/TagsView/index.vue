@@ -21,7 +21,7 @@
           v-if="!isAffix(tag)"
           name="close"
           class="el-icon-close"
-          @click.prevent.stop="closeSelectedTag(tag)"
+          @click="closeSelectedTag(tag)"
         />
       </router-link>
     </scroll-pane>

@@ -43,7 +43,6 @@ const menuWidth = computed(() =>
     height: 100vh;
     overflow: hidden;
     transition: width 0.28s;
-    background-color: #304156;
     font-size: 0;
   }
 

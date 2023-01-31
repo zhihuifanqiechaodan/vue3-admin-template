@@ -3,10 +3,9 @@
     <Logo v-if="showLogo" :menuCollapse="menuCollapse" />
     <el-scrollbar class="vertical-menus-scrollbar">
       <el-menu
+        mode="vertical"
         :default-active="activeMenu"
         :collapse="menuCollapse"
-        :collapse-transition="false"
-        mode="vertical"
         :background-color="menuBackgroundColor"
         :text-color="menuTextColor"
         :active-text-color="menuActiveTextColor"

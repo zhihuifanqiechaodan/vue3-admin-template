@@ -1,6 +1,10 @@
 <template>
-  <div ref="refTagsViewContainer" class="tags-view-container">
-    <el-scrollbar @scroll="handleScroll" class="tags-view-wrapper">
+  <div class="tags-view-container">
+    <el-scrollbar
+      @scroll="handleScroll"
+      ref="refScrollbar"
+      class="tags-view-wrapper"
+    >
       <router-link
         v-for="tag in visitedViews"
         ref="refTag"
@@ -42,6 +46,8 @@ import { usePermissionStore } from '@/store/permission'
 import { useTagsViewStore } from '@/store/tagsView'
 import { useRoute, useRouter } from 'vue-router'
 
+const tagAndTagSpacing = 4 // tagAndTagSpacing
+
 const state = reactive({
   visible: false,
   top: 0,
@@ -49,19 +55,10 @@ const state = reactive({
   selectedTag: {},
   affixTags: [],
   refTag: null,
-  refScrollPane: null,
-  refTagsViewContainer: null
+  refScrollbar: null
 })
 
-const {
-  visible,
-  top,
-  left,
-  selectedTag,
-  refTag,
-  refScrollPane,
-  refTagsViewContainer
-} = toRefs(state)
+const { visible, top, left, selectedTag, refTag, refScrollbar } = toRefs(state)
 
 const router = useRouter()
 const route = useRoute()
@@ -137,11 +134,50 @@ const addTags = () => {
   return false
 }
 
+const moveToTarget = (currentTag) => {
+  const $container = refScrollbar.value.wrapRef
+  const $containerWidth = $container.offsetWidth
+  const $scrollWidth = $container.scrollWidth
+  const tagList = refTag.value
+
+  let firstTag = null
+  let lastTag = null
+  // find first tag and last tag
+  if (tagList.length > 0) {
+    firstTag = tagList[0]
+    lastTag = tagList[tagList.length - 1]
+  }
+
+  if (firstTag === currentTag) {
+    $container.scrollLeft = 0
+  } else if (lastTag === currentTag) {
+    $container.scrollLeft = $scrollWidth - $containerWidth
+  } else {
+    // find preTag and nextTag
+    const currentIndex = tagList.findIndex((item) => item === currentTag)
+    const prevTag = tagList[currentIndex - 1]
+    const nextTag = tagList[currentIndex + 1]
+
+    // the tag's offsetLeft after of nextTag
+    const afterNextTagOffsetLeft =
+      nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagAndTagSpacing
+
+    // the tag's offsetLeft before of prevTag
+    const beforePrevTagOffsetLeft = prevTag.$el.offsetLeft - tagAndTagSpacing
+
+    if (afterNextTagOffsetLeft > $container.scrollLeft + $containerWidth) {
+      $container.scrollLeft = afterNextTagOffsetLeft - $containerWidth
+    } else if (beforePrevTagOffsetLeft < $container.scrollLeft) {
+      $container.scrollLeft = beforePrevTagOffsetLeft
+    }
+  }
+}
+
 const moveToCurrentTag = () => {
   nextTick(() => {
     for (const tag of refTag.value) {
       if (tag.to.path === route.path) {
-        refScrollPane.value.moveToTarget(tag)
+        moveToTarget(tag)
         // when query is different then update
         if (tag.to.fullPath !== route.fullPath) {
           tagsViewStore.updateVisitedView(route)
@@ -205,8 +241,8 @@ const toLastView = (visitedViews, view) => {
 
 const openMenu = (tag, e) => {
   const menuMinWidth = 105
-  const offsetLeft = refTagsViewContainer.value.getBoundingClientRect().left // container margin left
-  const offsetWidth = refTagsViewContainer.value.offsetWidth // container width
+  const offsetLeft = refScrollbar.value.wrapRef.getBoundingClientRect().left // container margin left
+  const offsetWidth = refScrollbar.value.offsetWidth // container width
   const maxLeft = offsetWidth - menuMinWidth // left boundary
   const currentLeft = e.clientX - offsetLeft + 15 // 15: margin right
 

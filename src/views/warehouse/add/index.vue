@@ -52,7 +52,7 @@
       </div>
     </div>
     <el-table :data="goodsList">
-      <el-table-column label="SKU">
+      <el-table-column label="SKU" width="150">
         <template #default="{ row, $index }">
           <el-input
             v-model="row.sku"
@@ -61,7 +61,7 @@
           ></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="品牌">
+      <el-table-column label="品牌" width="150">
         <template #default="{ row, $index }">
           <el-input
             v-model="row.brand"
@@ -70,7 +70,7 @@
           ></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="货号">
+      <el-table-column label="货号" width="150">
         <template #default="{ row, $index }">
           <el-input
             v-model="row.no"
@@ -79,7 +79,7 @@
           ></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="品名">
+      <el-table-column label="品名" width="150">
         <template #default="{ row, $index }">
           <el-input
             v-model="row.title"
@@ -88,7 +88,7 @@
           ></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="规格">
+      <el-table-column label="规格" width="150">
         <template #default="{ row, $index }">
           <el-input
             v-model="row.spec"
@@ -97,22 +97,22 @@
           ></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="品类">
+      <el-table-column label="品类" width="150">
         <template #default="{ row }">
           <el-input v-model="row.category"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="原产地">
+      <el-table-column label="原产地" width="150">
         <template #default="{ row }">
           <el-input v-model="row.source_area"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="价格">
+      <el-table-column label="价格" width="150">
         <template #default="{ row }">
           <el-input v-model="row.price"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="倍数">
+      <el-table-column label="倍数" width="150">
         <template #default="{ row }">
           <el-input v-model="row.bs"></el-input>
         </template>

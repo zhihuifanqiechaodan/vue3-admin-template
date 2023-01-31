@@ -62,7 +62,6 @@ export const constantRoutes = [
       }
     ]
   }
-  // nestedRouter
 ]
 
 /**
@@ -94,7 +93,7 @@ export const asyncRoutes = [
     name: 'Warehouse',
     meta: {
       title: '入库管理',
-      icon: 'lock',
+      icon: 'icon',
       roles: ['admin'] // you can set roles in root nav
     },
     children: [
@@ -105,7 +104,8 @@ export const asyncRoutes = [
         meta: {
           title: '入库操作',
           icon: 'icon',
-          roles: ['admin']
+          roles: ['admin'],
+          affix: true
         }
       },
       {

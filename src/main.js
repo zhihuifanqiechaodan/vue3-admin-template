@@ -16,7 +16,8 @@ import { createPinia } from 'pinia' // pinia
 import router from './router'
 
 import 'virtual:svg-icons-register'
-import svgIcon from '@/components/SvgIcon/index.vue'
+import SvgIcon from '@/components/SvgIcon/index.vue'
+import Pagination from '@/components/Pagination/index.vue'
 
 import './permission' // permission control
 
@@ -30,7 +31,8 @@ const ElementPlusOptions = {
   size: getCookies('size') || defaultSettings.size // set element-ui default size
 }
 app
-  .component('svg-icon', svgIcon)
+  .component('SvgIcon', SvgIcon)
+  .component('Pagination', Pagination)
   .use(ElementPlus, ElementPlusOptions)
   .use(createPinia())
   .use(router)

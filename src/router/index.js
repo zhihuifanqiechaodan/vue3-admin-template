@@ -61,6 +61,11 @@ export const constantRoutes = [
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/error-page/404.vue'),
+    hidden: true
   }
 ]
 
@@ -119,7 +124,9 @@ export const asyncRoutes = [
         }
       }
     ]
-  }
+  },
+  // 404 page must be placed at the end !!!
+  { path: '/:catchAll(.*)', redirect: '/404' }
 ]
 
 const router = createRouter({

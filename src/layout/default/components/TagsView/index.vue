@@ -20,7 +20,7 @@
           v-if="!isAffix(tag)"
           name="close"
           class="el-icon-close"
-          @click="closeSelectedTag(tag)"
+          @click.prevent.stop="closeSelectedTag(tag)"
         />
       </router-link>
     </el-scrollbar>

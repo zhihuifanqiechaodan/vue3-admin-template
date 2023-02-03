@@ -109,8 +109,7 @@ export const asyncRoutes = [
         meta: {
           title: '入库操作',
           icon: 'icon',
-          roles: ['admin'],
-          affix: true
+          roles: ['admin']
         }
       },
       {

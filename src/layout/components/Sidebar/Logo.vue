@@ -23,7 +23,7 @@ import { reactive, toRefs, computed } from 'vue'
 import { useSettingsStore } from '@/store/settings'
 
 const state = reactive({
-  title: 'Vue Element Admin',
+  title: 'Vue3 Element Plus Admin',
   logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
 })
 
@@ -77,7 +77,7 @@ defineProps({
       color: #fff;
       font-weight: 600;
       line-height: 50px;
-      font-size: 14px;
+      font-size: 12px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
     }

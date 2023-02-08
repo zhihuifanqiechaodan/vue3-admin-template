@@ -83,6 +83,7 @@ export const asyncRoutes = [
       icon: 'lock',
       roles: ['admin'] // you can set roles in root nav
     },
+    redirect: '/icon/index',
     children: [
       {
         path: 'index',
@@ -124,8 +125,40 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/chat',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/chat/index.vue'),
+        name: 'Chat',
+        meta: {
+          title: 'Chat',
+          icon: 'icon',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
+  {
+    path: '/clipboard',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/clipboard/index.vue'),
+        name: 'Clipboard',
+        meta: {
+          title: 'Clipboard',
+          icon: 'icon',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
-  { path: '/:catchAll(.*)', redirect: '/404' }
+  { path: '/:pathchMatch(.*)', redirect: '/404' }
 ]
 
 const router = createRouter({

@@ -1,5 +1,10 @@
 <template>
   <div class="clipboard-container">
+    <aside>
+      <a href="https://clipboardjs.com/" target="_blank">clipboard.js</a>
+      A modern approach to copy text to clipboard No Flash. No frameworks. Just
+      3kb gzipped
+    </aside>
     <el-input
       v-model="context"
       :rows="10"

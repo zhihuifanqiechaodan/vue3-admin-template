@@ -66,6 +66,14 @@ export const useUserStore = defineStore('user', {
         tagsViewStore.delAllViews()
         resolve()
       })
+    },
+    resetToken() {
+      return new Promise((resolve) => {
+        this.token = ''
+        this.roles = []
+        removeToken()
+        resolve()
+      })
     }
   }
 })

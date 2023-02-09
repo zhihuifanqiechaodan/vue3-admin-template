@@ -1,7 +1,9 @@
 <template>
   <div class="clipboard-container">
     <aside>
-      <a href="https://clipboardjs.com/" target="_blank">clipboard.js</a>
+      <a href="https://github.com/zenorocha/clipboard.js" target="_blank"
+        >clipboard.js</a
+      >
       A modern approach to copy text to clipboard No Flash. No frameworks. Just
       3kb gzipped
     </aside>
@@ -21,7 +23,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="Clipboard">
 import { reactive, toRefs } from 'vue'
 import useClipboardHook from '@/hooks/useClipboardHook'
 

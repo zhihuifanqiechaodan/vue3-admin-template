@@ -11,7 +11,7 @@
     "eslint-lint": "eslint --ext .vue,.js,.ts,.jsx,.tsx --fix .",
     "prettier": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
     "prettier-lint": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\" .",
-    "prepare": "husky install"
+    "prepare": "husky install && npx husky add .husky/pre-commit 'npx lint-staged'"
   },
   "dependencies": {
     "@toast-ui/vue-editor": "^3.2.2",
@@ -51,7 +51,7 @@
     }
   },
   "lint-staged": {
-    "*vue,.js,.ts,.jsx,.tsx": [
+    "*.{vue,js,ts,jsx,tsx}": [
       "npm run eslint"
     ],
     "*.{html,vue,ts,js,json,md}": [

@@ -65,11 +65,8 @@ export const useSettingsStore = defineStore('settings', {
   },
   actions: {
     changeSetting({ key, value }) {
-      // eslint-disable-next-line no-prototype-builtins
-      if (this.hasOwnProperty(key)) {
-        this[key] = value
-        setCookies(key, value)
-      }
+      this[key] = value
+      setCookies(key, value)
     },
     restoreDefault() {
       this.changeSetting({ key: 'layoutMode', value: layoutMode })

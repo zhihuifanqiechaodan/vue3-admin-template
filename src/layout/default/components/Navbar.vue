@@ -1,9 +1,9 @@
 <template>
   <div class="navbar">
     <search />
-    <error-log />
     <screenfull />
     <size-select />
+    <error-log />
     <user />
     <setting />
   </div>

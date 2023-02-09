@@ -160,6 +160,7 @@ export const asyncRoutes = [
   {
     path: '/markdown',
     component: Layout,
+    redirect: '/markdown/index',
     children: [
       {
         path: 'index',

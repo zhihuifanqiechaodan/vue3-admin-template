@@ -26,7 +26,6 @@ const initData = async () => {
     state.value = response
   }
   state.loading = false
-  throw new Error('12312310')
 }
 onMounted(() => {
   initData()

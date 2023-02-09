@@ -1,29 +1,21 @@
 <template>
   <div v-if="errorLogs.length > 0" class="errLog-container">
     <el-badge
-      :is-dot="true"
-      style="line-height: 25px; margin-top: -5px"
-      @click="dialogTableVisible = true"
+      :value="errorLogs.length"
+      @click="state.dialogTableVisible = true"
     >
       <el-button style="padding: 8px 10px" size="small" type="danger">
-        <svg-icon icon-class="bug" />
+        <svg-icon name="bug" />
       </el-button>
     </el-badge>
-
-    <el-dialog v-model:visible="dialogTableVisible" width="80%" append-to-body>
-      <template #title>
+    <el-dialog v-model="dialogTableVisible" width="80%">
+      <template #header>
         <span style="padding-right: 10px">Error Log</span>
-        <el-button
-          size="mini"
-          type="primary"
-          icon="el-icon-delete"
-          @click="clearAll"
-          >Clear All</el-button
-        >
+        <el-button type="primary" @click="clearAll">Clear All</el-button>
       </template>
       <el-table :data="errorLogs" border>
         <el-table-column label="Message">
-          <template v-slot="{ row }">
+          <template #default="{ row }">
             <div>
               <span class="message-title">Msg:</span>
               <el-tag type="danger">
@@ -35,9 +27,7 @@
               <span class="message-title" style="padding-right: 10px"
                 >Info:
               </span>
-              <el-tag type="warning">
-                {{ row.vm.$vnode.tag }} error in {{ row.info }}
-              </el-tag>
+              <el-tag type="warning"> error in {{ row.info }} </el-tag>
             </div>
             <br />
             <div>
@@ -51,8 +41,8 @@
           </template>
         </el-table-column>
         <el-table-column label="Stack">
-          <template v-slot="scope">
-            {{ scope.row.err.stack }}
+          <template #default="{ row }">
+            {{ row.err.stack }}
           </template>
         </el-table-column>
       </el-table>
@@ -86,6 +76,7 @@ const clearAll = () => {
   align-items: center;
   height: 100%;
   transition: background 0.3s;
+  padding: 0 10px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.025);

@@ -94,7 +94,7 @@ request.interceptors.response.use(
  */
 const requestA = axios.create({
   baseURL: import.meta.env.VITE_APP_GITEE_BASE_API, // url = base url + request url
-  timeout: 5000
+  timeout: 60 * 1000
 })
 
 requestA.interceptors.request.use(

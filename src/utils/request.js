@@ -5,15 +5,15 @@ import { getCookies } from '@/utils/storage'
 
 const userStore = useUserStore()
 
-// create an axios instance
-const service = axios.create({
+// 业务请求
+const request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
 
 // request interceptor
-service.interceptors.request.use(
+request.interceptors.request.use(
   (config) => {
     // do something before request is sent
 
@@ -33,7 +33,7 @@ service.interceptors.request.use(
 )
 
 // response interceptor
-service.interceptors.response.use(
+request.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
@@ -89,4 +89,49 @@ service.interceptors.response.use(
   }
 )
 
-export default service
+console.log(import.meta.env)
+
+/**
+ * 用于请求 gitee 的数据
+ */
+const requestA = axios.create({
+  baseURL: import.meta.env.VITE_APP_GITEE_BASE_API, // url = base url + request url
+  timeout: 5000
+})
+
+requestA.interceptors.request.use(
+  (config) => {
+    return config
+  },
+  (error) => {
+    console.log(error)
+    return Promise.reject(error)
+  }
+)
+
+requestA.interceptors.response.use(
+  (response) => {
+    const { data, status, statusText } = response
+    if (status === 200) {
+      return data
+    } else {
+      ElMessage({
+        message: statusText || 'Error',
+        type: 'error',
+        duration: 5 * 1000
+      })
+      return false
+    }
+  },
+  (error) => {
+    console.log('err' + error)
+    ElMessage({
+      message: error.message,
+      type: 'error',
+      duration: 5 * 1000
+    })
+    return Promise.reject(error)
+  }
+)
+
+export { request, requestA }

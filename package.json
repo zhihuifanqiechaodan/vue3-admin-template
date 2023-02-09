@@ -3,9 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "serve": "vite",
-    "build:test": "vite build",
-    "build:prod": "vite build",
+    "serve": "vite --mode localhost",
+    "build:prod": "vite build --mode production",
     "preview": "vite preview",
     "deploy": "sh deploy.sh",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",

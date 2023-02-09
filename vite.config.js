@@ -14,7 +14,22 @@ export default defineConfig({
   server: {
     open: true,
     host: '0.0.0.0',
-    port: 9527
+    port: 9527,
+    proxy: {
+      '/api': {
+        // target: 'https://xxxx', // 开发环境
+        target: 'https://xxxx', // 测试环境
+        // target: 'https://xxxx', // 预发环境
+        // target: 'https://xxxx', // 生产环境
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+      '/gitee': {
+        target: 'https://gitee.com/zhihuifanqiechaodan',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/gitee/, '')
+      }
+    }
   },
   resolve: {
     alias: {

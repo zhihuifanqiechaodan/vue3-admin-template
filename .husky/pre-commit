@@ -3,4 +3,4 @@
 
 PATH="/usr/local/bin:$PATH"
 
-pnpm lint && pnpm format
+npx lint-staged

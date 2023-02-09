@@ -25,7 +25,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/gitee': {
-        target: 'https://gitee.com/zhihuifanqiechaodan',
+        target: 'https://raw.githubusercontent.com/zhihuifanqiechaodan',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/gitee/, '')
       }

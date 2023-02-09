@@ -7,7 +7,7 @@
 <script setup name="Dashboard">
 import MarkdownEditor from '@/components/MarkdownEditor/index.vue'
 import { onMounted, reactive, toRefs } from 'vue'
-import giteeServices from '@/api/gitee'
+import githubServices from '@/api/github'
 
 const state = reactive({
   loading: false,
@@ -21,11 +21,12 @@ const state = reactive({
 const { loading, value, options } = toRefs(state)
 const initData = async () => {
   state.loading = true
-  const response = await giteeServices.getVue3AdminTemplate()
+  const response = await githubServices.getVue3AdminTemplate()
   if (response) {
     state.value = response
   }
   state.loading = false
+  throw new Error('12312310')
 }
 onMounted(() => {
   initData()

@@ -30,6 +30,10 @@ const app = createApp(App)
 const ElementPlusOptions = {
   size: getCookies('size') || defaultSettings.size // set element-ui default size
 }
+
+app.config.errorHandler = (err, vm, info) => {
+  console.log(err, vm, info)
+}
 app
   .component('SvgIcon', SvgIcon)
   .component('Pagination', Pagination)
@@ -42,36 +46,40 @@ Object.assign(app.config.globalProperties, {
   $ELEMENT_PLUS: ElementPlusOptions
 })
 
-const errorLogStore = useErrorLogStore()
-// you can set in settings.js
-// errorLog:'production' | ['production', 'development']
-const { errorLog: needErrorLog } = settings
-/**
- * @method checkNeed 检查需要日志
- * @returns
- */
-function checkNeed() {
-  const env = import.meta.env.NODE_ENV
-  if (isString(needErrorLog)) {
-    return env === needErrorLog
-  }
-  if (isArray(needErrorLog)) {
-    return needErrorLog.includes(env)
-  }
-  return false
-}
+console.log(import.meta.env)
 
-if (checkNeed()) {
-  app.config.errorHandler = (err, vm, info) => {
-    // 处理错误
-    // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
-    nextTick(() => {
-      errorLogStore.addErrorLog({
-        err,
-        vm,
-        info,
-        url: window.location.href
-      })
-    })
-  }
-}
+// const errorLogStore = useErrorLogStore()
+// // you can set in settings.js
+// // errorLog:'production' | ['production', 'development']
+// const { errorLog: needErrorLog } = settings
+// /**
+//  * @method checkNeed 检查需要日志
+//  * @returns
+//  */
+// function checkNeed() {
+//   const env = import.meta.env.VITE_NODE_ENV
+//   if (isString(needErrorLog)) {
+//     return env === needErrorLog
+//   }
+//   if (isArray(needErrorLog)) {
+//     return needErrorLog.includes(env)
+//   }
+//   return false
+// }
+
+// if (checkNeed()) {
+//   console.log(111)
+//   app.config.errorHandler = (err, vm, info) => {
+//     console.log(err, vm, info)
+//     // 处理错误
+//     // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
+//     nextTick(() => {
+//       errorLogStore.addErrorLog({
+//         err,
+//         vm,
+//         info,
+//         url: window.location.href
+//       })
+//     })
+//   }
+// }

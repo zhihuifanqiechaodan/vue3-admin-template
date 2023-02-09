@@ -89,8 +89,6 @@ request.interceptors.response.use(
   }
 )
 
-console.log(import.meta.env)
-
 /**
  * 用于请求 gitee 的数据
  */

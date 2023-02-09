@@ -7,8 +7,10 @@
     "build:prod": "vite build --mode production",
     "preview": "vite preview",
     "deploy": "sh deploy.sh",
-    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
-    "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
+    "eslint": "eslint  --ext .vue,.js,.ts,.jsx,.tsx --fix",
+    "eslint-lint": "eslint --ext .vue,.js,.ts,.jsx,.tsx --fix .",
+    "prettier": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
+    "prettier-lint": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\" .",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -42,5 +44,18 @@
     "vite": "^4.1.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "^0.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*vue,.js,.ts,.jsx,.tsx": [
+      "npm run eslint"
+    ],
+    "*.{html,vue,ts,js,json,md}": [
+      "npm run prettier"
+    ]
   }
 }

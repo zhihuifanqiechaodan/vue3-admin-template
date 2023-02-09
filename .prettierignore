@@ -1,0 +1,6 @@
+.vscode
+node_modules
+miniprogram_npm
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

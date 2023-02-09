@@ -33,5 +33,5 @@ export default {
   // 是否只保持一个子菜单的展开(手风琴)
   menuUniqueOpened: false,
   // The default is only used in the production env，If you want to also use it in dev, you can pass ['production', 'development']
-  errorLog: ['production', 'local']
+  errorLog: ['production', 'localhost']
 }

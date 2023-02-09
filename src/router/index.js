@@ -157,6 +157,22 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/markdown',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/markdown/index.vue'),
+        name: 'Markdown',
+        meta: {
+          title: 'Markdown',
+          icon: 'icon',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '/:pathchMatch(.*)', redirect: '/404' }
 ]

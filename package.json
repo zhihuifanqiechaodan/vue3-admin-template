@@ -13,6 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@toast-ui/vue-editor": "^3.2.2",
     "axios": "^0.27.2",
     "clipboard": "^2.0.11",
     "element-plus": "^2.2.28",

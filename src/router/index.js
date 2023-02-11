@@ -94,38 +94,6 @@ export const asyncRoutes = [
     ]
   },
   {
-    path: '/warehouse',
-    component: Layout,
-    name: 'Warehouse',
-    meta: {
-      title: '入库管理',
-      icon: 'icon',
-      roles: ['admin'] // you can set roles in root nav
-    },
-    children: [
-      {
-        path: 'warehouse-add',
-        component: () => import('@/views/warehouse/add/index.vue'),
-        name: 'WarehouseAdd',
-        meta: {
-          title: '入库操作',
-          icon: 'icon',
-          roles: ['admin']
-        }
-      },
-      {
-        path: 'warehouse-fast-add',
-        component: () => import('@/views/warehouse/fast-add/index.vue'),
-        name: 'WarehouseFastAdd',
-        meta: {
-          title: '快速入库操作',
-          icon: 'icon',
-          roles: ['admin']
-        }
-      }
-    ]
-  },
-  {
     path: '/chat',
     component: Layout,
     children: [
@@ -171,6 +139,31 @@ export const asyncRoutes = [
           icon: 'icon',
           roles: ['admin']
         }
+      }
+    ]
+  },
+  {
+    path: '/excel',
+    component: Layout,
+    redirect: '/excel/export-excel',
+    meta: {
+      title: 'Excel',
+      icon: 'icon'
+    },
+    children: [
+      {
+        path: 'export-excel',
+        component: () => import('@/views/excel/export-excel.vue'),
+        name: 'ExportExcel',
+        meta: {
+          title: 'Export Excel'
+        }
+      },
+      {
+        path: 'export-selected-excel',
+        component: () => import('@/views/excel/select-excel.vue'),
+        name: 'SelectExcel',
+        meta: { title: 'Export Selected' }
       }
     ]
   },

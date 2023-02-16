@@ -160,6 +160,16 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/external-link',
+    component: Layout,
+    children: [
+      {
+        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
+        meta: { title: 'External Link', icon: 'link' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '/:pathchMatch(.*)', redirect: '/404' }
 ]

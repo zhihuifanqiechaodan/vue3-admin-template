@@ -75,25 +75,6 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/icon',
-    component: Layout,
-    name: 'Icons',
-    meta: {
-      title: 'Icons',
-      icon: 'lock',
-      roles: ['admin'] // you can set roles in root nav
-    },
-    redirect: '/icon/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons/index.vue'),
-        name: 'IconsIndex',
-        meta: { title: 'Icons', icon: 'icon', noCache: true, roles: ['dev'] }
-      }
-    ]
-  },
-  {
     path: '/chat',
     component: Layout,
     children: [

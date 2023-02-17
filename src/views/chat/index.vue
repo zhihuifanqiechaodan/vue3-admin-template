@@ -33,12 +33,6 @@ socket
   })
   .on('sendMessageInfo', (data) => {
     const { type, roomPayload, messagePayload, contactPayload, text } = data
-    // ElNotification({
-    //   title: `${type ? roomPayload.topic : contactPayload.name}${
-    //     type ? '[' + contactPayload.name + ']' : ''
-    //   }`,
-    //   message: `${text}`
-    // })
     if (state.messageList.length < 10) {
       state.messageList.push({
         type,

@@ -37,7 +37,7 @@ const uploadSuccess = (data) => {
 
 <style lang="scss">
 .upload-excel-container {
-  margin: 0 20px;
+  margin: 20px;
   background-color: #fff;
   padding: 20px;
 }

@@ -39,7 +39,7 @@ const { context } = toRefs(state)
 
 <style lang="scss">
 .clipboard-container {
-  margin: 0 20px;
+  margin: 20px;
   padding: 20px;
   background-color: #fff;
 

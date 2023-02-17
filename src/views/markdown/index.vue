@@ -55,7 +55,7 @@ const handleGetMarkdown = () => {
 
 <style lang="scss">
 .markdown-container {
-  margin: 0 20px;
+  margin: 20px;
   background-color: #fff;
   padding: 20px;
 

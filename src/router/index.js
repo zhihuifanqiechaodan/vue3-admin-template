@@ -161,6 +161,22 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/dom-to-image',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/dom-to-image/index.vue'),
+        name: 'DomToImage',
+        meta: {
+          title: 'DomToImage',
+          icon: 'icon',
+          roles: ['admin']
+        }
+      }
+    ]
+  },
+  {
     path: '/external-link',
     component: Layout,
     children: [

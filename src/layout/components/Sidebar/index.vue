@@ -102,7 +102,6 @@ const routes = computed(() => permissionStore.routes)
 .vertical-menus {
   .el-sub-menu .svg-icon,
   .el-menu-item .svg-icon {
-    margin-right: 5px;
     width: 24px;
   }
 

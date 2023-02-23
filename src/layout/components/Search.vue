@@ -12,6 +12,7 @@
       @change="change"
       size="default"
       class="search-container-select"
+      value-key="path"
     >
       <el-option
         v-for="item in options"

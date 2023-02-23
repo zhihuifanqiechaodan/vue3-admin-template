@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="ExportExcel">
 import { reactive, toRefs } from 'vue'
 
 const state = reactive({

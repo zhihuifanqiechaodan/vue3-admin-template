@@ -46,7 +46,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="SelectExcel">
 import { reactive, toRefs } from 'vue'
 import { ElMessage } from 'element-plus'
 

@@ -4,6 +4,7 @@
 
 . "$(dirname -- "$0")/_/husky.sh"
 
+# mac path
 PATH="/usr/local/bin:$PATH"
 
 npx lint-staged

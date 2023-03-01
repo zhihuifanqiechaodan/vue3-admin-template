@@ -140,9 +140,9 @@ const handleLogin = () => {
       const userStore = useUserStore()
       await userStore.login(state.loginForm)
       state.loading = false
-      // router.push({ path: state.redirect || '/', query: state.otherQuery })
+      router.push({ path: state.redirect || '/', query: state.otherQuery })
       // vue-router4版本问题，当配置了  { path: '/:pathchMatch(.*)', redirect: '/404' } 动态添加的路由在导航的时候获取不到，会重定向到404，需要前置添加动态路由才可实现
-      router.push({ path: '/', query: state.otherQuery })
+      // router.push({ path: '/', query: state.otherQuery })
     } else {
       console.log('error submit!!')
       return false

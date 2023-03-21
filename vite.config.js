@@ -37,7 +37,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve('src')
-    }
+    },
+    extensions: ['.vue', '.js']
   },
   plugins: [
     vue(),

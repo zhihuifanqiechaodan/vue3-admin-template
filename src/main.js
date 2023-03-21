@@ -1,13 +1,9 @@
 import { createApp, nextTick } from 'vue'
 
-import { getCookies } from './utils/storage'
 import settings from '@/settings'
 import { isString, isArray } from '@/utils/validate'
 
 import 'normalize.css' // a modern alternative to CSS resets
-
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
 
 import '@/styles/index.scss' // global css
 
@@ -23,26 +19,14 @@ import './permission' // permission control
 
 import { useErrorLogStore } from '@/store/errorLog'
 
-import defaultSettings from '@/settings'
-
 const app = createApp(App)
 
-const ElementPlusOptions = {
-  size: getCookies('size') || defaultSettings.size // set element-ui default size
-}
 app
   .component('SvgIcon', SvgIcon)
   .component('Pagination', Pagination)
-  .use(ElementPlus, ElementPlusOptions)
   .use(createPinia())
   .use(router)
   .mount('#app')
-
-Object.assign(app.config.globalProperties, {
-  $ELEMENT_PLUS: ElementPlusOptions
-})
-
-console.log(import.meta.env)
 
 const errorLogStore = useErrorLogStore()
 // you can set in settings.js

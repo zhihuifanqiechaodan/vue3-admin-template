@@ -1,8 +1,11 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
+import { defineConfig } from 'vite'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import vitePluginVueSetupExtend from 'vite-plugin-vue-setup-extend'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -56,6 +59,12 @@ export default defineConfig({
        * @default: __svg__icons__dom__
        */
       // customDomId: '__svg__icons__dom__',
+    }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()]
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()]
     })
   ]
 })

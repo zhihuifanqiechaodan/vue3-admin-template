@@ -2,7 +2,7 @@
 
 #  "prepare": "husky install && npx husky add .husky/pre-commit 'npx lint-staged'"
 
-. "$(dirname -- "$0")/_/husky.sh"
+"$(dirname -- "$0")/_/husky.sh"
 
 # mac path
 PATH="/usr/local/bin:$PATH"

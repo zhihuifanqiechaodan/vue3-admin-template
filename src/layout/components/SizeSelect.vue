@@ -25,12 +25,9 @@
 </template>
 
 <script setup>
-import { reactive, toRefs, computed, getCurrentInstance, nextTick } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { reactive, toRefs, computed } from 'vue'
 import { useSettingsStore } from '@/store/settings'
-
-const router = useRouter()
-const route = useRoute()
+import { ElMessage } from 'element-plus'
 
 const state = reactive({
   sizeOptions: [
@@ -45,26 +42,12 @@ const { sizeOptions, refDropdown } = toRefs(state)
 const settingsStore = useSettingsStore()
 const size = computed(() => settingsStore.size)
 
-const instance = getCurrentInstance()
 const handleSetSize = (size) => {
-  const { $message, $ELEMENT_PLUS } =
-    instance.appContext.app.config.globalProperties
-  $ELEMENT_PLUS.size = size
   settingsStore.changeSetting({
     key: 'size',
     value: size
   })
-  // refreshView()
-  $message({
-    message: 'Switch Size Success',
-    type: 'success'
-  })
-  nextTick(() => {
-    const { fullPath } = route
-    router.replace({
-      path: '/redirect' + fullPath
-    })
-  })
+  ElMessage.success('Switch Size Success')
 }
 
 const handleDropdownClick = () => {

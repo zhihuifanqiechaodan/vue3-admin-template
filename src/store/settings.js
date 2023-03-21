@@ -27,7 +27,7 @@ export const useSettingsStore = defineStore('settings', {
       // 布局方式 Classic 经典布局 Default默认布局 Streamline 精简布局
       layoutMode: getCookies('layoutMode', layoutMode),
       // 默认全局尺寸, 可选值 large / default /small
-      size: getCookies('size', size),
+      size: getCookies('size') || size,
       // 是否展示tagsView
       tagsView: getCookies('tagsView', tagsView),
       // 是否显示Logo

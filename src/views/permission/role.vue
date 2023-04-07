@@ -25,7 +25,7 @@
 
 <script setup name="PermissionRole">
 import { reactive, onMounted, toRefs, computed, nextTick } from 'vue'
-import { asyncRoutes } from '@/router/routes'
+import { asyncRoutes } from '@/router/index'
 import path from 'path-browserify'
 import PermissionDialog from './components/permission-dialog.vue'
 import { cloneDeep as _cloneDeep } from 'lodash'
@@ -53,11 +53,11 @@ const {
 } = toRefs(state)
 
 onMounted(() => {
-  state.routes = generateRoutes(asyncRoutes)
+  state.routes = generateRoutes(_cloneDeep(asyncRoutes))
   state.roleList.push({
     name: 'admin',
     description: '超级管理员，拥有所有的页面权限',
-    routes: asyncRoutes
+    routes: _cloneDeep(asyncRoutes)
   })
 })
 
@@ -78,8 +78,7 @@ const generateRoutes = (routes, basePath = '/') => {
 
     const data = {
       path: path.resolve(basePath, route.path),
-      title: route.meta && route.meta.title,
-      component: route.component
+      title: route.meta && route.meta.title
     }
 
     // recursive child routes

@@ -41,6 +41,7 @@
     "eslint-plugin-vue": "^9.9.0",
     "fast-glob": "^3.2.12",
     "husky": "^8.0.3",
+    "mockjs": "^1.1.0",
     "path-browserify": "^1.0.1",
     "prettier": "^2.8.4",
     "sass": "^1.58.0",
@@ -48,6 +49,7 @@
     "unplugin-auto-import": "^0.15.1",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.1.1",
+    "vite-plugin-mock": "^2.9.6",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "^0.4.0"
   },

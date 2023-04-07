@@ -33,5 +33,7 @@ export default {
   // 是否只保持一个子菜单的展开(手风琴)
   menuUniqueOpened: false,
   // The default is only used in the production env，If you want to also use it in dev, you can pass ['production', 'development']
-  errorLog: ['production', 'localhost']
+  errorLog: ['production', 'localhost'],
+  // 是否基于 mockjs vite-plugin-mock 开启mock数据, 关闭后将开启 proxy 代理
+  isMockData: true
 }

@@ -2,31 +2,18 @@ import { defineStore } from 'pinia'
 import { asyncRoutes, constantRoutes } from '@/router'
 
 /**
- * Use meta.role to determine if the current user has permission
- * @param roles
- * @param route
- */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some((role) => route.meta.roles.includes(role))
-  } else {
-    return true
-  }
-}
-
-/**
  * Filter asynchronous routing tables by recursion
- * @param routes asyncRoutes
- * @param roles
+ * @param asyncRoutes
+ * @param routes
  */
-export function filterAsyncRoutes(routes, roles) {
+export function filterAsyncRoutes(asyncRoutes, routes) {
   const res = []
-
-  routes.forEach((route) => {
+  asyncRoutes.forEach((route) => {
     const tmp = { ...route }
-    if (hasPermission(roles, tmp)) {
+    const findRoute = routes.find((item) => item.path === route.path)
+    if (findRoute) {
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles)
+        tmp.children = filterAsyncRoutes(tmp.children, findRoute.children)
       }
       res.push(tmp)
     }
@@ -46,11 +33,17 @@ export const usePermissionStore = defineStore('permission', {
     /**
      * @method generateRoutes 生成路由
      */
-    generateRoutes(roles) {
+    generateRoutes({ roles, routes }) {
       return new Promise((resolve) => {
-        const accessedRoutes = roles.includes('admin')
+        const accessedRoutes = roles.includes('admin1')
           ? asyncRoutes || []
-          : filterAsyncRoutes(asyncRoutes, roles)
+          : filterAsyncRoutes(asyncRoutes, routes)
+
+        accessedRoutes.push(
+          // 404 page must be placed at the end !!!
+          { path: '/:pathchMatch(.*)', redirect: '/404' }
+        )
+        console.log(accessedRoutes)
         this.addRoutes = accessedRoutes
         this.routes = constantRoutes.concat(accessedRoutes)
         resolve(accessedRoutes)

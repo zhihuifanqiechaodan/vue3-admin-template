@@ -43,7 +43,7 @@
 <script setup>
 import { computed, reactive, toRefs, watch } from 'vue'
 import path from 'path-browserify'
-import { asyncRoutes } from '@/router/routes'
+import { asyncRoutes } from '@/mock/routess'
 import { cloneDeep as _cloneDeep } from 'lodash'
 
 const emits = defineEmits(['update:dialogVisible'])
@@ -134,9 +134,14 @@ const generateTree = (routes, basePath = '/', checkedKeys) => {
       checkedKeys.includes(routePath) ||
       (route.children && route.children.length >= 1)
     ) {
-      const { path, component, children, title } = route
-      const resItemInfo = { path, component, children, title }
+      const { path, children, meta } = route
+      const resItemInfo = {
+        path,
+        children,
+        title: meta?.title
+      }
       !children?.length && delete resItemInfo.children
+      !meta?.title && delete resItemInfo.title
       res.push(resItemInfo)
     }
   }
@@ -154,9 +159,10 @@ const confirmRole = () => {
         checkedKeys
       )
       if (isEdit) {
+        console.log('state.ruleForm', JSON.stringify(state.ruleForm.routes))
         // 编辑
       } else {
-        console.log('state.ruleForm', state.ruleForm)
+        console.log('state.ruleForm', JSON.stringify(state.ruleForm.routes))
       }
     } else {
       console.log('error submit!', fields)

@@ -18,7 +18,7 @@ import Layout from '@/layout/index'
  * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
+    roles: ['admin','editor']    control the page roles (you can set multiple roles), 调整为页面动态配置权限，不在需要此字段。
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
     noCache: true                if set true, the page will no be cached(default is false)
@@ -64,16 +64,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/external-link',
-    component: () => import('@/layout/index'),
-    children: [
-      {
-        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
-  {
     path: '/404',
     component: () => import('@/views/error-page/404.vue'),
     hidden: true
@@ -95,8 +85,7 @@ export const asyncRoutes = [
         name: 'Clipboard',
         meta: {
           title: 'Clipboard',
-          icon: 'icon',
-          roles: ['admin']
+          icon: 'icon'
         }
       }
     ]
@@ -112,8 +101,7 @@ export const asyncRoutes = [
         name: 'Markdown',
         meta: {
           title: 'Markdown',
-          icon: 'icon',
-          roles: ['admin']
+          icon: 'icon'
         }
       }
     ]
@@ -165,8 +153,7 @@ export const asyncRoutes = [
         name: 'DomToImage',
         meta: {
           title: 'DomToImage',
-          icon: 'icon',
-          roles: ['admin']
+          icon: 'icon'
         }
       }
     ]
@@ -192,9 +179,7 @@ export const asyncRoutes = [
         meta: { title: 'Permission', icon: 'icon' }
       }
     ]
-  },
-  // 404 page must be placed at the end !!!
-  { path: '/:pathchMatch(.*)', redirect: '/404' }
+  }
 ]
 
 const router = createRouter({

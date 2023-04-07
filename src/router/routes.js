@@ -1,12 +1,3 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-// import { asyncRoutes } from '@/router/routes'
-
-/* Layout */
-import Layout from '@/layout/index'
-
-/* Router Modules */
-// import nestedRouter from './modules/nested'
-
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -29,56 +20,19 @@ import Layout from '@/layout/index'
  */
 
 /**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
+ * routesMap
  */
-export const constantRoutes = [
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index.vue')
-      }
-    ]
-  },
-  {
-    path: '/login',
-    component: () => import('@/views/login/index.vue'),
-    hidden: true
-  },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/external-link',
-    component: () => import('@/layout/index'),
-    children: [
-      {
-        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/error-page/404.vue'),
-    hidden: true
-  }
-]
+export const routesMap = {
+  'layout/index': import('@/layout/index'),
+  'views/clipboard/index': import('@/views/clipboard/index'),
+  'views/markdown/index': import('@/views/markdown/index'),
+  'views/excel/export-excel': import('@/views/excel/export-excel'),
+  'views/excel/select-excel': import('@/views/excel/select-excel'),
+  'views/excel/merge-header': import('@/views/excel/merge-header'),
+  'views/excel/upload-excel': import('@/views/excel/upload-excel'),
+  'views/dom-to-image/index': import('@/views/dom-to-image/index'),
+  'views/permission/role': import('@/views/permission/role')
+}
 
 /**
  * asyncRoutes
@@ -87,11 +41,11 @@ export const constantRoutes = [
 export const asyncRoutes = [
   {
     path: '/clipboard',
-    component: Layout,
+    component: 'layout/index',
     children: [
       {
         path: 'index',
-        component: () => import('@/views/clipboard/index.vue'),
+        component: 'views/clipboard/index',
         name: 'Clipboard',
         meta: {
           title: 'Clipboard',
@@ -103,12 +57,12 @@ export const asyncRoutes = [
   },
   {
     path: '/markdown',
-    component: Layout,
+    component: 'layout/index',
     redirect: '/markdown/index',
     children: [
       {
         path: 'index',
-        component: () => import('@/views/markdown/index.vue'),
+        component: 'views/markdown/index',
         name: 'Markdown',
         meta: {
           title: 'Markdown',
@@ -120,7 +74,7 @@ export const asyncRoutes = [
   },
   {
     path: '/excel',
-    component: Layout,
+    component: 'layout/index',
     redirect: '/excel/export-excel',
     meta: {
       title: 'Excel',
@@ -129,7 +83,7 @@ export const asyncRoutes = [
     children: [
       {
         path: 'export-excel',
-        component: () => import('@/views/excel/export-excel.vue'),
+        component: 'views/excel/export-excel',
         name: 'ExportExcel',
         meta: {
           title: 'Export Excel'
@@ -137,19 +91,19 @@ export const asyncRoutes = [
       },
       {
         path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel.vue'),
+        component: 'views/excel/select-excel',
         name: 'SelectExcel',
         meta: { title: 'Export Selected' }
       },
       {
         path: 'merge-header',
-        component: () => import('@/views/excel/merge-header.vue'),
+        component: 'views/excel/merge-header',
         name: 'MergeHeader',
         meta: { title: 'Merge Header' }
       },
       {
         path: 'upload-excel',
-        component: () => import('@/views/excel/upload-excel.vue'),
+        component: 'views/excel/upload-excel',
         name: 'UploadExcel',
         meta: { title: 'Upload Excel' }
       }
@@ -157,11 +111,11 @@ export const asyncRoutes = [
   },
   {
     path: '/dom-to-image',
-    component: Layout,
+    component: 'layout/index',
     children: [
       {
         path: 'index',
-        component: () => import('@/views/dom-to-image/index.vue'),
+        component: 'views/dom-to-image/index',
         name: 'DomToImage',
         meta: {
           title: 'DomToImage',
@@ -173,7 +127,7 @@ export const asyncRoutes = [
   },
   {
     path: '/external-link',
-    component: Layout,
+    component: 'layout/index',
     children: [
       {
         path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
@@ -183,33 +137,16 @@ export const asyncRoutes = [
   },
   {
     path: '/permission',
-    component: Layout,
+    component: 'layout/index',
     children: [
       {
         path: 'role',
-        component: () => import('@/views/permission/role'),
+        component: 'views/permission/role',
         name: 'PermissionRole',
         meta: { title: 'Permission', icon: 'icon' }
       }
     ]
-  },
+  }
   // 404 page must be placed at the end !!!
-  { path: '/:pathchMatch(.*)', redirect: '/404' }
+  // { path: '/:pathchMatch(.*)', redirect: '/404' }
 ]
-
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes: constantRoutes
-})
-
-// 重置路由为静态路由
-export const resetRouter = () => {
-  router.getRoutes().forEach((route) => {
-    const { name } = route
-    if (name && asyncRoutes.find((item) => item.name === name)) {
-      router.removeRoute(name)
-    }
-  })
-}
-
-export default router

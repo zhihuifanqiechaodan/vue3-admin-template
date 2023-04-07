@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { asyncRoutes, constantRoutes } from '@/router'
+import { cloneDeep as _cloneDeep } from 'lodash'
 
 /**
  * Filter asynchronous routing tables by recursion
@@ -36,8 +37,8 @@ export const usePermissionStore = defineStore('permission', {
     generateRoutes({ roles, routes }) {
       return new Promise((resolve) => {
         const accessedRoutes = roles.includes('admin')
-          ? asyncRoutes || []
-          : filterAsyncRoutes(asyncRoutes, routes)
+          ? _cloneDeep(asyncRoutes) || []
+          : filterAsyncRoutes(_cloneDeep(asyncRoutes), routes)
 
         accessedRoutes.push(
           // 404 page must be placed at the end !!!

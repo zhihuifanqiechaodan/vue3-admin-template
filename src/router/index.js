@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-// import { asyncRoutes } from '@/router/routes'
 
 /* Layout */
 import Layout from '@/layout/index'

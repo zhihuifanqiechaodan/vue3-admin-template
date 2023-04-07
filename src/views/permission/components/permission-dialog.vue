@@ -43,7 +43,7 @@
 <script setup>
 import { computed, reactive, toRefs, watch } from 'vue'
 import path from 'path-browserify'
-import { asyncRoutes } from '@/mock/routess'
+import { asyncRoutes } from '@/mock/routes'
 import { cloneDeep as _cloneDeep } from 'lodash'
 
 const emits = defineEmits(['update:dialogVisible'])

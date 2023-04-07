@@ -35,7 +35,7 @@ export const usePermissionStore = defineStore('permission', {
      */
     generateRoutes({ roles, routes }) {
       return new Promise((resolve) => {
-        const accessedRoutes = roles.includes('admin1')
+        const accessedRoutes = roles.includes('admin')
           ? asyncRoutes || []
           : filterAsyncRoutes(asyncRoutes, routes)
 
@@ -43,7 +43,6 @@ export const usePermissionStore = defineStore('permission', {
           // 404 page must be placed at the end !!!
           { path: '/:pathchMatch(.*)', redirect: '/404' }
         )
-        console.log(accessedRoutes)
         this.addRoutes = accessedRoutes
         this.routes = constantRoutes.concat(accessedRoutes)
         resolve(accessedRoutes)

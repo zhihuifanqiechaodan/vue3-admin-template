@@ -54,6 +54,14 @@
         @click.prevent="handleLogin"
         >Login</el-button
       >
+      <div class="tips">
+        <span>Username : admin</span>
+        <span>Password : any</span>
+      </div>
+      <div class="tips">
+        <span style="margin-right: 18px">Username : editor</span>
+        <span>Password : any</span>
+      </div>
     </el-form>
   </div>
 </template>
@@ -264,6 +272,18 @@ $light_gray: #eee;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+
+  .tips {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 10px;
+
+    span {
+      &:first-of-type {
+        margin-right: 16px;
+      }
+    }
   }
 }
 </style>

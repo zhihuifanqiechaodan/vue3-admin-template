@@ -1,4 +1,4 @@
-export const asyncRoutes = [
+export const adminRoutes = [
   {
     path: '/clipboard',
     children: [
@@ -63,6 +63,44 @@ export const asyncRoutes = [
       {
         path: 'role',
         title: 'Permission'
+      }
+    ]
+  }
+]
+export const editorRoutes = [
+  {
+    path: '/clipboard',
+    children: [
+      {
+        path: 'index',
+        title: 'Clipboard'
+      }
+    ]
+  },
+  {
+    path: '/markdown',
+    children: [
+      {
+        path: 'index',
+        title: 'Markdown'
+      }
+    ]
+  },
+  {
+    path: '/dom-to-image',
+    children: [
+      {
+        path: 'index',
+        title: 'DomToImage'
+      }
+    ]
+  },
+  {
+    path: '/external-link',
+    children: [
+      {
+        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
+        title: 'External Link'
       }
     ]
   }

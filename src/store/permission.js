@@ -39,11 +39,6 @@ export const usePermissionStore = defineStore('permission', {
         const accessedRoutes = roles.includes('admin')
           ? _cloneDeep(asyncRoutes) || []
           : filterAsyncRoutes(_cloneDeep(asyncRoutes), routes)
-
-        accessedRoutes.push(
-          // 404 page must be placed at the end !!!
-          { path: '/:pathchMatch(.*)', redirect: '/404' }
-        )
         this.addRoutes = accessedRoutes
         this.routes = constantRoutes.concat(accessedRoutes)
         resolve(accessedRoutes)

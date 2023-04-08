@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<script setup name="Markdown">
+<script setup name="MarkdownIndex">
 import MarkdownEditor from '@/components/MarkdownEditor/index.vue'
 import { reactive, toRefs } from 'vue'
 

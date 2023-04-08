@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="DomToImageIndex">
 import useDomToImageHook from '@/hooks/useDomToImageHook'
 import { reactive, toRefs } from 'vue'
 

@@ -62,8 +62,9 @@ export const constantRoutes = [
       }
     ]
   },
+  // 此写法解决动态路由页面刷新的 warning 警告
   {
-    path: '/404',
+    path: '/:pathMatch(.*)*',
     component: () => import('@/views/error-page/404.vue'),
     hidden: true
   }
@@ -73,15 +74,20 @@ export const constantRoutes = [
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
+
+/**
+ * name 外层路由name必填，退出登录的时候要根据 name 清除动态添加的路由信息，内层的 name 用于页面缓存使用
+ */
 export const asyncRoutes = [
   {
     path: '/clipboard',
     component: Layout,
+    name: 'Clipboard',
     children: [
       {
         path: 'index',
         component: () => import('@/views/clipboard/index.vue'),
-        name: 'Clipboard',
+        name: 'ClipboardIndex',
         meta: {
           title: 'Clipboard',
           icon: 'icon'
@@ -92,12 +98,13 @@ export const asyncRoutes = [
   {
     path: '/markdown',
     component: Layout,
+    name: 'Markdown',
     redirect: '/markdown/index',
     children: [
       {
         path: 'index',
         component: () => import('@/views/markdown/index.vue'),
-        name: 'Markdown',
+        name: 'MarkdownIndex',
         meta: {
           title: 'Markdown',
           icon: 'icon'
@@ -108,6 +115,7 @@ export const asyncRoutes = [
   {
     path: '/excel',
     component: Layout,
+    name: 'Excel',
     redirect: '/excel/export-excel',
     meta: {
       title: 'Excel',
@@ -144,12 +152,13 @@ export const asyncRoutes = [
   },
   {
     path: '/dom-to-image',
+    name: 'DomToImage',
     component: Layout,
     children: [
       {
         path: 'index',
         component: () => import('@/views/dom-to-image/index.vue'),
-        name: 'DomToImage',
+        name: 'DomToImageIndex',
         meta: {
           title: 'DomToImage',
           icon: 'icon'
@@ -160,6 +169,7 @@ export const asyncRoutes = [
   {
     path: '/external-link',
     component: Layout,
+    name: 'ExternalLink',
     children: [
       {
         path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
@@ -169,7 +179,9 @@ export const asyncRoutes = [
   },
   {
     path: '/permission',
+    name: 'Permission',
     component: Layout,
+    redirect: '/permission/role',
     children: [
       {
         path: 'role',

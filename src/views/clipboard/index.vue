@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<script setup name="Clipboard">
+<script setup name="ClipboardIndex">
 import { reactive, toRefs } from 'vue'
 import useClipboardHook from '@/hooks/useClipboardHook'
 

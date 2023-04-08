@@ -17,6 +17,7 @@ function resolve(dir) {
 export default (mode) => {
   return defineConfig({
     base: '/vue3-admin-template/',
+    // base: './',
     server: {
       open: true,
       host: '0.0.0.0',
@@ -80,10 +81,16 @@ export default (mode) => {
         viteMockServe({
           // mockPath: path.resolve(process.cwd(), 'src/mock'),
           mockPath: './src/mock',
-          // localEnabled: loadEnv(mode, process.cwd()).VITE_NODE_ENV === 'localhost', // 只在本地开发打开，正式使用的时候注释下面这条，打开当前这条
+          // localEnabled:
+          //   loadEnv(mode, process.cwd()).VITE_NODE_ENV === 'localhost', // 只在本地开发打开，正式使用的时候注释下面这条，打开当前这条
           localEnabled: true, // 设置是否启用本地模拟.ts文件，不要在生产环境中打开
-          // prodEnabled: loadEnv(mode, process.cwd()).VITE_NODE_ENV === 'localhost', // 只在本地开发打开，正式使用的时候注释下面这条，打开当前这条
-          prodEnabled: true // 设置打包是否启用 mock 功能
+          // prodEnabled:
+          //   loadEnv(mode, process.cwd()).VITE_NODE_ENV === 'localhost', // 只在本地开发打开，正式使用的时候注释下面这条，打开当前这条
+          prodEnabled: true, // 设置打包是否启用 mock 功能
+          injectCode: `
+            import { setupProdMockServer } from './mockProdServer';
+            setupProdMockServer();
+          `
         })
     ]
   })

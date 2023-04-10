@@ -277,7 +277,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .tags-view-container {
   height: 40px;
-  width: 100%;
+  width: 50%;
 
   .tags-view-wrapper {
     .tags-view-item {

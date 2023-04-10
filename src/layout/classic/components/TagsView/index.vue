@@ -292,6 +292,7 @@ onMounted(() => {
       padding: 0 10px;
       font-size: 12px;
       margin-left: 5px;
+      white-space: nowrap;
 
       &:first-of-type {
         margin-left: 15px;

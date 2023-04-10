@@ -10,6 +10,7 @@
 <script setup>
 import { reactive, toRefs, onBeforeUnmount } from 'vue'
 import screenfull from 'screenfull'
+import { ElMessage } from 'element-plus'
 
 const state = reactive({
   isFullscreen: false
@@ -19,10 +20,7 @@ const { isFullscreen } = toRefs(state)
 
 const click = () => {
   if (!screenfull.isEnabled) {
-    this.$message({
-      message: 'you browser can not work',
-      type: 'warning'
-    })
+    ElMessage.warning('you browser can not work')
     return false
   }
   screenfull.toggle()

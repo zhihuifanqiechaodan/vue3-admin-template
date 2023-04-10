@@ -5,6 +5,7 @@ import { isString, isArray } from '@/utils/validate'
 
 // fix: 自动导入函数式组件样式没有自动导入
 import 'element-plus/theme-chalk/el-message-box.css'
+import 'element-plus/theme-chalk/el-message.css'
 
 import 'normalize.css' // a modern alternative to CSS resets
 

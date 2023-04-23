@@ -181,6 +181,20 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/qrcode',
+    name: 'Qrcode',
+    component: Layout,
+    redirect: '/qrcode/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/qrcode/index'),
+        name: 'QrcodeIndex',
+        meta: { title: 'Qrcode', icon: 'icon' }
+      }
+    ]
+  },
+  {
     path: '/external-link',
     component: Layout,
     name: 'ExternalLink',

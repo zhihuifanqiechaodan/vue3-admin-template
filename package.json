@@ -26,7 +26,7 @@
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1",
     "pinia": "^2.0.30",
-    "qrcode.vue": "^3.3.3",
+    "qrcode.vue": "^3.4.0",
     "screenfull": "^6.0.2",
     "socket.io-client": "^4.6.0",
     "vue": "^3.2.47",

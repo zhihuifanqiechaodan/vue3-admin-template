@@ -2513,10 +2513,10 @@ punycode@^2.1.0:
   resolved "https://registry.npmmirror.com/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
 
-qrcode.vue@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.npmmirror.com/qrcode.vue/-/qrcode.vue-3.3.3.tgz#00262244311a0ee1956fb7a0e238197ff7e14cfa"
-  integrity sha512-OsD4tQjIbxg/K6D5ZkWjBdYI9eg9K2i8qeYILdEAX5mdAydSAxV7xKmmZSP/hA12olLqEMZ9ryqDQrwa9jEMgw==
+qrcode.vue@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.npmmirror.com/qrcode.vue/-/qrcode.vue-3.4.0.tgz#4513ff1a4734cb7184086c2fd439f0d462c6d281"
+  integrity sha512-4XeImbv10Fin16Fl2DArCMhGyAdvIg2jb7vDT+hZiIAMg/6H6mz9nUZr/dR8jBcun5VzNzkiwKhiqOGbloinwA==
 
 query-string@^4.3.2:
   version "4.3.4"

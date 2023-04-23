@@ -76,7 +76,7 @@ export const constantRoutes = [
  */
 
 /**
- * name 外层路由name必填，退出登录的时候要根据 name 清除动态添加的路由信息，内层的 name 用于页面缓存使用
+ * name：外层路由name必填，退出登录的时候要根据 name 清除动态添加的路由信息，内层的 name 用于页面缓存使用
  */
 export const asyncRoutes = [
   {
@@ -167,17 +167,6 @@ export const asyncRoutes = [
     ]
   },
   {
-    path: '/external-link',
-    component: Layout,
-    name: 'ExternalLink',
-    children: [
-      {
-        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
-  {
     path: '/permission',
     name: 'Permission',
     component: Layout,
@@ -188,6 +177,17 @@ export const asyncRoutes = [
         component: () => import('@/views/permission/role'),
         name: 'PermissionRole',
         meta: { title: 'Permission', icon: 'icon' }
+      }
+    ]
+  },
+  {
+    path: '/external-link',
+    component: Layout,
+    name: 'ExternalLink',
+    children: [
+      {
+        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
+        meta: { title: 'External Link', icon: 'link' }
       }
     ]
   }

@@ -35,6 +35,8 @@ import {
   box-sizing: border-box;
 
   .navbar-left {
+    flex: 1;
+    width: 50%;
     height: 100%;
   }
 
@@ -42,7 +44,7 @@ import {
     display: flex;
     align-items: center;
     height: 100%;
-    padding-right: 10px;
+    padding: 0 10px;
   }
 }
 </style>

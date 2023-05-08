@@ -1,6 +1,6 @@
 <template>
   <div class="menu-horizontal">
-    <Logo v-if="showLogo" :menuCollapse="false" class="logo" />
+    <Logo v-if="showLogo" :menuCollapse="true" class="logo" />
     <el-menu
       :default-active="activeMenu"
       :collapse-transition="false"
@@ -54,10 +54,12 @@ const routes = computed(() => permissionStore.routes)
   height: 100%;
 
   .logo {
-    width: 210px;
+    width: 64px;
   }
 
   .horizontal-menus {
+    flex: 1;
+    width: 50%;
     height: 50px;
     border-bottom: none;
 

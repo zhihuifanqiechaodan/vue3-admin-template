@@ -5,20 +5,24 @@ import { usePermissionStore } from '@/store/permission'
 
 /**
  * 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
+ * 
  * hidden: true
  * 
  * 当你一个路由下面的 children 声明的路由大于1个时，自动会变成嵌套的模式--如组件页面
  * 只有一个时，会将那个子路由当做根路由显示在侧边栏--如引导页面
  * 若你想不管路由下面的 children 声明的个数都显示你的根路由
  * 你可以设置 alwaysShow: true，这样它就会忽略之前定义的规则，一直显示根路由
+ * 
  * alwaysShow: true
  * 
  * 因为路由的设计模式，只能当路由为目录时，才可设置此选项，或者当当前路由只有一个菜单的时候，会自动生成外层目录，且默认值为'/'
+ * 
  * redirect: '/'
  * 
  * 外层目录的name字段会自动生成，用于退出登录时清空动态添加的路由信息，内层的name字段必须为路由的文件名，缓存页面时需要
  * 在 3.2.34 或以上的版本中，使用 <script setup> 的单文件组件会自动根据文件名生成对应的 name 选项，无需再页面上手动声明name。
  * name必须和你的文件名保持一致，否则会导致不缓存, 所以文件名不要使用index
+ * 
  * name:'router-name'
  * 
  * meta : {
@@ -73,7 +77,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
+        component: () => import('@/views/dashboard/dashboard.vue'),
         name: 'Dashboard',
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
@@ -96,13 +100,13 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index.vue')
+        component: () => import('@/views/redirect/redirect.vue')
       }
     ]
   },
   {
     path: '/login',
-    component: () => import('@/views/login/index.vue'),
+    component: () => import('@/views/login/login.vue'),
     hidden: true
   },
   {

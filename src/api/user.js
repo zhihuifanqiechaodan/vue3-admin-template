@@ -1,27 +1,27 @@
 import { request } from '@/utils/request'
 
 /**
- * @method addUserLogin 登录
+ * @method addUserLogin
  * @param {*} data
  * @returns
  */
 export function addUserLogin(data) {
   return request({
-    url: '/user-login',
+    url: '/user/login',
     method: 'post',
     data
   })
 }
 
 /**
- * @method addUserInfo 用户信息
+ * @method getUserMenuList
  * @param {*} data
  * @returns
  */
-export function addUserInfo(data) {
+export function getUserMenuList(data) {
   return request({
-    url: '/user-info',
-    method: 'post',
-    data
+    url: '/user/menu_list',
+    method: 'get',
+    params: data
   })
 }

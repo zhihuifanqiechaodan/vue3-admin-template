@@ -6,8 +6,6 @@ import vitePluginVueSetupExtend from 'vite-plugin-vue-setup-extend'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { viteMockServe } from 'vite-plugin-mock'
-import defaultSettings from './src/settings'
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -18,26 +16,26 @@ export default (mode) => {
   return defineConfig({
     base: '/vue3-admin-template/',
     // base: './',
-    server: {
-      open: true,
-      host: '0.0.0.0',
-      port: 9527,
-      proxy: !defaultSettings.isMockData && {
-        '/api': {
-          // target: 'https://xxxx', // 开发环境
-          target: 'https://xxxx', // 测试环境
-          // target: 'https://xxxx', // 预发环境
-          // target: 'https://xxxx', // 生产环境
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '')
-        },
-        '/gitee': {
-          target: 'https://raw.githubusercontent.com/zhihuifanqiechaodan',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/gitee/, '')
-        }
-      }
-    },
+    // server: {
+    //   open: true,
+    //   host: '0.0.0.0',
+    //   // port: 9527,
+    //   proxy: {
+    //     '/api': {
+    //       // target: 'https://xxxx', // 开发环境
+    //       target: 'https://xxxx', // 测试环境
+    //       // target: 'https://xxxx', // 预发环境
+    //       // target: 'https://xxxx', // 生产环境
+    //       changeOrigin: true,
+    //       rewrite: (path) => path.replace(/^\/api/, '')
+    //     },
+    //     '/gitee': {
+    //       target: 'https://raw.githubusercontent.com/zhihuifanqiechaodan',
+    //       changeOrigin: true,
+    //       rewrite: (path) => path.replace(/^\/gitee/, '')
+    //     }
+    //   }
+    // },
     resolve: {
       alias: {
         '@': resolve('src')
@@ -76,22 +74,7 @@ export default (mode) => {
       }),
       Components({
         resolvers: [ElementPlusResolver()]
-      }),
-      defaultSettings.isMockData &&
-        viteMockServe({
-          // mockPath: path.resolve(process.cwd(), 'src/mock'),
-          mockPath: './src/mock',
-          // localEnabled:
-          //   loadEnv(mode, process.cwd()).VITE_NODE_ENV === 'localhost', // 只在本地开发打开，正式使用的时候注释下面这条，打开当前这条
-          localEnabled: true, // 设置是否启用本地模拟.ts文件，不要在生产环境中打开
-          // prodEnabled:
-          //   loadEnv(mode, process.cwd()).VITE_NODE_ENV === 'localhost', // 只在本地开发打开，正式使用的时候注释下面这条，打开当前这条
-          prodEnabled: true, // 设置打包是否启用 mock 功能
-          injectCode: `
-            import { setupProdMockServer } from './mockProdServer';
-            setupProdMockServer();
-          `
-        })
+      })
     ]
   })
 }

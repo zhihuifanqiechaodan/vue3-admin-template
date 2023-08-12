@@ -70,6 +70,7 @@
 import { nextTick, onMounted, reactive, toRefs } from 'vue'
 import { useUserStore } from '@/store/user'
 import { useRouter, useRoute } from 'vue-router'
+import { addUserLogin } from '@/api/user'
 
 const router = useRouter()
 const route = useRoute()
@@ -95,8 +96,8 @@ const state = reactive({
   refUsername: null,
   refPassword: null,
   loginForm: {
-    username: 'admin',
-    password: '123456789'
+    username: 'zhihuifanqiechaodan',
+    password: 'admin!QAZ2wsx'
   },
   loginRules: {
     username: [
@@ -144,13 +145,24 @@ const showPwd = () => {
 const handleLogin = () => {
   state.refLoginForm.validate(async (valid) => {
     if (valid) {
-      state.loading = true
-      const userStore = useUserStore()
-      await userStore.login(state.loginForm)
-      state.loading = false
-      router.push({ path: state.redirect || '/', query: state.otherQuery })
+      try {
+        state.loading = true
+
+        const userStore = useUserStore()
+
+        const { token, userInfo } = await addUserLogin(state.loginForm)
+
+        userStore.setToken({ token })
+
+        userStore.setUserInfo({ userInfo })
+
+        state.loading = false
+
+        router.push({ path: state.redirect || '/', query: state.otherQuery })
+      } catch (error) {
+        state.loading = false
+      }
     } else {
-      console.log('error submit!!')
       return false
     }
   })

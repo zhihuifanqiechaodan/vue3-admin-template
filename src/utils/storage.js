@@ -1,17 +1,29 @@
-import Cookies from 'js-cookie'
+import jsCookie from 'js-cookie'
 
-const TokenKey = 'Fanqie-Token'
+const localStorage = window.localStorage
 
-export const getCookies = (key, defaultValue) =>
-  Cookies.get(key) ? JSON.parse(Cookies.get(key)) : defaultValue
+const sessionStorage = window.sessionStorage
 
-export const setCookies = (key, value) =>
-  Cookies.set(key, JSON.stringify(value))
+export const setLocalStorageItem = (key, value) =>
+  localStorage.setItem(key, value)
 
-export const removeCookies = (key) => Cookies.remove(key)
+export const getLocalStorageItem = (key) => localStorage.getItem(key)
 
-export const getToken = () => getCookies(TokenKey)
+export const removeLocalStorageItem = (key) => localStorage.removeItem(key)
 
-export const setToken = (token) => setCookies(TokenKey, token)
+export const clearLocalStorageItem = () => localStorage.clear()
 
-export const removeToken = () => removeCookies(TokenKey)
+export const setSessionStorage = (key, value) =>
+  sessionStorage.setItem(key, value)
+
+export const getSessionStorage = (key) => sessionStorage.getItem(key)
+
+export const removeSessionStorage = (key) => sessionStorage.removeItem(key)
+
+export const clearSessionStorage = () => sessionStorage.clear()
+
+export const setCookieItem = (key, value) => jsCookie.set(key, value)
+
+export const getCookieItem = (key, value) => jsCookie.get(key, value)
+
+export const removeCookieItem = (key) => jsCookie.remove(key)

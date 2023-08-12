@@ -31,6 +31,7 @@ const userInfo = computed(() => userStore.userInfo)
 
 const logout = async () => {
   await userStore.logout()
+
   router.push(`/login?redirect=${route.fullPath}`)
 }
 </script>

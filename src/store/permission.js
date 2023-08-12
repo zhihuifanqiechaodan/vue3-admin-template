@@ -1,26 +1,100 @@
 import { defineStore } from 'pinia'
-import { asyncRoutes, constantRoutes } from '@/router'
-import { cloneDeep as _cloneDeep } from 'lodash'
+import {
+  constantRoutes,
+  asyncRoutes,
+  layoutRoutesMap,
+  defaultLayoutRoute
+} from '@/router'
 
 /**
- * Filter asynchronous routing tables by recursion
- * @param asyncRoutes
- * @param routes
+ * @method convertToTree
+ * @param menuList
+ * @param parentId
  */
-export function filterAsyncRoutes(asyncRoutes, routes) {
-  const res = []
-  asyncRoutes.forEach((route) => {
-    const tmp = { ...route }
-    const findRoute = routes.find((item) => item.path === route.path)
-    if (findRoute) {
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, findRoute.children)
-      }
-      res.push(tmp)
-    }
-  })
+export function convertToTree(menuList, parentId = 0) {
+  const routes = []
 
-  return res
+  for (const menuItem of menuList) {
+    if (menuItem.parentId === parentId) {
+      let route
+
+      let path
+
+      let component
+
+      let name
+
+      if (menuItem.type === 0 && menuItem.parentId === 0) {
+        path = `/${menuItem.path}`
+      } else {
+        path = menuItem.path
+      }
+
+      if (menuItem.type === 0) {
+        const route = layoutRoutesMap.find(
+          (item) => item.layout === menuItem.layout
+        )
+
+        component = route.component
+
+        name = route.name
+      } else {
+        const route = asyncRoutes.find((item) => item.path === menuItem.path)
+
+        component = route.component
+
+        name = route.name
+      }
+
+      if (menuItem.type === 1 && menuItem.parentId === 0) {
+        route = {
+          path: '/',
+          component: defaultLayoutRoute.component,
+          redirect: defaultLayoutRoute.redirect,
+          name: '1111',
+          children: [
+            {
+              path,
+              component,
+              hidden: menuItem.hidden,
+              alwaysShow: menuItem.alwaysShow,
+              name,
+              meta: {
+                title: menuItem.title,
+                icon: menuItem.icon,
+                noCache: menuItem.noCache,
+                breadcrumb: menuItem.breadcrumb
+              }
+            }
+          ]
+        }
+      } else {
+        route = {
+          path,
+          component,
+          hidden: menuItem.hidden,
+          alwaysShow: menuItem.alwaysShow,
+          name,
+          meta: {
+            title: menuItem.title,
+            icon: menuItem.icon,
+            noCache: menuItem.noCache,
+            breadcrumb: menuItem.breadcrumb
+          }
+        }
+      }
+
+      const children = convertToTree(menuList, menuItem.id)
+
+      if (children.length > 0) {
+        route.children = children
+      }
+
+      routes.push(route)
+    }
+  }
+
+  return routes
 }
 
 export const usePermissionStore = defineStore('permission', {
@@ -34,13 +108,14 @@ export const usePermissionStore = defineStore('permission', {
     /**
      * @method generateRoutes 生成路由
      */
-    generateRoutes({ roles, routes }) {
+    generateRoutes({ menuList }) {
       return new Promise((resolve) => {
-        const accessedRoutes = roles.includes('admin')
-          ? _cloneDeep(asyncRoutes) || []
-          : filterAsyncRoutes(_cloneDeep(asyncRoutes), routes)
+        const accessedRoutes = convertToTree(menuList)
+
         this.addRoutes = accessedRoutes
+
         this.routes = constantRoutes.concat(accessedRoutes)
+
         resolve(accessedRoutes)
       })
     }

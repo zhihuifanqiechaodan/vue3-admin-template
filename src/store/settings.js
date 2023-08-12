@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import defaultSettings from '@/settings'
-import { setCookies, getCookies } from '@/utils/storage'
+import { getCookieItem, setCookieItem } from '@/utils/storage'
 const {
   layoutMode,
   menuWidth,
@@ -25,13 +25,13 @@ export const useSettingsStore = defineStore('settings', {
       // 展示设置
       showSettings,
       // 布局方式 Classic 经典布局 Default默认布局 Streamline 精简布局
-      layoutMode: getCookies('layoutMode', layoutMode),
+      layoutMode: getCookieItem('layoutMode') || layoutMode,
       // 默认全局尺寸, 可选值 large / default /small
-      size: getCookies('size') || size,
+      size: getCookieItem('size') || size,
       // 是否展示tagsView
-      tagsView: getCookies('tagsView', tagsView),
+      tagsView: getCookieItem('tagsView') || tagsView,
       // 是否显示Logo
-      menuLogo: getCookies('menuLogo', menuLogo),
+      menuLogo: getCookieItem('menuLogo') || menuLogo,
 
       /**
        * 侧边栏菜单
@@ -39,34 +39,28 @@ export const useSettingsStore = defineStore('settings', {
       // 菜单项默认图标
       menuDefaultIcon,
       //菜单宽度(展开时)，单位px
-      menuWidth: getCookies('menuWidth', menuWidth),
+      menuWidth: getCookieItem('menuWidth') || menuWidth,
       // 是否水平折叠收起菜单
-      menuCollapse: getCookies('menuCollapse', menuCollapse),
+      menuCollapse: getCookieItem('menuCollapse') || menuCollapse,
       // 背景色
-      menuBackgroundColor: getCookies(
-        'menuBackgroundColor',
-        menuBackgroundColor
-      ),
+      menuBackgroundColor:
+        getCookieItem('menuBackgroundColor') || menuBackgroundColor,
       // 文字颜色
-      menuTextColor: getCookies('menuTextColor', menuTextColor),
+      menuTextColor: getCookieItem('menuTextColor') || menuTextColor,
       // 激活项背景色
-      menuActiveBackgroundColor: getCookies(
-        'menuActiveBackgroundColor',
-        menuActiveBackgroundColor
-      ),
+      menuActiveBackgroundColor:
+        getCookieItem('menuActiveBackgroundColor') || menuActiveBackgroundColor,
       // 激活项文字色
-      menuActiveTextColor: getCookies(
-        'menuActiveTextColor',
-        menuActiveTextColor
-      ),
+      menuActiveTextColor:
+        getCookieItem('menuActiveTextColor') || menuActiveTextColor,
       // 是否只保持一个子菜单的展开(手风琴)
-      menuUniqueOpened: getCookies('menuActiveTextColor', menuUniqueOpened)
+      menuUniqueOpened: getCookieItem('menuActiveTextColor') || menuUniqueOpened
     }
   },
   actions: {
     changeSetting({ key, value }) {
       this[key] = value
-      setCookies(key, value)
+      setCookieItem(key, value)
     },
     restoreDefault() {
       this.changeSetting({ key: 'layoutMode', value: layoutMode })

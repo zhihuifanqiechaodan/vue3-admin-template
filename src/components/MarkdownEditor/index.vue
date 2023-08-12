@@ -3,8 +3,8 @@
 </template>
 
 <script setup>
-import '@toast-ui/editor/dist/toastui-editor.css'
-import Editor from '@toast-ui/editor'
+// import '@toast-ui/editor/dist/toastui-editor.css'
+import { Editor } from '@toast-ui/vue-editor'
 import { reactive, toRefs, onMounted, computed, watch, onUnmounted } from 'vue'
 import { ElMessage } from 'element-plus'
 

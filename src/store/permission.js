@@ -43,7 +43,6 @@ export function convertToTree(menuList, parentId = 0) {
                   (item) => item.path === menuItem.path
                 ).component,
                 hidden: menuItem.hidden,
-                alwaysShow: menuItem.alwaysShow,
                 name: asyncRoutes.find((item) => item.path === menuItem.path)
                   .name,
                 meta: {
@@ -63,7 +62,6 @@ export function convertToTree(menuList, parentId = 0) {
             component: asyncRoutes.find((item) => item.path === menuItem.path)
               .component,
             hidden: menuItem.hidden,
-            alwaysShow: menuItem.alwaysShow,
             name: asyncRoutes.find((item) => item.path === menuItem.path).name,
             meta: {
               title: menuItem.title,

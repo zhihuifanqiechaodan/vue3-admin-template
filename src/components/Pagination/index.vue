@@ -51,7 +51,6 @@ const currentPage = computed({
     return props.page
   },
   set(val) {
-    console.log(val)
     emits('update:page', val)
   }
 })

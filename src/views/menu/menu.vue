@@ -16,13 +16,15 @@ import { cloneDeep as _cloneDeep } from 'lodash-es'
 
 const defaultMenuForm = {
   type: 0,
-  alwaysShow: false,
   hidden: false,
-  noCache: true,
-  breadcrumb: true,
+  alwaysShow: false,
   title: '',
+  path: '',
   icon: 'menu',
-  path: ''
+  noCache: true,
+  affix: false,
+  breadcrumb: true,
+  activeMenu: ''
 }
 
 const state = reactive({

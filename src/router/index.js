@@ -15,9 +15,9 @@ import { usePermissionStore } from '@/store/permission'
  * 
  * alwaysShow: true
  * 
- * 因为路由的设计模式，只能当路由为目录时，才可设置此选项，或者当当前路由只有一个菜单的时候，会自动生成外层目录，且默认值为'/'
+ * 因为路由的设计模式，只能当路由为目录时，才可设置此选项，或者当当前路由只有一个菜单的时候，会自动生成外层目录，如果设置了noRedirect，则不会在breadcrumb中重定向
  * 
- * redirect: '/'
+ * redirect: 'noRedirect'
  * 
  * 外层目录的name字段会自动生成，用于退出登录时清空动态添加的路由信息，内层的name字段必须为路由的文件名，缓存页面时需要
  * 在 3.2.34 或以上的版本中，使用 <script setup> 的单文件组件会自动根据文件名生成对应的 name 选项，无需再页面上手动声明name。
@@ -52,16 +52,9 @@ import { usePermissionStore } from '@/store/permission'
  * 默认布局方案
  */
 export const defaultLayoutRoute = {
-  layout: 'layout',
-  name: 'layout',
   component: Layout,
-  redirect: '/'
+  redirect: 'noRedirect'
 }
-
-/**
- * 布局列表
- */
-export const layoutRoutesMap = [defaultLayoutRoute]
 
 /**
  * 代表那些不需要动态判断权限的路由，如登录页、404、等通用页面。

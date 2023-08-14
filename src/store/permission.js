@@ -1,10 +1,6 @@
 import { defineStore } from 'pinia'
-import {
-  constantRoutes,
-  asyncRoutes,
-  layoutRoutesMap,
-  defaultLayoutRoute
-} from '@/router'
+import { constantRoutes, asyncRoutes, defaultLayoutRoute } from '@/router'
+import { v4 as uuidv4 } from 'uuid'
 
 /**
  * @method convertToTree
@@ -18,68 +14,65 @@ export function convertToTree(menuList, parentId = 0) {
     if (menuItem.parentId === parentId) {
       let route
 
-      let path
-
-      let component
-
-      let name
-
-      if (menuItem.type === 0 && menuItem.parentId === 0) {
-        path = `/${menuItem.path}`
-      } else {
-        path = menuItem.path
-      }
-
       if (menuItem.type === 0) {
-        const route = layoutRoutesMap.find(
-          (item) => item.layout === menuItem.layout
-        )
-
-        component = route.component
-
-        name = route.name
-      } else {
-        const route = asyncRoutes.find((item) => item.path === menuItem.path)
-
-        component = route.component
-
-        name = route.name
-      }
-
-      if (menuItem.type === 1 && menuItem.parentId === 0) {
         route = {
           path: '/',
           component: defaultLayoutRoute.component,
-          redirect: defaultLayoutRoute.redirect,
-          name: '1111',
-          children: [
-            {
-              path,
-              component,
-              hidden: menuItem.hidden,
-              alwaysShow: menuItem.alwaysShow,
-              name,
-              meta: {
-                title: menuItem.title,
-                icon: menuItem.icon,
-                noCache: menuItem.noCache,
-                breadcrumb: menuItem.breadcrumb
-              }
-            }
-          ]
-        }
-      } else {
-        route = {
-          path,
-          component,
           hidden: menuItem.hidden,
           alwaysShow: menuItem.alwaysShow,
-          name,
+          redirect: defaultLayoutRoute.redirect,
+          name: uuidv4(),
           meta: {
             title: menuItem.title,
-            icon: menuItem.icon,
-            noCache: menuItem.noCache,
-            breadcrumb: menuItem.breadcrumb
+            icon: menuItem.icon
+          }
+        }
+      } else if (menuItem.type === 1) {
+        if (menuItem.parentId === 0) {
+          route = {
+            path: '/',
+            component: defaultLayoutRoute.component,
+            hidden: false,
+            alwaysShow: false,
+            redirect: defaultLayoutRoute.redirect,
+            name: uuidv4(),
+            children: [
+              {
+                path: menuItem.path,
+                component: asyncRoutes.find(
+                  (item) => item.path === menuItem.path
+                ).component,
+                hidden: menuItem.hidden,
+                alwaysShow: menuItem.alwaysShow,
+                name: asyncRoutes.find((item) => item.path === menuItem.path)
+                  .name,
+                meta: {
+                  title: menuItem.title,
+                  icon: menuItem.icon,
+                  noCache: menuItem.noCache,
+                  affix: menuItem.affix,
+                  breadcrumb: menuItem.breadcrumb,
+                  activeMenu: menuItem.activeMenu
+                }
+              }
+            ]
+          }
+        } else {
+          route = {
+            path: menuItem.path,
+            component: asyncRoutes.find((item) => item.path === menuItem.path)
+              .component,
+            hidden: menuItem.hidden,
+            alwaysShow: menuItem.alwaysShow,
+            name: asyncRoutes.find((item) => item.path === menuItem.path).name,
+            meta: {
+              title: menuItem.title,
+              icon: menuItem.icon,
+              noCache: menuItem.noCache,
+              affix: menuItem.affix,
+              breadcrumb: menuItem.breadcrumb,
+              activeMenu: menuItem.activeMenu
+            }
           }
         }
       }
@@ -106,7 +99,7 @@ export const usePermissionStore = defineStore('permission', {
   },
   actions: {
     /**
-     * @method generateRoutes 生成路由
+     * @method generateRoutes
      */
     generateRoutes({ menuList }) {
       return new Promise((resolve) => {

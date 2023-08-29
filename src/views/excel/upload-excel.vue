@@ -29,8 +29,8 @@ const state = reactive({
 const { tableData, tableHeader } = toRefs(state)
 
 const uploadSuccess = (data) => {
-  console.log(data)
   state.tableData = data.results
+
   state.tableHeader = data.header
 }
 </script>

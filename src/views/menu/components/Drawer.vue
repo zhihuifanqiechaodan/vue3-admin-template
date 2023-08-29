@@ -24,6 +24,25 @@
           </el-radio-group>
         </el-form-item>
       </el-space>
+      <el-space v-if="menuFormComputed.type === 0" fill>
+        <el-alert type="info" show-icon :closable="false">
+          <p>用于展示当前菜单的布局模式</p>
+        </el-alert>
+        <el-form-item label="layout">
+          <el-select
+            v-model="menuFormComputed.layout"
+            filterable
+            placeholder="Select layout"
+          >
+            <el-option
+              v-for="item in layoutRoutes"
+              :key="item.layout"
+              :label="item.layout"
+              :value="item.layout"
+            />
+          </el-select>
+        </el-form-item>
+      </el-space>
       <el-space fill>
         <el-alert type="info" show-icon :closable="false">
           <p>
@@ -188,7 +207,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import svgIds from 'virtual:svg-icons-names'
-import { asyncRoutes } from '@/router/index'
+import { asyncRoutes, layoutRoutes } from '@/router/index'
+import menuApi from '@/api/menu'
 
 const menuFormRules = {
   title: [{ required: true, message: 'Please input  title', trigger: 'blur' }],
@@ -249,11 +269,15 @@ const menuFormComputed = computed({
 
 const submitForm = async (menuFormRef) => {
   if (!menuFormRef) return
-  await menuFormRef.validate((valid, fields) => {
+
+  menuFormRef.validate(async (valid, fields) => {
     if (valid) {
-      console.log('submit!')
+      await menuApi.addMenuCreate(props.menuForm)
     } else {
-      console.log('error submit!', fields)
+      console.log(
+        '🚀 ~ file: Drawer.vue:278 ~ menuFormRef.validate ~ fields:',
+        fields
+      )
     }
   })
 }

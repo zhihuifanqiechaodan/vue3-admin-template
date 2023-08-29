@@ -7,7 +7,7 @@ import 'nprogress/nprogress.css'
 import { getCookieItem } from './utils/storage'
 import getPageTitle from './utils/get-page-title'
 import { getUserMenuList } from '@/api/user'
-import { addMenuCreate } from '@/api/menu'
+import menuApi from '@/api/menu'
 
 NProgress.configure({ showSpinner: false })
 
@@ -41,15 +41,16 @@ router.beforeEach(async (to, from, next) => {
           let { menuList } = await getUserMenuList()
 
           if (!menuList.length) {
-            await addMenuCreate({
+            await menuApi.addMenuCreate({
               type: 1,
-              layout: 'layout',
-              title: '菜单',
-              icon: 'menu',
               hidden: false,
+              title: '菜单',
+              path: 'menu',
+              icon: 'menu',
               noCache: true,
+              affix: false,
               breadcrumb: true,
-              path: 'menu'
+              activeMenu: ''
             })
 
             let { menuList: newMenuList } = await getUserMenuList()

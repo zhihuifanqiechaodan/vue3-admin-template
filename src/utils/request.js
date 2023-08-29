@@ -24,8 +24,8 @@ request.interceptors.request.use(
     return config
   },
   (error) => {
+    console.log('🚀 ~ file: request.js:27 ~ error:', error)
     // do something with request error
-    console.log(error) // for debug
     return Promise.reject(error)
   }
 )
@@ -77,7 +77,7 @@ request.interceptors.response.use(
     }
   },
   (error) => {
-    console.log('err' + error) // for debug
+    console.log('🚀 ~ file: request.js:80 ~ error:', error)
     ElMessage({
       message: error.message,
       type: 'error',
@@ -100,7 +100,7 @@ requestA.interceptors.request.use(
     return config
   },
   (error) => {
-    console.log(error)
+    console.log('🚀 ~ file: request.js:103 ~ error:', error)
     return Promise.reject(error)
   }
 )
@@ -120,7 +120,8 @@ requestA.interceptors.response.use(
     }
   },
   (error) => {
-    console.log('err' + error)
+    console.log('🚀 ~ file: request.js:123 ~ error:', error)
+
     ElMessage({
       message: error.message,
       type: 'error',

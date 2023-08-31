@@ -14,9 +14,23 @@
           children: 'children',
           label: 'title'
         }"
-      />
+      >
+        <template #default="{ node, data }">
+          <span class="custom-tree-node">
+            <span>{{ node.label }}{{ data.type === 0 ? '【目录】' : '' }}</span>
+            <span>
+              <a style="margin-left: 8px" @click="handleMenuEdit(node, data)">
+                编辑
+              </a>
+            </span>
+          </span>
+        </template>
+      </el-tree>
       <div class="update-button">
-        <el-button @click="handleUpdateTreeSort" type="primary"
+        <el-button
+          :loading="updateSortLoading"
+          @click="handleUpdateTreeSort"
+          type="primary"
           >更新排序
         </el-button>
       </div>
@@ -24,7 +38,9 @@
     <Drawer
       :isEdit="isEdit"
       :menuForm="menuForm"
+      :originalMenuList="originalMenuList"
       v-model:menuDrawerVisible="menuDrawerVisible"
+      @initData="initData"
     />
   </div>
 </template>
@@ -36,6 +52,7 @@ import { cloneDeep as _cloneDeep } from 'lodash-es'
 import menuApi from '@/api/menu'
 import { defaultLayoutRoute } from '@/router'
 import { menuListSort } from '@/utils/index'
+import { ElMessageBox } from 'element-plus'
 
 const defaultMenuForm = {
   type: 0,
@@ -56,10 +73,39 @@ const state = reactive({
   menuDrawerVisible: false,
   menuForm: null,
   menuList: [],
-  loading: false
+  loading: false,
+  originalMenuList: [],
+  updateSortLoading: false
 })
 
-const { isEdit, menuDrawerVisible, menuForm, menuList, loading } = toRefs(state)
+const {
+  isEdit,
+  menuDrawerVisible,
+  menuForm,
+  menuList,
+  loading,
+  originalMenuList,
+  updateSortLoading
+} = toRefs(state)
+
+onMounted(() => {
+  initData()
+})
+
+const initData = async () => {
+  state.loading = true
+
+  try {
+    const { menuList } = await menuApi.getMenuList()
+
+    state.originalMenuList = menuList
+
+    state.menuList = menuListSort(convertToTree(menuList))
+  } catch (error) {
+    console.log('🚀 ~ file: menu.vue:81 ~ onMounted ~ error:', error)
+  }
+  state.loading = false
+}
 
 const handleMenuCreate = () => {
   state.menuForm = _cloneDeep(defaultMenuForm)
@@ -68,22 +114,6 @@ const handleMenuCreate = () => {
 
   state.isEdit = false
 }
-
-onMounted(async () => {
-  try {
-    state.loading = true
-
-    const { menuList } = await menuApi.getMenuList()
-
-    state.menuList = menuListSort(convertToTree(menuList))
-
-    state.loading = false
-  } catch (error) {
-    state.loading = false
-
-    console.log('🚀 ~ file: menu.vue:81 ~ onMounted ~ error:', error)
-  }
-})
 
 const allowDrop = (draggingNode, dropNode, type) => {
   if (draggingNode.data.type === 0 && dropNode.data.type === 1) {
@@ -142,9 +172,37 @@ const updateMenuSortIndex = (menuList) => {
 }
 
 const handleUpdateTreeSort = async () => {
-  updateMenuSortIndex(state.menuList)
+  ElMessageBox.confirm('更新排序后将刷新页面', 'Tips', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  })
+    .then(async () => {
+      state.updateSortLoading = true
 
-  await menuApi.addMenuUpdateSort({ menuList: flattenTree(state.menuList) })
+      updateMenuSortIndex(state.menuList)
+
+      try {
+        await menuApi.addMenuUpdateSort({
+          menuList: flattenTree(state.menuList)
+        })
+
+        location.reload()
+      } catch (error) {
+        console.log('🚀 ~ file: menu.vue:192 ~ .then ~ error:', error)
+      }
+
+      state.updateSortLoading = false
+    })
+    .catch(() => {})
+}
+
+const handleMenuEdit = (node, data) => {
+  state.isEdit = true
+
+  state.menuForm = data
+
+  state.menuDrawerVisible = true
 }
 </script>
 
@@ -156,6 +214,15 @@ const handleUpdateTreeSort = async () => {
     margin-top: 20px;
     padding: 20px;
     background-color: #fff;
+
+    .custom-tree-node {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      padding-right: 8px;
+    }
 
     .update-button {
       padding-top: 20px;

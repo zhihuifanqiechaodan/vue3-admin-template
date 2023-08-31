@@ -38,5 +38,17 @@ export default {
       method: 'post',
       data
     })
+  },
+  /**
+   * @method addMenuUpdate
+   * @param {*} data
+   * @returns
+   */
+  addMenuUpdate: (data) => {
+    return request({
+      url: '/menu/update',
+      method: 'post',
+      data
+    })
   }
 }

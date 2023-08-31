@@ -111,6 +111,10 @@ export function convertToTree(menuList, parentId = 0) {
           route.children = children
         }
 
+        if (menuItem.type === 0 && !children.length) {
+          route.hidden = true
+        }
+
         route && routes.push(route)
       }
     }

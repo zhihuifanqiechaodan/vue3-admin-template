@@ -68,6 +68,11 @@ router.beforeEach(async (to, from, next) => {
 
           next({ ...to, replace: true })
         } catch (error) {
+          console.log(
+            '🚀 ~ file: permission.js:77 ~ router.beforeEach ~ error:',
+            error
+          )
+
           await userStore.resetToken()
 
           ElMessage.error(error || 'Has Error')

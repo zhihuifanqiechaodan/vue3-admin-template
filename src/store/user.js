@@ -3,13 +3,11 @@ import { setCookieItem, getCookieItem, removeCookieItem } from '@/utils/storage'
 import { resetRouter } from '@/router/index'
 import { useTagsViewStore } from '@/store/tagsView'
 
-const userInfo = getCookieItem('userInfo')
-
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
-      token: getCookieItem('token') || '',
-      userInfo: userInfo ? JSON.parse(userInfo) : null
+      token: getCookieItem('token'),
+      userInfo: getCookieItem('userInfo')
     }
   },
   actions: {
@@ -21,7 +19,7 @@ export const useUserStore = defineStore('user', {
     setUserInfo({ userInfo }) {
       this.userInfo = userInfo
 
-      setCookieItem('userInfo', JSON.stringify(userInfo))
+      setCookieItem('userInfo', userInfo)
     },
     logout() {
       const tagsViewStore = useTagsViewStore()

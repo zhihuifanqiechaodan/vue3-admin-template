@@ -48,6 +48,24 @@
         <el-space fill>
           <el-alert type="info" show-icon :closable="false">
             <p>
+              用于控制目录或菜单是否认证，不认证的话任何用户将返回当前目录或菜单
+            </p>
+          </el-alert>
+          <el-form-item label="isAuth">
+            <el-radio-group v-model="menuFormComputed.isAuth">
+              <el-radio
+                v-for="item in isAuthTypeList"
+                :key="item.label"
+                :label="item.label"
+                border
+                >{{ item.name }}</el-radio
+              >
+            </el-radio-group>
+          </el-form-item>
+        </el-space>
+        <el-space fill>
+          <el-alert type="info" show-icon :closable="false">
+            <p>
               当设置 true 的时候该路由不会在侧边栏出现
               如401，login等页面，或者如一些编辑页面/edit/1
             </p>
@@ -234,6 +252,11 @@ const menuFormRules = {
 const menuTypeList = [
   { label: 0, name: '目录' },
   { label: 1, name: '菜单' }
+]
+
+const isAuthTypeList = [
+  { label: true, name: '认证' },
+  { label: false, name: '不认证' }
 ]
 
 const menuHiddenTypeList = [

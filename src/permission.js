@@ -8,6 +8,7 @@ import { getCookieItem } from './utils/storage'
 import getPageTitle from './utils/get-page-title'
 import { getUserMenuList } from '@/api/user'
 import menuApi from '@/api/menu'
+import { findItemWithPath } from './utils'
 
 NProgress.configure({ showSpinner: false })
 
@@ -30,10 +31,14 @@ router.beforeEach(async (to, from, next) => {
 
       NProgress.done()
     } else {
-      const hasRoutes = permissionStore.addRoutes.length
+      const addRoutes = permissionStore.addRoutes
 
-      if (hasRoutes) {
-        next()
+      if (addRoutes.length) {
+        if (to.path === '/') {
+          next(findItemWithPath(addRoutes))
+        } else {
+          next()
+        }
 
         NProgress.done()
       } else {
@@ -50,7 +55,8 @@ router.beforeEach(async (to, from, next) => {
               noCache: true,
               affix: false,
               breadcrumb: true,
-              activeMenu: ''
+              activeMenu: '',
+              isAuth: true
             })
 
             let { menuList: newMenuList } = await getUserMenuList()

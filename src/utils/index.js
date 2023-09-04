@@ -13,3 +13,19 @@ export const menuListSort = (menuList) => {
 
   return sortedList
 }
+
+export const findItemWithPath = (data) => {
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i]
+
+    if (item.type === 1) {
+      return item.path
+    } else if (item.children && item.children.length > 0) {
+      const foundPath = findItemWithPath(item.children)
+
+      if (foundPath) {
+        return item.path + '/' + foundPath
+      }
+    }
+  }
+}

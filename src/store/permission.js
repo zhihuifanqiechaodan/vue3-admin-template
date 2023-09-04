@@ -5,7 +5,6 @@ import {
   defaultLayoutRoute,
   layoutRoutes
 } from '@/router'
-import { v4 as uuidv4 } from 'uuid'
 import { menuListSort } from '@/utils/index'
 
 /**
@@ -24,19 +23,20 @@ export function convertToTree(menuList, parentId = 0) {
         if (menuItem.type === 0) {
           if (layoutRoutes.find((item) => item.layout === menuItem.layout)) {
             route = {
-              path: '/',
+              path: `/${menuItem.cataloguePath}`,
               component: layoutRoutes.find(
                 (item) => item.layout === menuItem.layout
               ).component,
               hidden: menuItem.hidden,
               alwaysShow: menuItem.alwaysShow,
               redirect: defaultLayoutRoute.redirect,
-              name: uuidv4(),
+              name: menuItem.cataloguePath,
               meta: {
                 title: menuItem.title,
                 icon: menuItem.icon
               },
-              sortIndex: menuItem.sortIndex
+              sortIndex: menuItem.sortIndex,
+              type: menuItem.type
             }
           } else {
             console.log(
@@ -48,18 +48,18 @@ export function convertToTree(menuList, parentId = 0) {
           if (asyncRoutes.find((item) => item.path === menuItem.path)) {
             if (menuItem.parentId === 0) {
               route = {
-                path: '/',
+                path: `/${menuItem.cataloguePath}`,
                 component: defaultLayoutRoute.component,
                 hidden: false,
                 alwaysShow: false,
                 redirect: defaultLayoutRoute.redirect,
-                name: uuidv4(),
+                name: menuItem.cataloguePath,
                 children: [
                   {
                     path: menuItem.path,
-                    component: asyncRoutes.find(
-                      (item) => item.path === menuItem.path
-                    ).component,
+                    component:
+                      asyncRoutes.find((item) => item.path === menuItem.path)
+                        ?.component || '',
                     hidden: menuItem.hidden,
                     name: asyncRoutes.find(
                       (item) => item.path === menuItem.path
@@ -72,10 +72,12 @@ export function convertToTree(menuList, parentId = 0) {
                       breadcrumb: menuItem.breadcrumb,
                       activeMenu: menuItem.activeMenu
                     },
-                    sortIndex: menuItem.sortIndex
+                    sortIndex: menuItem.sortIndex,
+                    type: menuItem.type
                   }
                 ],
-                sortIndex: menuItem.sortIndex
+                sortIndex: menuItem.sortIndex,
+                type: 0
               }
             } else {
               route = {
@@ -94,7 +96,8 @@ export function convertToTree(menuList, parentId = 0) {
                   breadcrumb: menuItem.breadcrumb,
                   activeMenu: menuItem.activeMenu
                 },
-                sortIndex: menuItem.sortIndex
+                sortIndex: menuItem.sortIndex,
+                type: menuItem.type
               }
             }
           } else {
@@ -111,8 +114,10 @@ export function convertToTree(menuList, parentId = 0) {
           route.children = children
         }
 
+        // 如果为目录且没有子菜单，则总是展示目录，当然也可以隐藏该目录
         if (menuItem.type === 0 && !children.length) {
-          route.hidden = true
+          route.alwaysShow = true
+          // route.hidden = true
         }
 
         route && routes.push(route)

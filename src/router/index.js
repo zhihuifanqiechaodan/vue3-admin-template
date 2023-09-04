@@ -65,30 +65,6 @@ export const layoutRoutes = [defaultLayoutRoute]
  * 所有角色都可以访问
  */
 export const constantRoutes = [
-  // 由于是动态添加的动态路由，配合路由权限的设计思路，放置一个访问/路径自动重定向的路由，防止访问/显示空白页
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/dashboard.vue'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
   {
     path: '/redirect',
     component: Layout,
@@ -116,6 +92,15 @@ export const constantRoutes = [
  * 有权限要求的页面
  */
 export const asyncRoutes = [
+  {
+    path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
+    name: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template'
+  },
+  {
+    path: 'dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/dashboard/dashboard.vue')
+  },
   {
     path: 'clipboard',
     name: 'clipboard',

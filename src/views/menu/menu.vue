@@ -57,6 +57,7 @@ import { ElMessageBox } from 'element-plus'
 const defaultMenuForm = {
   type: 0,
   layout: defaultLayoutRoute.layout,
+  isAuth: true,
   hidden: false,
   alwaysShow: false,
   title: '',

@@ -49,17 +49,6 @@ import { usePermissionStore } from '@/store/permission'
  */
 
 /**
- * 默认布局方案
- */
-export const defaultLayoutRoute = {
-  layout: 'layout',
-  component: Layout,
-  redirect: 'noRedirect'
-}
-
-export const layoutRoutes = [defaultLayoutRoute]
-
-/**
  * 代表那些不需要动态判断权限的路由，如登录页、404、等通用页面。
  * 没有权限要求的页面
  * 所有角色都可以访问
@@ -93,6 +82,26 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
+    path: 'menu',
+    name: 'menu',
+    component: () => import('@/views/system/menu/menu.vue'),
+    buttonPermissions: [
+      {
+        label: '创建',
+        value: 0
+      },
+      {
+        label: '创建1',
+        value: 1
+      }
+    ]
+  },
+  {
+    path: 'role',
+    name: 'role',
+    component: () => import('@/views/system/role/role.vue')
+  },
+  {
     path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
     name: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template'
   },
@@ -104,12 +113,17 @@ export const asyncRoutes = [
   {
     path: 'clipboard',
     name: 'clipboard',
-    component: () => import('@/views/clipboard/clipboard.vue')
-  },
-  {
-    path: 'menu',
-    name: 'menu',
-    component: () => import('@/views/menu/menu.vue')
+    component: () => import('@/views/clipboard/clipboard.vue'),
+    buttonPermissions: [
+      {
+        label: '创建',
+        value: 0
+      },
+      {
+        label: '删除',
+        value: 1
+      }
+    ]
   },
   {
     path: 'markdown',
@@ -147,6 +161,34 @@ export const asyncRoutes = [
     component: () => import('@/views/qrcode/qrcode.vue')
   }
 ]
+
+/**
+ * 超级管理员第一次登录，默认创建菜单以便登录后有页面跳转并且添加页面
+ */
+export const defaultCreateMenuInfo = {
+  type: 1,
+  hidden: false,
+  title: 'menu',
+  path: asyncRoutes[0].path,
+  icon: 'menu',
+  cache: true,
+  affix: false,
+  breadcrumb: true,
+  activeMenu: '',
+  auth: true,
+  buttonPermissions: asyncRoutes[0].buttonPermissions || []
+}
+
+/**
+ * 默认布局方案
+ */
+export const defaultLayoutRoute = {
+  layout: 'layout',
+  component: Layout,
+  redirect: 'noRedirect'
+}
+
+export const layoutRoutes = [defaultLayoutRoute]
 
 const router = createRouter({
   history: createWebHashHistory(),

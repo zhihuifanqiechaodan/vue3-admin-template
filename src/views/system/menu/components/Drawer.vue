@@ -14,7 +14,7 @@
             </p>
           </el-alert>
           <el-form-item label="type">
-            <el-radio-group v-model="menuFormComputed.type">
+            <el-radio-group v-model="menuFormComputed.status">
               <el-radio
                 v-for="item in menuTypeList"
                 :disabled="props.isEdit"
@@ -51,10 +51,10 @@
               用于控制目录或菜单是否认证，不认证的话任何用户将返回当前目录或菜单
             </p>
           </el-alert>
-          <el-form-item label="isAuth">
-            <el-radio-group v-model="menuFormComputed.isAuth">
+          <el-form-item label="auth">
+            <el-radio-group v-model="menuFormComputed.auth">
               <el-radio
-                v-for="item in isAuthTypeList"
+                v-for="item in authTypeList"
                 :key="item.label"
                 :label="item.label"
                 border
@@ -91,14 +91,14 @@
             <p>只有一个时，会将那个子路由当做根路由显示在侧边栏--如引导页面</p>
             <p>若你想不管路由下面的 children 声明的个数都显示你的根路由</p>
             <p>
-              你可以设置 alwaysShow:
+              你可以设置 show:
               true，这样它就会忽略之前定义的规则，一直显示根路由
             </p>
           </el-alert>
-          <el-form-item label="alwaysShow">
-            <el-radio-group v-model="menuFormComputed.alwaysShow">
+          <el-form-item label="show">
+            <el-radio-group v-model="menuFormComputed.show">
               <el-radio
-                v-for="item in menuAlwaysShowTypeList"
+                v-for="item in menushowTypeList"
                 :key="item.label"
                 :label="item.label"
                 border
@@ -132,6 +132,25 @@
             </el-select>
           </el-form-item>
         </el-space>
+        <el-space
+          v-if="
+            menuFormComputed.type === 1 &&
+            menuFormComputed.path &&
+            pageButtonPermissions.length
+          "
+          fill
+        >
+          <el-alert type="info" show-icon :closable="false">
+            <p>展示当前页面按钮权限</p>
+          </el-alert>
+          <el-form-item label="permissions">
+            <div class="page-button-permissions">
+              <el-tag v-for="item in pageButtonPermissions" :key="item.id">{{
+                item.label
+              }}</el-tag>
+            </div>
+          </el-form-item>
+        </el-space>
 
         <el-form-item label="icon" prop="icon">
           <el-select
@@ -150,10 +169,10 @@
           <el-alert type="info" show-icon :closable="false">
             <p>如果设置为true，则不会被 keep-alive 缓存(默认 true)</p>
           </el-alert>
-          <el-form-item label="noCache">
-            <el-radio-group v-model="menuFormComputed.noCache">
+          <el-form-item label="cache">
+            <el-radio-group v-model="menuFormComputed.cache">
               <el-radio
-                v-for="item in noCacheTypeList"
+                v-for="item in cacheTypeList"
                 :key="item.label"
                 :label="item.label"
                 border
@@ -239,8 +258,9 @@
 import { computed, reactive, ref, toRefs } from 'vue'
 import svgIds from 'virtual:svg-icons-names'
 import { asyncRoutes, layoutRoutes } from '@/router/index'
-import menuApi from '@/api/menu'
+import { addSystemMenuAddMenu } from '@/api/system'
 import { ElMessageBox } from 'element-plus'
+import { pick as _pick } from 'lodash-es'
 
 const menuFormRules = {
   title: [{ required: true, message: 'Please input  title', trigger: 'blur' }],
@@ -254,24 +274,24 @@ const menuTypeList = [
   { label: 1, name: '菜单' }
 ]
 
-const isAuthTypeList = [
+const authTypeList = [
   { label: true, name: '认证' },
   { label: false, name: '不认证' }
 ]
 
 const menuHiddenTypeList = [
-  { label: false, name: '显示' },
-  { label: true, name: '隐藏' }
+  { label: true, name: '隐藏' },
+  { label: false, name: '显示' }
 ]
 
-const menuAlwaysShowTypeList = [
+const menushowTypeList = [
   { label: true, name: '显示' },
   { label: false, name: '隐藏' }
 ]
 
-const noCacheTypeList = [
-  { label: true, name: '不缓存' },
-  { label: false, name: '缓存' }
+const cacheTypeList = [
+  { label: true, name: '缓存' },
+  { label: false, name: '不缓存' }
 ]
 
 const breadcrumbTypeList = [
@@ -325,6 +345,12 @@ const menuFormComputed = computed({
   set: (value) => emits('update:menuForm', value)
 })
 
+const pageButtonPermissions = computed(
+  () =>
+    asyncRoutes.find((item) => item.path === props.menuForm.path)
+      ?.buttonPermissions || []
+)
+
 const submitForm = async (menuFormRef) => {
   if (!menuFormRef) return
 
@@ -338,12 +364,45 @@ const submitForm = async (menuFormRef) => {
         .then(async () => {
           state.loading = true
 
+          const data = props.menuForm
+
+          if (pageButtonPermissions.value.length) {
+            data.buttonPermissions = pageButtonPermissions.value
+          }
+
           try {
             if (props.isEdit) {
-              await menuApi.addMenuUpdate(props.menuForm)
+              // await menuApi.addMenuUpdate(data)
               // 更新菜单接口
             } else {
-              await menuApi.addMenuCreate(props.menuForm)
+              let propsToCompare
+
+              if (props.menuForm.type === 0) {
+                propsToCompare = [
+                  'type',
+                  'layout',
+                  'auth',
+                  'hidden',
+                  'show',
+                  'title',
+                  'icon'
+                ]
+              } else if (props.menuForm.type === 1) {
+                propsToCompare = [
+                  'type',
+                  'auth',
+                  'hidden',
+                  'title',
+                  'path',
+                  'buttonPermissions',
+                  'icon',
+                  'cache',
+                  'affix',
+                  'breadcrumb',
+                  'activeMenu'
+                ]
+              }
+              await addSystemMenuAddMenu(_pick(data, propsToCompare))
             }
 
             location.reload()
@@ -367,4 +426,12 @@ const submitForm = async (menuFormRef) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.drawer-wrapper {
+  .page-button-permissions {
+    .el-tag {
+      margin-right: 5px;
+    }
+  }
+}
+</style>

@@ -53,6 +53,8 @@ function checkNeed() {
 
 if (checkNeed()) {
   app.config.errorHandler = (err, vm, info) => {
+    console.log('🚀 ~ file: main.js:56 ~ err, vm, info:', err, vm, info)
+
     // 处理错误
     // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
     nextTick(() => {

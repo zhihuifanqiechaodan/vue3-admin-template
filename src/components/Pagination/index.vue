@@ -1,12 +1,12 @@
 <template>
   <el-pagination
-    v-if="props.total > 0"
     v-model:page-size="pageSize"
     v-model:current-page="currentPage"
-    :hide-on-single-page="hideOnSinglePage"
-    :background="props.background"
-    :layout="props.layout"
     :total="props.total"
+    :page-sizes="props.pageSizes"
+    :layout="props.layout"
+    :background="props.background"
+    :hide-on-single-page="props.hideOnSinglePage"
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
   />
@@ -30,49 +30,53 @@ const props = defineProps({
       return [10, 20, 30, 50]
     }
   },
-  page: {
+  pageSize: {
     type: Number,
     default: 1
   },
-  limit: {
+  currentPage: {
     type: Number,
     default: 20
   },
   layout: {
     type: String,
     default: 'total, sizes, prev, pager, next, jumper'
+  },
+  hideOnSinglePage: {
+    type: Boolean,
+    default: true
   }
 })
 
-const emits = defineEmits(['pagination', 'update:page', 'update:limit'])
+const emits = defineEmits([
+  'pagination',
+  'update:currentPage',
+  'update:pageSize'
+])
 
 const currentPage = computed({
   get() {
-    return props.page
+    return props.currentPage
   },
-  set(val) {
-    emits('update:page', val)
+  set(value) {
+    emits('update:currentPage', value)
   }
 })
 
 const pageSize = computed({
   get() {
-    return props.limit
+    return props.pageSize
   },
-  set(val) {
-    emits('update:limit', val)
+  set(value) {
+    emits('update:pageSize', value)
   }
 })
 
-const hideOnSinglePage = computed(() => {
-  return props.total / props.limit > 1
-})
-
-const handleSizeChange = (limit) => {
-  emits('pagination', { page: props.currentPage, limit })
+const handleSizeChange = (pageSize) => {
+  emits('pagination', { currentPage: props.currentPage, pageSize })
 }
-const handleCurrentChange = (page) => {
-  emits('pagination', { page, limit: props.limit })
+const handleCurrentChange = (currentPage) => {
+  emits('pagination', { currentPage, pageSize: props.pageSize })
 }
 </script>
 

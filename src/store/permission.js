@@ -28,7 +28,7 @@ export function convertToTree(menuList, parentId = 0) {
                 (item) => item.layout === menuItem.layout
               ).component,
               hidden: menuItem.hidden,
-              alwaysShow: menuItem.alwaysShow,
+              alwaysShow: menuItem.show,
               redirect: defaultLayoutRoute.redirect,
               name: menuItem.cataloguePath,
               meta: {
@@ -67,10 +67,14 @@ export function convertToTree(menuList, parentId = 0) {
                     meta: {
                       title: menuItem.title,
                       icon: menuItem.icon,
-                      noCache: menuItem.noCache,
+                      noCache: menuItem.cache,
                       affix: menuItem.affix,
                       breadcrumb: menuItem.breadcrumb,
-                      activeMenu: menuItem.activeMenu
+                      activeMenu: menuItem.activeMenu,
+                      buttonPermissions: menuItem.buttonPermissions.map(
+                        (buttonPermissionsItem) =>
+                          buttonPermissionsItem.buttonId
+                      )
                     },
                     sortIndex: menuItem.sortIndex,
                     type: menuItem.type
@@ -91,10 +95,13 @@ export function convertToTree(menuList, parentId = 0) {
                 meta: {
                   title: menuItem.title,
                   icon: menuItem.icon,
-                  noCache: menuItem.noCache,
+                  cache: menuItem.cache,
                   affix: menuItem.affix,
                   breadcrumb: menuItem.breadcrumb,
-                  activeMenu: menuItem.activeMenu
+                  activeMenu: menuItem.activeMenu,
+                  buttonPermissions: menuItem.buttonPermissions.map(
+                    (buttonPermissionsItem) => buttonPermissionsItem.buttonId
+                  )
                 },
                 sortIndex: menuItem.sortIndex,
                 type: menuItem.type
@@ -143,7 +150,22 @@ export const usePermissionStore = defineStore('permission', {
      */
     generateRoutes({ menuList }) {
       return new Promise((resolve) => {
-        const accessedRoutes = convertToTree(menuList)
+        menuList.sort((a, b) => a.type - b.type)
+
+        const menuOrCatalogueList = menuList.filter((item) => item.type !== 2)
+
+        const buttonList = menuList.filter((item) => item.type === 2)
+
+        menuOrCatalogueList.forEach((menuOrCatalogueListItem) => {
+          if (menuOrCatalogueListItem.type === 1) {
+            menuOrCatalogueListItem.buttonPermissions = buttonList.filter(
+              (buttonListItem) =>
+                buttonListItem.parentId === menuOrCatalogueListItem.id
+            )
+          }
+        })
+
+        const accessedRoutes = convertToTree(menuOrCatalogueList)
 
         const sortSccessedRoutes = menuListSort(accessedRoutes)
 

@@ -1,4 +1,4 @@
-import router from './router'
+import router, { defaultCreateMenuInfo } from './router'
 import { useUserStore } from '@/store/user'
 import { usePermissionStore } from '@/store/permission'
 import { ElMessage } from 'element-plus'
@@ -6,8 +6,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { getCookieItem } from './utils/storage'
 import getPageTitle from './utils/get-page-title'
-import { getUserMenuList } from '@/api/user'
-import menuApi from '@/api/menu'
+import { addSystemMenuGetMenuList, addSystemMenuAddMenu } from '@/api/system'
 import { findItemWithPath } from './utils'
 
 NProgress.configure({ showSpinner: false })
@@ -43,25 +42,12 @@ router.beforeEach(async (to, from, next) => {
         NProgress.done()
       } else {
         try {
-          let { menuList } = await getUserMenuList()
+          let menuList = await addSystemMenuGetMenuList()
 
           if (!menuList.length) {
-            await menuApi.addMenuCreate({
-              type: 1,
-              hidden: false,
-              title: '菜单',
-              path: 'menu',
-              icon: 'menu',
-              noCache: true,
-              affix: false,
-              breadcrumb: true,
-              activeMenu: '',
-              isAuth: true
-            })
+            await addSystemMenuAddMenu(defaultCreateMenuInfo)
 
-            let { menuList: newMenuList } = await getUserMenuList()
-
-            menuList = newMenuList
+            menuList = await addSystemMenuGetMenuList()
           }
 
           const accessRoutes = await permissionStore.generateRoutes({

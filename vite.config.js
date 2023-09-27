@@ -15,26 +15,26 @@ export default (mode) => {
   return defineConfig({
     base: '/vue3-admin-template/',
     // base: './',
-    // server: {
-    //   open: true,
-    //   host: '0.0.0.0',
-    //   // port: 9527,
-    //   proxy: {
-    //     '/api': {
-    //       // target: 'https://xxxx', // 开发环境
-    //       target: 'https://xxxx', // 测试环境
-    //       // target: 'https://xxxx', // 预发环境
-    //       // target: 'https://xxxx', // 生产环境
-    //       changeOrigin: true,
-    //       rewrite: (path) => path.replace(/^\/api/, '')
-    //     },
-    //     '/gitee': {
-    //       target: 'https://raw.githubusercontent.com/zhihuifanqiechaodan',
-    //       changeOrigin: true,
-    //       rewrite: (path) => path.replace(/^\/gitee/, '')
-    //     }
-    //   }
-    // },
+    server: {
+      open: true,
+      host: '0.0.0.0',
+      port: 9527,
+      proxy: {
+        '/api': {
+          // target: 'https://xxxx', // 开发环境
+          target: 'http://192.168.0.78:8080', // 测试环境
+          // target: 'https://xxxx', // 预发环境
+          // target: 'https://xxxx', // 生产环境
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '')
+        },
+        '/gitee': {
+          target: 'https://raw.githubusercontent.com/zhihuifanqiechaodan',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/gitee/, '')
+        }
+      }
+    },
     resolve: {
       alias: {
         '@': resolve('src')

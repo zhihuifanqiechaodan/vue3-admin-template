@@ -49,7 +49,7 @@
 import { onMounted, reactive, toRefs } from 'vue'
 import Drawer from './components/Drawer.vue'
 import { cloneDeep as _cloneDeep } from 'lodash-es'
-import menuApi from '@/api/menu'
+import { addSystemMenuGetAllMenuList } from '@/api/system'
 import { defaultLayoutRoute } from '@/router'
 import { menuListSort } from '@/utils/index'
 import { ElMessageBox } from 'element-plus'
@@ -57,16 +57,17 @@ import { ElMessageBox } from 'element-plus'
 const defaultMenuForm = {
   type: 0,
   layout: defaultLayoutRoute.layout,
-  isAuth: true,
+  auth: true,
   hidden: false,
-  alwaysShow: false,
+  show: false,
   title: '',
   path: '',
   icon: 'menu',
-  noCache: true,
+  cache: false,
   affix: false,
   breadcrumb: true,
-  activeMenu: ''
+  activeMenu: '',
+  buttonPermissions: []
 }
 
 const state = reactive({
@@ -97,7 +98,7 @@ const initData = async () => {
   state.loading = true
 
   try {
-    const { menuList } = await menuApi.getMenuList()
+    const menuList = await addSystemMenuGetAllMenuList()
 
     state.originalMenuList = menuList
 
@@ -151,16 +152,16 @@ const convertToTree = (nodes, parentId = 0) => {
   return result
 }
 
-const flattenTree = (tree, result = []) => {
-  for (const node of tree) {
-    const { children, ...rest } = node
-    result.push(rest)
-    if (children) {
-      flattenTree(children, result)
-    }
-  }
-  return result
-}
+// const flattenTree = (tree, result = []) => {
+//   for (const node of tree) {
+//     const { children, ...rest } = node
+//     result.push(rest)
+//     if (children) {
+//       flattenTree(children, result)
+//     }
+//   }
+//   return result
+// }
 
 const updateMenuSortIndex = (menuList) => {
   menuList.forEach((item, index) => {
@@ -184,9 +185,9 @@ const handleUpdateTreeSort = async () => {
       updateMenuSortIndex(state.menuList)
 
       try {
-        await menuApi.addMenuUpdateSort({
-          menuList: flattenTree(state.menuList)
-        })
+        // await menuApi.addMenuUpdateSort({
+        //   menuList: flattenTree(state.menuList)
+        // })
 
         location.reload()
       } catch (error) {

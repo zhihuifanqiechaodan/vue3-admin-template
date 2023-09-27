@@ -20,6 +20,7 @@ request.interceptors.request.use(
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
       config.headers['authorization'] = userStore.token
+      config.headers['userId'] = userStore.userInfo.id
     }
     return config
   },
@@ -43,11 +44,11 @@ request.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   (response) => {
-    const { code, data, message } = response.data
+    const { code, data, msg } = response.data
     // if the custom code is not 20000, it is judged as an error.
-    if (code !== 20000) {
+    if (code !== 200) {
       ElMessage({
-        message: message || 'Error',
+        msg: msg || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
@@ -70,7 +71,7 @@ request.interceptors.response.use(
           })
         })
       } else {
-        return Promise.reject(new Error(message || 'Error'))
+        return Promise.reject(new Error(msg || 'Error'))
       }
     } else {
       return data
@@ -78,6 +79,7 @@ request.interceptors.response.use(
   },
   (error) => {
     console.log('🚀 ~ file: request.js:80 ~ error:', error)
+
     ElMessage({
       message: error.message,
       type: 'error',
@@ -112,7 +114,7 @@ requestA.interceptors.response.use(
       return data
     } else {
       ElMessage({
-        message: statusText || 'Error',
+        msg: statusText || 'Error',
         type: 'error',
         duration: 5 * 1000
       })

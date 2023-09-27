@@ -70,7 +70,7 @@
 import { nextTick, onMounted, reactive, toRefs } from 'vue'
 import { useUserStore } from '@/store/user'
 import { useRouter, useRoute } from 'vue-router'
-import { addUserLogin } from '@/api/user'
+import { addSystemLogin } from '@/api/system'
 
 const router = useRouter()
 const route = useRoute()
@@ -96,8 +96,8 @@ const state = reactive({
   refUsername: null,
   refPassword: null,
   loginForm: {
-    username: 'zhihuifanqiechaodan',
-    password: 'admin!QAZ2wsx'
+    username: 'admin',
+    password: '123456'
   },
   loginRules: {
     username: [
@@ -150,11 +150,11 @@ const handleLogin = () => {
 
         const userStore = useUserStore()
 
-        const { token, userInfo } = await addUserLogin(state.loginForm)
+        const { token, id, username } = await addSystemLogin(state.loginForm)
 
         userStore.setToken({ token })
 
-        userStore.setUserInfo({ userInfo })
+        userStore.setUserInfo({ userInfo: { id, username } })
 
         state.loading = false
 

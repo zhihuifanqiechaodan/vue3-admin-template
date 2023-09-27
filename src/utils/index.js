@@ -1,7 +1,12 @@
 import { cloneDeep as _cloneDeep } from 'lodash-es'
 
-export const menuListSort = (menuList) => {
-  const sortedList = _cloneDeep(menuList)
+/**
+ * @method menuListSort
+ * @param {*} data
+ * @returns
+ */
+export const menuListSort = (data) => {
+  const sortedList = _cloneDeep(data)
 
   sortedList.sort((a, b) => b.sortIndex - a.sortIndex)
 
@@ -14,6 +19,11 @@ export const menuListSort = (menuList) => {
   return sortedList
 }
 
+/**
+ * @method findItemWithPath
+ * @param {*} data
+ * @returns
+ */
 export const findItemWithPath = (data) => {
   for (let i = 0; i < data.length; i++) {
     const item = data[i]
@@ -28,4 +38,26 @@ export const findItemWithPath = (data) => {
       }
     }
   }
+}
+
+/**
+ * @method convertToTree
+ * @param {*} nodes
+ * @param {*} parentId
+ * @returns
+ */
+export const convertToTree = (nodes, parentId = 0) => {
+  const result = []
+
+  for (const node of nodes) {
+    if (node.parentId === parentId) {
+      const newNode = { ...node }
+      const children = convertToTree(nodes, node.id)
+      if (children.length > 0) {
+        newNode.children = children
+      }
+      result.push(newNode)
+    }
+  }
+  return result
 }

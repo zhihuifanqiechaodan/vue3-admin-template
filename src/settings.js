@@ -7,7 +7,7 @@ export default {
   // 布局方式 Classic 经典布局 Default 默认布局 Streamline 精简布局
   layoutMode: 'Default',
   // 默认全局尺寸, 可选值 large / default /small
-  size: 'large',
+  size: 'default',
   // 全局设置状态
   showSettings: false,
   // 是否显示Logo

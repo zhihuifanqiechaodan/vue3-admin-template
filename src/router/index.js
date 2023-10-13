@@ -159,6 +159,11 @@ export const asyncRoutes = [
     path: 'qrcode',
     name: 'qrcode',
     component: () => import('@/views/qrcode/qrcode.vue')
+  },
+  {
+    path: 'user',
+    name: 'user',
+    component: () => import('@/views/system/user/user.vue')
   }
 ]
 

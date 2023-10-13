@@ -1,4 +1,4 @@
-import router, { defaultCreateMenuInfo } from './router'
+import router, { defaultCreateMenuInfo, defaultLayoutRoute } from './router'
 import { useUserStore } from '@/store/user'
 import { usePermissionStore } from '@/store/permission'
 import { ElMessage } from 'element-plus'
@@ -33,11 +33,7 @@ router.beforeEach(async (to, from, next) => {
       const addRoutes = permissionStore.addRoutes
 
       if (addRoutes.length) {
-        if (to.path === '/') {
-          next(findItemWithPath(addRoutes))
-        } else {
-          next()
-        }
+        next()
 
         NProgress.done()
       } else {
@@ -54,10 +50,15 @@ router.beforeEach(async (to, from, next) => {
             menuList
           })
 
+          accessRoutes.unshift({
+            path: '/',
+            component: defaultLayoutRoute.component,
+            redirect: findItemWithPath(accessRoutes)
+          })
+
           accessRoutes.forEach((route) => {
             router.addRoute(route)
           })
-
           next({ ...to, replace: true })
         } catch (error) {
           console.log(

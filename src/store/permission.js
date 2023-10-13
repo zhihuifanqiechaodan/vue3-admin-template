@@ -35,7 +35,7 @@ export function convertToTree(menuList, parentId = 0) {
                 title: menuItem.title,
                 icon: menuItem.icon
               },
-              sortIndex: menuItem.sortIndex,
+              sort: menuItem.sort,
               type: menuItem.type
             }
           } else {
@@ -76,11 +76,11 @@ export function convertToTree(menuList, parentId = 0) {
                           buttonPermissionsItem.buttonId
                       )
                     },
-                    sortIndex: menuItem.sortIndex,
+                    sort: menuItem.sort,
                     type: menuItem.type
                   }
                 ],
-                sortIndex: menuItem.sortIndex,
+                sort: menuItem.sort,
                 type: 0
               }
             } else {
@@ -103,7 +103,7 @@ export function convertToTree(menuList, parentId = 0) {
                     (buttonPermissionsItem) => buttonPermissionsItem.buttonId
                   )
                 },
-                sortIndex: menuItem.sortIndex,
+                sort: menuItem.sort,
                 type: menuItem.type
               }
             }
@@ -150,8 +150,6 @@ export const usePermissionStore = defineStore('permission', {
      */
     generateRoutes({ menuList }) {
       return new Promise((resolve) => {
-        menuList.sort((a, b) => a.type - b.type)
-
         const menuOrCatalogueList = menuList.filter((item) => item.type !== 2)
 
         const buttonList = menuList.filter((item) => item.type === 2)

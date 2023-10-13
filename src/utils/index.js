@@ -8,7 +8,7 @@ import { cloneDeep as _cloneDeep } from 'lodash-es'
 export const menuListSort = (data) => {
   const sortedList = _cloneDeep(data)
 
-  sortedList.sort((a, b) => b.sortIndex - a.sortIndex)
+  sortedList.sort((a, b) => b.sort - a.sort)
 
   sortedList.forEach((item) => {
     if (item.children) {
@@ -52,10 +52,11 @@ export const convertToTree = (nodes, parentId = 0) => {
   for (const node of nodes) {
     if (node.parentId === parentId) {
       const newNode = { ...node }
+
       const children = convertToTree(nodes, node.id)
-      if (children.length > 0) {
-        newNode.children = children
-      }
+
+      newNode.children = children
+
       result.push(newNode)
     }
   }

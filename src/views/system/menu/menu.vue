@@ -1,33 +1,15 @@
 <template>
   <div v-loading="loading" class="menu-container">
-    <el-button @click="handleMenuCreate">创建</el-button>
-
-    <div class="tree-wrapper">
-      <el-tree
-        @node-drop="nodeDrop"
-        :allow-drop="allowDrop"
-        :data="menuList"
-        draggable
-        default-expand-all
-        node-key="id"
-        :props="{
-          children: 'children',
-          label: 'title'
-        }"
-      >
-        <template #default="{ node, data }">
-          <span class="custom-tree-node">
-            <span>{{ node.label }}{{ data.type === 0 ? '【目录】' : '' }}</span>
-            <span>
-              <a style="margin-left: 8px" @click="handleMenuEdit(node, data)">
-                编辑
-              </a>
-            </span>
-          </span>
-        </template>
-      </el-tree>
-      <div class="update-button">
+    <div class="header-wrapper">
+      <div class="header-item">
+        <el-button @click="handleMenuCreate" type="primary">添加</el-button>
+      </div>
+      <div class="header-item">
+        <el-checkbox v-model="sortEnabled" label="编辑排序" border />
+      </div>
+      <div class="header-item">
         <el-button
+          :disabled="!sortEnabled"
           :loading="updateSortLoading"
           @click="handleUpdateTreeSort"
           type="primary"
@@ -35,10 +17,13 @@
         </el-button>
       </div>
     </div>
+    <div class="menu-nested-draggable">
+      <MenuNestedDraggable :list="menuList" :enabled="sortEnabled" />
+    </div>
     <Drawer
       :isEdit="isEdit"
       :menuForm="menuForm"
-      :originalMenuList="originalMenuList"
+      :menuList="originalMenuList"
       v-model:menuDrawerVisible="menuDrawerVisible"
       @initData="initData"
     />
@@ -46,13 +31,17 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, toRefs } from 'vue'
+import { onMounted, reactive, toRefs, provide } from 'vue'
 import Drawer from './components/Drawer.vue'
 import { cloneDeep as _cloneDeep } from 'lodash-es'
-import { addSystemMenuGetAllMenuList } from '@/api/system'
+import {
+  addSystemMenuGetAllMenuList,
+  addSystemMenuMenuSort
+} from '@/api/system'
 import { defaultLayoutRoute } from '@/router'
-import { menuListSort } from '@/utils/index'
+import { menuListSort, convertToTree } from '@/utils/index'
 import { ElMessageBox } from 'element-plus'
+import MenuNestedDraggable from './components/MenuNestedDraggable.vue'
 
 const defaultMenuForm = {
   type: 0,
@@ -77,7 +66,8 @@ const state = reactive({
   menuList: [],
   loading: false,
   originalMenuList: [],
-  updateSortLoading: false
+  updateSortLoading: false,
+  sortEnabled: false
 })
 
 const {
@@ -87,7 +77,8 @@ const {
   menuList,
   loading,
   originalMenuList,
-  updateSortLoading
+  updateSortLoading,
+  sortEnabled
 } = toRefs(state)
 
 onMounted(() => {
@@ -98,11 +89,24 @@ const initData = async () => {
   state.loading = true
 
   try {
-    const menuList = await addSystemMenuGetAllMenuList()
+    let menuList = await addSystemMenuGetAllMenuList()
 
-    state.originalMenuList = menuList
+    const menuOrCatalogueList = menuList.filter((item) => item.type !== 2)
 
-    state.menuList = menuListSort(convertToTree(menuList))
+    const buttonList = menuList.filter((item) => item.type === 2)
+
+    menuOrCatalogueList.forEach((menuOrCatalogueListItem) => {
+      if (menuOrCatalogueListItem.type === 1) {
+        menuOrCatalogueListItem.buttonPermissions = buttonList.filter(
+          (buttonListItem) =>
+            buttonListItem.parentId === menuOrCatalogueListItem.id
+        )
+      }
+    })
+
+    state.originalMenuList = menuOrCatalogueList
+
+    state.menuList = menuListSort(convertToTree(menuOrCatalogueList))
   } catch (error) {
     console.log('🚀 ~ file: menu.vue:81 ~ onMounted ~ error:', error)
   }
@@ -117,61 +121,48 @@ const handleMenuCreate = () => {
   state.isEdit = false
 }
 
-const allowDrop = (draggingNode, dropNode, type) => {
-  if (draggingNode.data.type === 0 && dropNode.data.type === 1) {
-    return type !== 'inner'
-  }
-
-  if (draggingNode.data.type === 1 && dropNode.data.type === 1) {
-    return type !== 'inner'
-  }
-  return true
-}
-
-const nodeDrop = (draggingNode, dropNode, dropType) => {
-  if (dropType === 'inner') {
-    draggingNode.data.parentId = dropNode.data.id
-  } else {
-    draggingNode.data.parentId = dropNode.data.parentId
-  }
-}
-
-const convertToTree = (nodes, parentId = 0) => {
-  const result = []
-
-  for (const node of nodes) {
-    if (node.parentId === parentId) {
-      const newNode = { ...node }
-      const children = convertToTree(nodes, node.id)
-      if (children.length > 0) {
-        newNode.children = children
-      }
-      result.push(newNode)
+const flattenTree = (tree, result = []) => {
+  for (const node of tree) {
+    const { children, ...rest } = node
+    result.push(rest)
+    if (children) {
+      flattenTree(children, result)
     }
   }
   return result
 }
 
-// const flattenTree = (tree, result = []) => {
-//   for (const node of tree) {
-//     const { children, ...rest } = node
-//     result.push(rest)
-//     if (children) {
-//       flattenTree(children, result)
-//     }
-//   }
-//   return result
-// }
-
-const updateMenuSortIndex = (menuList) => {
+const updateMenuSort = (menuList) => {
   menuList.forEach((item, index) => {
-    item.sortIndex = menuList.length - 1 - index
+    item.sort = menuList.length - 1 - index
 
     if (item.children) {
-      updateMenuSortIndex(item.children)
+      updateMenuSort(item.children)
     }
   })
 }
+
+const updateMenuParentId = () => {
+  state.menuList = updateParentId(state.menuList)
+}
+
+const updateParentId = (data, parentId = 0) => {
+  const updatedData = []
+
+  for (const item of data) {
+    const updatedItem = { ...item, parentId: parentId }
+
+    if (item.children.length > 0) {
+      updatedItem.children = updateParentId(item.children, item.id)
+    }
+
+    updatedData.push(updatedItem)
+  }
+
+  return updatedData
+}
+
+provide('updateMenuParentId', updateMenuParentId)
 
 const handleUpdateTreeSort = async () => {
   ElMessageBox.confirm('更新排序后将刷新页面', 'Tips', {
@@ -182,12 +173,18 @@ const handleUpdateTreeSort = async () => {
     .then(async () => {
       state.updateSortLoading = true
 
-      updateMenuSortIndex(state.menuList)
+      updateMenuSort(state.menuList)
 
       try {
-        // await menuApi.addMenuUpdateSort({
-        //   menuList: flattenTree(state.menuList)
-        // })
+        const menuList = flattenTree(state.menuList)
+          .filter((item) => item.type !== 2)
+          .map((item) => {
+            return { menuId: item.id, parentId: item.parentId, sort: item.sort }
+          })
+
+        await addSystemMenuMenuSort({
+          sortList: menuList
+        })
 
         location.reload()
       } catch (error) {
@@ -199,36 +196,35 @@ const handleUpdateTreeSort = async () => {
     .catch(() => {})
 }
 
-const handleMenuEdit = (node, data) => {
+const handleMenuEdit = (data) => {
   state.isEdit = true
 
   state.menuForm = data
 
   state.menuDrawerVisible = true
 }
+
+provide('handleMenuEdit', handleMenuEdit)
 </script>
 
 <style lang="scss" scoped>
 .menu-container {
   margin: 20px;
+  padding: 20px;
+  background-color: #fff;
 
-  .tree-wrapper {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #fff;
+  .header-wrapper {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
 
-    .custom-tree-node {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      padding-right: 8px;
+    .header-item {
+      margin-right: 20px;
     }
+  }
 
-    .update-button {
-      padding-top: 20px;
-    }
+  .menu-nested-draggable {
+    padding: 20px 0;
   }
 }
 </style>

@@ -1,37 +1,39 @@
 <template>
   <div v-loading="loading" class="role-container">
-    <div class="table-header">
-      <el-button @click="initData" type="info">刷新</el-button>
-      <el-button @click="handleAddRole" type="primary">添加</el-button>
+    <div class="role-wrapper">
+      <div class="table-header">
+        <el-button @click="initData" type="info">刷新</el-button>
+        <el-button @click="handleAddRole" type="primary">添加</el-button>
+      </div>
+      <el-table :data="roleList" style="width: 100%" border>
+        <el-table-column prop="id" label="id" />
+        <el-table-column prop="name" label="角色名称" />
+        <el-table-column prop="status" label="状态">
+          <template #default="scope">
+            <el-tag v-if="scope.row.status" type="danger">禁用</el-tag>
+            <el-tag v-else type="success">启用</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column fixed="right" label="Operations" width="120">
+          <template #default="scope">
+            <el-button @click="handleEditRole(scope.row)" link type="primary"
+              >编辑</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
-    <el-table :data="roleList" style="width: 100%" border>
-      <el-table-column prop="id" label="id" />
-      <el-table-column prop="name" label="角色名称" />
-      <el-table-column prop="status" label="状态">
-        <template #default="scope">
-          <el-tag v-if="scope.row.status" type="danger">禁用</el-tag>
-          <el-tag v-else type="success">启用</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column fixed="right" label="Operations" width="120">
-        <template #default="scope">
-          <el-button @click="handleEditRole(scope.row)" link type="primary"
-            >编辑</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-    <Drawer
-      v-model:ruleInfo="ruleInfo"
-      v-model:drawerVisible="ruleDrawerVisible"
-      :drawerMode="ruleDrawerMode"
-      :menuList="menuList"
-    />
     <Pagination
       @pagination="handlePaginationChange"
       :total="total"
       v-model:pageSize="pageSize"
       v-model:currentPage="currentPage"
+    />
+    <Drawer
+      v-model:ruleInfo="ruleInfo"
+      v-model:drawerVisible="ruleDrawerVisible"
+      :drawerMode="ruleDrawerMode"
+      :menuList="menuList"
     />
   </div>
 </template>
@@ -40,7 +42,7 @@
 import { reactive, toRefs, onMounted } from 'vue'
 import {
   addSystemRoleGetRoleList,
-  addSystemMenuGetMenuList
+  addSystemMenuGetAllMenuList
 } from '@/api/system'
 import Drawer from './components/Drawer.vue'
 import { convertToTree } from '@/utils/index'
@@ -90,7 +92,7 @@ const initData = async () => {
       pageSize: state.pageSize
     })
 
-    const menuList = await addSystemMenuGetMenuList()
+    const menuList = await addSystemMenuGetAllMenuList()
 
     state.total = total
 
@@ -131,8 +133,10 @@ const handlePaginationChange = ({ pageSize, currentPage }) => {
   padding: 20px;
   margin: 20px;
 
-  .table-header {
-    padding-bottom: 20px;
+  .role-wrapper {
+    .table-header {
+      padding-bottom: 20px;
+    }
   }
 }
 </style>

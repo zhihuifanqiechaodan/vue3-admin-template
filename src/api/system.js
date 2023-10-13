@@ -19,6 +19,33 @@ export const addSystemUserAddUser = (data) => {
 }
 
 /**
+ * @method addSystemUserGetUserList
+ * @param {*} data
+ * @returns
+ */
+export const addSystemUserGetUserList = (data) => {
+  return request({ url: '/system/user/get_user_list', method: 'post', data })
+}
+
+/**
+ * @method addSystemUserUpdateUser
+ * @param {*} data
+ * @returns
+ */
+export const addSystemUserUpdateUser = (data) => {
+  return request({ url: '/system/user/update_user', method: 'post', data })
+}
+
+/**
+ * @method addSystemUserUpdateUserMenu
+ * @param {*} data
+ * @returns
+ */
+export const addSystemUserUpdateUserMenu = (data) => {
+  return request({ url: '/system/user/update_user_menu', method: 'post', data })
+}
+
+/**
  * @method addSystemMenuAddMenu
  * @param {*} data
  * @returns
@@ -44,6 +71,19 @@ export const addSystemMenuGetMenuList = (data) => {
 export const addSystemMenuGetAllMenuList = (data) => {
   return request({
     url: '/system/menu/get_all_menu_list',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * @method addSystemMenuMenuSort
+ * @param {*} data
+ * @returns
+ */
+export const addSystemMenuMenuSort = (data) => {
+  return request({
+    url: '/system/menu/menu_sort',
     method: 'post',
     data
   })

@@ -14,7 +14,7 @@
             </p>
           </el-alert>
           <el-form-item label="type">
-            <el-radio-group v-model="menuFormComputed.status">
+            <el-radio-group v-model="menuFormComputed.type">
               <el-radio
                 v-for="item in menuTypeList"
                 :disabled="props.isEdit"
@@ -308,7 +308,7 @@ const props = defineProps([
   'isEdit',
   'menuForm',
   'menuDrawerVisible',
-  'originalMenuList'
+  'menuList'
 ])
 
 const emits = defineEmits([
@@ -332,7 +332,7 @@ const drawerVisible = computed({
 
 const filterAsyncRoutes = computed(() => {
   return asyncRoutes.filter(
-    (item) => !props.originalMenuList.some((item2) => item.path === item2.path)
+    (item) => !props.menuList.some((item2) => item.path === item2.path)
   )
 })
 

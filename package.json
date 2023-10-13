@@ -22,7 +22,6 @@
     "file-saver": "^2.0.5",
     "fuse.js": "^6.6.2",
     "js-cookie": "^3.0.5",
-    "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
@@ -30,10 +29,10 @@
     "pinia": "^2.1.6",
     "qrcode.vue": "^3.4.1",
     "screenfull": "^6.0.2",
-    "socket.io-client": "^4.7.2",
     "uuid": "^9.0.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
+    "vuedraggable": "^4.1.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

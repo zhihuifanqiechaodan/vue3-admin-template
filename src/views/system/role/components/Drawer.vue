@@ -13,7 +13,7 @@
             placeholder="Please input name"
           />
         </el-form-item>
-        <el-form-item label="name">
+        <el-form-item label="状态">
           <el-radio-group v-model="ruleFormComputed.status">
             <el-radio
               v-for="item in statusTypeList"

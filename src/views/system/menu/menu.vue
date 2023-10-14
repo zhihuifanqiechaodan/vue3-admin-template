@@ -146,6 +146,8 @@ const updateMenuParentId = () => {
   state.menuList = updateParentId(state.menuList)
 }
 
+provide('updateMenuParentId', updateMenuParentId)
+
 const updateParentId = (data, parentId = 0) => {
   const updatedData = []
 
@@ -161,8 +163,6 @@ const updateParentId = (data, parentId = 0) => {
 
   return updatedData
 }
-
-provide('updateMenuParentId', updateMenuParentId)
 
 const handleUpdateTreeSort = async () => {
   ElMessageBox.confirm('更新排序后将刷新页面', 'Tips', {

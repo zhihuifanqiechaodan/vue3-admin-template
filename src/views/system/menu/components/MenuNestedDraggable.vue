@@ -1,9 +1,10 @@
 <template>
   <draggable
     @end="onDragEndCallback"
+    :disabled="!props.enabled"
     :move="onMoveCallback"
     :list="props.list"
-    group="people"
+    :group="{ name: 'g1' }"
     item-key="id"
     ghost-class="ghost"
     class="dragArea"
@@ -28,9 +29,11 @@
             >
           </div>
         </div>
-        <div class="drag-item-drag-content">
-          <MenuNestedDraggable :list="element.children" />
-        </div>
+        <MenuNestedDraggable
+          v-if="element.type === 0"
+          :list="element.children"
+          :disabled="!props.enabled"
+        />
       </div>
     </template>
   </draggable>
@@ -123,21 +126,17 @@ const onDragItemEdit = (element) => {
   }
 
   .drag-item {
-    padding: 20px;
-
     .drag-item-menu {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 20px;
 
       .menu-item {
         flex: 1;
         display: flex;
         align-items: center;
       }
-    }
-    .drag-item-drag-content {
-      padding: 40px;
     }
   }
 }

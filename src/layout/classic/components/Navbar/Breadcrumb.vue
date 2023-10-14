@@ -55,7 +55,7 @@ const getBreadcrumb = () => {
 const pathCompile = (path) => {
   // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
   const { params } = route
-  var toPath = compile(path)
+  let toPath = compile(path)
   return toPath(params)
 }
 

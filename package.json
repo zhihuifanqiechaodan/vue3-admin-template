@@ -3,14 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "serve": "vite --mode localhost",
-    "build:prod": "vite build --mode production",
+    "serve": "vite --force --host --mode localhost",
     "preview": "vite preview",
+    "build:prod": "vite build --mode production",
     "deploy": "sh deploy.sh",
     "eslint": "eslint  --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "eslint-lint": "eslint --ext .vue,.js,.ts,.jsx,.tsx --fix .",
     "prettier": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
-    "prettier-lint": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\" ."
+    "prettier-lint": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\" .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@toast-ui/vue-editor": "^3.2.3",

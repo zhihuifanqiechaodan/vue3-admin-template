@@ -1,5 +1,5 @@
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -31,7 +31,7 @@ export default (mode) => {
     },
     resolve: {
       alias: {
-        '@': resolve(__dirname, './src')
+        '@': fileURLToPath(new URL('./src', import.meta.url))
       },
       extensions: ['.vue', '.js']
     },
@@ -45,7 +45,7 @@ export default (mode) => {
       vue(),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
-        iconDirs: [resolve(process.cwd(), 'src/icons')],
+        iconDirs: [fileURLToPath(new URL('./src/icons', import.meta.url))],
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]'
 

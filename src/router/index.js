@@ -1,7 +1,11 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import Layout from '@/layout/layout'
+
 import { usePermissionStore } from '@/store/permission'
+
+import systemRouter from './modules/system'
+import giveExampleRouter from './modules/give-example'
 
 /**
  * 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
@@ -49,6 +53,33 @@ import { usePermissionStore } from '@/store/permission'
  */
 
 /**
+ * 超级管理员第一次登录，默认创建菜单以便登录后有页面跳转并且添加页面
+ */
+export const defaultCreateMenuInfo = {
+  type: 1,
+  hidden: false,
+  title: 'menu',
+  path: systemRouter.find((item) => item.path === 'menu').path,
+  icon: 'menu',
+  cache: true,
+  affix: false,
+  breadcrumb: true,
+  activeMenu: '',
+  auth: true,
+  buttonPermissions:
+    systemRouter.find((item) => item.path === 'menu').buttonPermissions || []
+}
+
+/**
+ * 默认布局方案
+ */
+export const defaultLayoutRoute = {
+  layout: 'layout',
+  component: Layout,
+  redirect: 'noRedirect'
+}
+
+/**
  * 代表那些不需要动态判断权限的路由，如登录页、404、等通用页面。
  * 没有权限要求的页面
  * 所有角色都可以访问
@@ -82,26 +113,6 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: 'menu',
-    name: 'menu',
-    component: () => import('@/views/system/menu/menu.vue'),
-    buttonPermissions: [
-      {
-        label: '创建',
-        value: 0
-      },
-      {
-        label: '创建1',
-        value: 1
-      }
-    ]
-  },
-  {
-    path: 'role',
-    name: 'role',
-    component: () => import('@/views/system/role/role.vue')
-  },
-  {
     path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
     name: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template'
   },
@@ -110,88 +121,9 @@ export const asyncRoutes = [
     name: 'dashboard',
     component: () => import('@/views/dashboard/dashboard.vue')
   },
-  {
-    path: 'clipboard',
-    name: 'clipboard',
-    component: () => import('@/views/clipboard/clipboard.vue'),
-    buttonPermissions: [
-      {
-        label: '创建',
-        value: 0
-      },
-      {
-        label: '删除',
-        value: 1
-      }
-    ]
-  },
-  {
-    path: 'markdown',
-    name: 'markdown',
-    component: () => import('@/views/markdown/markdown.vue')
-  },
-  {
-    path: 'export-excel',
-    name: 'export-excel',
-    component: () => import('@/views/excel/export-excel.vue')
-  },
-  {
-    path: 'select-excel',
-    name: 'select-excel',
-    component: () => import('@/views/excel/select-excel.vue')
-  },
-  {
-    path: 'merge-header',
-    name: 'merge-header',
-    component: () => import('@/views/excel/merge-header.vue')
-  },
-  {
-    path: 'upload-excel',
-    name: 'upload-excel',
-    component: () => import('@/views/excel/upload-excel.vue')
-  },
-  {
-    path: 'dom-to-image',
-    name: 'dom-to-image',
-    component: () => import('@/views/dom-to-image/dom-to-image.vue')
-  },
-  {
-    path: 'qrcode',
-    name: 'qrcode',
-    component: () => import('@/views/qrcode/qrcode.vue')
-  },
-  {
-    path: 'user',
-    name: 'user',
-    component: () => import('@/views/system/user/user.vue')
-  }
+  ...systemRouter,
+  ...giveExampleRouter
 ]
-
-/**
- * 超级管理员第一次登录，默认创建菜单以便登录后有页面跳转并且添加页面
- */
-export const defaultCreateMenuInfo = {
-  type: 1,
-  hidden: false,
-  title: 'menu',
-  path: asyncRoutes[0].path,
-  icon: 'menu',
-  cache: true,
-  affix: false,
-  breadcrumb: true,
-  activeMenu: '',
-  auth: true,
-  buttonPermissions: asyncRoutes[0].buttonPermissions || []
-}
-
-/**
- * 默认布局方案
- */
-export const defaultLayoutRoute = {
-  layout: 'layout',
-  component: Layout,
-  redirect: 'noRedirect'
-}
 
 export const layoutRoutes = [defaultLayoutRoute]
 

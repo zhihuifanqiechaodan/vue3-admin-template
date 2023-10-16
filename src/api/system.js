@@ -90,12 +90,34 @@ export const addSystemMenuMenuSort = (data) => {
 }
 
 /**
+ * @method addSystemMenuUpdateMenu
+ * @param {*} data
+ * @returns
+ */
+export const addSystemMenuUpdateMenu = (data) => {
+  return request({
+    url: '/system/menu/update_menu',
+    method: 'post',
+    data
+  })
+}
+
+/**
  * @method addSystemRoleAddRole
  * @param {*} data
  * @returns
  */
 export const addSystemRoleAddRole = (data) => {
   return request({ url: '/system/role/add_role', method: 'post', data })
+}
+
+/**
+ * @method addSystemRoleUpdateRole
+ * @param {*} data
+ * @returns
+ */
+export const addSystemRoleUpdateRole = (data) => {
+  return request({ url: '/system/role/update_role', method: 'post', data })
 }
 
 /**

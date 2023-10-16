@@ -35,6 +35,7 @@
               v-model="menuFormComputed.layout"
               filterable
               placeholder="Select layout"
+              :disabled="menuFormComputed.layout === defaultLayoutRoute.layout"
             >
               <el-option
                 v-for="item in layoutRoutes"
@@ -257,8 +258,8 @@
 <script setup>
 import { computed, reactive, ref, toRefs } from 'vue'
 import svgIds from 'virtual:svg-icons-names'
-import { asyncRoutes, layoutRoutes } from '@/router/index'
-import { addSystemMenuAddMenu } from '@/api/system'
+import { asyncRoutes, defaultLayoutRoute, layoutRoutes } from '@/router/index'
+import { addSystemMenuAddMenu, addSystemMenuUpdateMenu } from '@/api/system'
 import { ElMessageBox } from 'element-plus'
 import { pick as _pick } from 'lodash-es'
 
@@ -366,19 +367,17 @@ const submitForm = async (menuFormRef) => {
 
           const data = props.menuForm
 
+          let field
+
           if (pageButtonPermissions.value.length) {
             data.buttonPermissions = pageButtonPermissions.value
           }
 
           try {
             if (props.isEdit) {
-              // await menuApi.addMenuUpdate(data)
-              // 更新菜单接口
-            } else {
-              let propsToCompare
-
               if (props.menuForm.type === 0) {
-                propsToCompare = [
+                field = [
+                  'id',
                   'type',
                   'layout',
                   'auth',
@@ -388,7 +387,8 @@ const submitForm = async (menuFormRef) => {
                   'icon'
                 ]
               } else if (props.menuForm.type === 1) {
-                propsToCompare = [
+                field = [
+                  'id',
                   'type',
                   'auth',
                   'hidden',
@@ -402,7 +402,35 @@ const submitForm = async (menuFormRef) => {
                   'activeMenu'
                 ]
               }
-              await addSystemMenuAddMenu(_pick(data, propsToCompare))
+
+              await addSystemMenuUpdateMenu(_pick(data, field))
+            } else {
+              if (props.menuForm.type === 0) {
+                field = [
+                  'type',
+                  'layout',
+                  'auth',
+                  'hidden',
+                  'show',
+                  'title',
+                  'icon'
+                ]
+              } else if (props.menuForm.type === 1) {
+                field = [
+                  'type',
+                  'auth',
+                  'hidden',
+                  'title',
+                  'path',
+                  'buttonPermissions',
+                  'icon',
+                  'cache',
+                  'affix',
+                  'breadcrumb',
+                  'activeMenu'
+                ]
+              }
+              await addSystemMenuAddMenu(_pick(data, field))
             }
 
             location.reload()

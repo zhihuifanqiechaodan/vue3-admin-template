@@ -31,13 +31,13 @@
             show-checkbox
             node-key="id"
             default-expand-all
-            :default-checked-keys="props.ruleInfo.menuIds"
+            :default-checked-keys="ruleFormComputed.menuIds"
             :props="{ children: 'children', label: 'title' }"
             @check-change="handleTreeCheckChange"
           />
         </el-form-item>
         <el-form-item>
-          <el-button @click="emits('update:menuDrawerVisible', false)"
+          <el-button @click="emits('update:drawerVisible', false)"
             >取消</el-button
           >
           <el-button
@@ -55,8 +55,8 @@
 
 <script setup>
 import { computed, reactive, ref } from 'vue'
-import { addSystemRoleAddRole } from '@/api/system'
-import { cloneDeep as _cloneDeep } from 'lodash-es'
+import { addSystemRoleAddRole, addSystemRoleUpdateRole } from '@/api/system'
+import { cloneDeep as _cloneDeep, pick as _pick } from 'lodash-es'
 
 const statusTypeList = [
   { label: 0, name: '启用' },
@@ -90,7 +90,11 @@ const props = defineProps([
   'ruleInfo'
 ])
 
-const emits = defineEmits(['update:drawerVisible', 'update:ruleInfo'])
+const emits = defineEmits([
+  'update:drawerVisible',
+  'update:ruleInfo',
+  'initData'
+])
 
 const menuFormRef = ref(null)
 
@@ -135,16 +139,27 @@ const submitForm = async (menuFormRef) => {
 
   menuFormRef.validate(async (valid, fields) => {
     if (valid) {
-      console.log(props.ruleInfo)
-
       state.loading = true
+
+      let filed
 
       try {
         if (props.drawerMode === 'edit') {
-          //
+          filed = ['menuIds', 'name', 'status']
+
+          await addSystemRoleUpdateRole({
+            ..._pick(props.ruleInfo, filed),
+            roleId: props.ruleInfo.id
+          })
         } else if (props.drawerMode === 'create') {
-          await addSystemRoleAddRole(props.ruleInfo)
+          filed = ['menuIds', 'name', 'status']
+
+          await addSystemRoleAddRole(_pick(props.ruleInfo, filed))
         }
+
+        emits('update:drawerVisible', false)
+
+        emits('initData')
       } catch (error) {
         console.log(
           '🚀 ~ file: Drawer.vue:303 ~ menuFormRef.validate ~ error:',
@@ -161,6 +176,14 @@ const submitForm = async (menuFormRef) => {
     }
   })
 }
+
+const treeSetCheckedKeys = (data) => {
+  menuTreeRef.value.setCheckedKeys(data)
+}
+
+defineExpose({
+  treeSetCheckedKeys
+})
 </script>
 
 <style lang="scss" scoped>

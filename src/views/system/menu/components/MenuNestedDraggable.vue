@@ -22,7 +22,11 @@
               typeEnum[element.type].label
             }}</el-tag>
           </div>
-          <div class="menu-item">状态：{{ element.hidden }}</div>
+          <div class="menu-item">
+            状态：
+            <el-tag v-if="element.hidden" type="danger">隐藏</el-tag>
+            <el-tag v-else type="success">显示</el-tag>
+          </div>
           <div class="menu-item">
             <el-button @click="onDragItemEdit(element)" type="primary"
               >编辑</el-button
@@ -109,6 +113,8 @@ const onDragItemEdit = (element) => {
 .dragArea {
   outline: 1px dashed !important;
   min-height: 100px;
+  padding: 20px;
+  box-sizing: border-box;
 
   &.dragArea_open {
     .drag-item {

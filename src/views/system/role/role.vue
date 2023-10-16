@@ -16,7 +16,11 @@
         </el-table-column>
         <el-table-column fixed="right" label="Operations" width="120">
           <template #default="scope">
-            <el-button @click="handleEditRole(scope.row)" link type="primary"
+            <el-button
+              @click="handleEditRole(scope.row)"
+              :disabled="scope.row.type === 1"
+              link
+              type="primary"
               >编辑</el-button
             >
           </template>
@@ -30,16 +34,18 @@
       v-model:currentPage="currentPage"
     />
     <Drawer
+      ref="drawerRef"
       v-model:ruleInfo="ruleInfo"
       v-model:drawerVisible="ruleDrawerVisible"
       :drawerMode="ruleDrawerMode"
       :menuList="menuList"
+      @initData="initData"
     />
   </div>
 </template>
 
 <script setup>
-import { reactive, toRefs, onMounted } from 'vue'
+import { reactive, toRefs, onMounted, ref, nextTick } from 'vue'
 import {
   addSystemRoleGetRoleList,
   addSystemMenuGetAllMenuList
@@ -53,6 +59,8 @@ const defaultRuleInfo = {
   menuIds: [],
   status: 0
 }
+
+const drawerRef = ref(null)
 
 const state = reactive({
   loading: false,
@@ -112,6 +120,10 @@ const handleAddRole = () => {
   state.ruleDrawerVisible = true
 
   state.ruleDrawerMode = 'create'
+
+  nextTick(() => {
+    drawerRef.value.treeSetCheckedKeys([])
+  })
 }
 
 const handleEditRole = (row) => {
@@ -120,6 +132,10 @@ const handleEditRole = (row) => {
   state.ruleDrawerVisible = true
 
   state.ruleDrawerMode = 'edit'
+
+  nextTick(() => {
+    drawerRef.value.treeSetCheckedKeys(row.menuIds)
+  })
 }
 
 const handlePaginationChange = ({ pageSize, currentPage }) => {

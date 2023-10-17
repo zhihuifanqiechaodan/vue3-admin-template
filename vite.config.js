@@ -9,8 +9,6 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // https://vitejs.dev/config/
 export default (mode) => {
   return defineConfig({
-    base: '/vue3-admin-template/',
-    // base: './',
     server: {
       open: true,
       proxy: {

@@ -8,11 +8,16 @@
     >
       <el-form-item label="账号" prop="username">
         <el-input
+          :disabled="props.drawerMode === 'edit'"
           v-model="userFormComputed.username"
           placeholder="Please input username"
         />
       </el-form-item>
-      <el-form-item label="密码" prop="password">
+      <el-form-item
+        :disabled="props.drawerMode === 'edit'"
+        label="密码"
+        prop="password"
+      >
         <el-input
           v-model="userFormComputed.password"
           placeholder="Please input password"
@@ -21,14 +26,14 @@
       <el-form-item label="角色" prop="roleId">
         <el-select v-model="userFormComputed.roleId" placeholder="Select role">
           <el-option
-            v-for="item in roleList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in props.roleList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
           />
         </el-select>
       </el-form-item>
-      <el-form-item v-if="props.drawerMode === 'edit'" label="状态">
+      <el-form-item label="状态">
         <el-radio-group v-model="userFormComputed.status">
           <el-radio
             v-for="item in statusTypeList"
@@ -58,11 +63,7 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
 import { addSystemUserAddUser, addSystemUserUpdateUser } from '@/api/system'
-
-const roleList = [
-  { value: 1, label: '超级管理员' },
-  { value: 2, label: '测试' }
-]
+import { pick as _pick } from 'lodash-es'
 
 const statusTypeList = [
   { label: 0, name: '启用' },
@@ -85,7 +86,12 @@ const formRules = {
   ]
 }
 
-const props = defineProps(['drawerVisible', 'drawerMode', 'userInfo'])
+const props = defineProps([
+  'drawerVisible',
+  'drawerMode',
+  'userInfo',
+  'roleList'
+])
 
 const emits = defineEmits([
   'update:drawerVisible',
@@ -130,16 +136,25 @@ const submitForm = async (formRef) => {
 
       state.loading = true
 
+      let field
+
       try {
         if (props.drawerMode === 'edit') {
+          field = ['status', 'roleId']
+
           await addSystemUserUpdateUser({
-            status: props.userInfo.status,
-            password: props.userInfo.password,
-            roleId: props.userInfo.roleId
+            ..._pick(props.userInfo, field),
+            userId: props.userInfo.id
           })
         } else if (props.drawerMode === 'create') {
-          await addSystemUserAddUser(props.userInfo)
+          field = ['password', 'username', 'status', 'roleId']
+
+          await addSystemUserAddUser(_pick(props.userInfo, field))
         }
+
+        emits('update:drawerVisible', false)
+
+        emits('initData')
       } catch (error) {
         console.log(
           '🚀 ~ file: Drawer.vue:303 ~ formRef.validate ~ error:',

@@ -39,6 +39,7 @@
     <Drawer
       v-model:userInfo="userInfo"
       v-model:drawerVisible="userDrawerVisible"
+      :roleList="roleList"
       :drawerMode="userDrawerMode"
       @initData="initData"
     />
@@ -46,7 +47,10 @@
 </template>
 
 <script setup>
-import { addSystemUserGetUserList } from '@/api/system'
+import {
+  addSystemUserGetUserList,
+  addSystemRoleGetRoleList
+} from '@/api/system'
 import { onMounted, reactive, toRefs } from 'vue'
 import { cloneDeep as _cloneDeep } from 'lodash-es'
 import Drawer from './components/Drawer.vue'
@@ -66,7 +70,8 @@ const state = reactive({
   total: 0,
   userDrawerVisible: false,
   userDrawerMode: 'create',
-  userInfo: null
+  userInfo: null,
+  roleList: []
 })
 
 const {
@@ -77,7 +82,8 @@ const {
   total,
   userDrawerVisible,
   userDrawerMode,
-  userInfo
+  userInfo,
+  roleList
 } = toRefs(state)
 
 onMounted(() => {
@@ -96,6 +102,10 @@ const initData = async () => {
       roleName: '',
       status: ''
     })
+
+    const { list: roleList } = await addSystemRoleGetRoleList({ name: '' })
+
+    state.roleList = roleList
 
     state.userList = list
 

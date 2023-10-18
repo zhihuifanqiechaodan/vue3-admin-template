@@ -373,7 +373,7 @@ const submitForm = async (menuFormRef) => {
 
           let field
 
-          if (permissionList.value.length) {
+          if (props.menuForm.type === 1 && permissionList.value.length) {
             data.buttonPermissions = permissionList.value
           }
 

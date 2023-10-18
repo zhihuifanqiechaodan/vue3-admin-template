@@ -13,9 +13,17 @@
     <template #item="{ element }">
       <div class="drag-item">
         <div class="drag-item-menu">
-          <div class="menu-item">标题：{{ element.title }}</div>
+          <div class="menu-item">
+            <span>标题：</span>
+            <span>{{ element.title }}</span>
+          </div>
           <div class="menu-item">图标： <SvgIcon :name="element.icon" /></div>
-          <div class="menu-item">路径：{{ element.path }}</div>
+          <div class="menu-item ellipsis">
+            <span>路径：</span>
+            <el-tooltip effect="dark" :content="element.path" placement="top">
+              <span class="ellipsis">{{ element.path }}</span>
+            </el-tooltip>
+          </div>
           <div class="menu-item">
             类型：
             <el-tag :type="typeEnum[element.type].type">{{

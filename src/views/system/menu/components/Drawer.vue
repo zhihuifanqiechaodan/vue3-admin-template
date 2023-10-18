@@ -35,7 +35,10 @@
               v-model="menuFormComputed.layout"
               filterable
               placeholder="Select layout"
-              :disabled="menuFormComputed.layout === defaultLayoutRoute.layout"
+              :disabled="
+                props.isEdit &&
+                menuFormComputed.layout === defaultLayoutRoute.layout
+              "
             >
               <el-option
                 v-for="item in layoutRoutes"

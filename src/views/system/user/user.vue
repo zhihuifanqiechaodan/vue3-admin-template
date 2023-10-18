@@ -54,6 +54,7 @@ import {
 import { onMounted, reactive, toRefs } from 'vue'
 import { cloneDeep as _cloneDeep } from 'lodash-es'
 import Drawer from './components/Drawer.vue'
+import Pagination from '@/components/Pagination/index'
 
 const defaultUserInfo = {
   roleId: '',

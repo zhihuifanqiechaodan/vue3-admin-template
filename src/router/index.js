@@ -91,18 +91,18 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/redirect.vue')
+        component: () => import('@/views/redirect/redirect')
       }
     ]
   },
   {
     path: '/login',
-    component: () => import('@/views/login/login.vue'),
+    component: () => import('@/views/login/login'),
     hidden: true
   },
   {
     path: '/:pathMatch(.*)*',
-    component: () => import('@/views/error-page/404.vue'),
+    component: () => import('@/views/error-page/404'),
     hidden: true
   }
 ]
@@ -118,7 +118,7 @@ export const asyncRoutes = [
   {
     path: 'dashboard',
     name: 'dashboard',
-    component: () => import('@/views/dashboard/dashboard.vue')
+    component: () => import('@/views/dashboard/dashboard')
   },
   ...systemRouter,
   ...giveExampleRouter

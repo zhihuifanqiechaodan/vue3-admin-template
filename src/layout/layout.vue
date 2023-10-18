@@ -3,9 +3,9 @@
 </template>
 
 <script setup>
-import Default from '@/layout/default/index.vue'
-import Classic from '@/layout/classic/index.vue'
-import Streamline from '@/layout/streamline/index.vue'
+import Default from '@/layout/default/index'
+import Classic from '@/layout/classic/index'
+import Streamline from '@/layout/streamline/index'
 import { useSettingsStore } from '@/store/settings'
 import { computed } from 'vue'
 

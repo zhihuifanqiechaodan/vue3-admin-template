@@ -55,6 +55,7 @@
 import draggable from 'vuedraggable'
 import { defaultLayoutRoute } from '@/router/index'
 import { inject } from 'vue'
+import SvgIcon from '@/components/SvgIcon/index'
 
 const typeEnum = {
   0: {

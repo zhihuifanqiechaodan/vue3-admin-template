@@ -1,7 +1,7 @@
 export const menu = {
   path: 'menu',
   name: 'menu',
-  component: () => import('@/views/system/menu/menu.vue'),
+  component: () => import('@/views/system/menu/menu'),
   permissionInfo: {
     create: {
       label: '创建',
@@ -21,13 +21,13 @@ export const menu = {
 export const role = {
   path: 'role',
   name: 'role',
-  component: () => import('@/views/system/role/role.vue')
+  component: () => import('@/views/system/role/role')
 }
 
 export const user = {
   path: 'user',
   name: 'user',
-  component: () => import('@/views/system/user/user.vue')
+  component: () => import('@/views/system/user/user')
 }
 
 export default [menu, role, user]

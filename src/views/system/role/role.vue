@@ -50,9 +50,10 @@ import {
   addSystemRoleGetRoleList,
   addSystemMenuGetAllMenuList
 } from '@/api/system'
-import Drawer from './components/Drawer.vue'
+import Drawer from './components/Drawer'
 import { convertToTree } from '@/utils/index'
 import { cloneDeep as _cloneDeep } from 'lodash-es'
+import Pagination from '@/components/Pagination/index'
 
 const defaultRuleInfo = {
   name: '',

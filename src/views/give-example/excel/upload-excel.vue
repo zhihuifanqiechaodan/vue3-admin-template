@@ -18,7 +18,7 @@
 </template>
 
 <script setup name="UploadExcel">
-import UploadExcel from '@/components/UploadExcel/index.vue'
+import UploadExcel from '@/components/UploadExcel/index'
 import { reactive, toRefs } from 'vue'
 
 const state = reactive({

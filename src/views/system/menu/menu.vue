@@ -37,7 +37,7 @@
 
 <script setup>
 import { onMounted, reactive, toRefs, provide } from 'vue'
-import Drawer from './components/Drawer.vue'
+import Drawer from './components/Drawer'
 import { cloneDeep as _cloneDeep } from 'lodash-es'
 import {
   addSystemMenuGetAllMenuList,
@@ -46,7 +46,7 @@ import {
 import { defaultLayoutRoute } from '@/router'
 import { menuListSort, convertToTree } from '@/utils/index'
 import { ElMessageBox } from 'element-plus'
-import MenuNestedDraggable from './components/MenuNestedDraggable.vue'
+import MenuNestedDraggable from './components/MenuNestedDraggable'
 import { menu } from '@/router/modules/system'
 
 const defaultMenuForm = {

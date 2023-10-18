@@ -16,8 +16,8 @@
 </template>
 
 <script setup>
-import Hamburger from './Hamburger.vue'
-import Breadcrumb from './Breadcrumb.vue'
+import Hamburger from './Hamburger'
+import Breadcrumb from './Breadcrumb'
 import {
   Search,
   ErrorLog,

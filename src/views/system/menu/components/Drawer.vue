@@ -265,6 +265,7 @@ import { asyncRoutes, defaultLayoutRoute, layoutRoutes } from '@/router/index'
 import { addSystemMenuAddMenu, addSystemMenuUpdateMenu } from '@/api/system'
 import { ElMessageBox } from 'element-plus'
 import { pick as _pick } from 'lodash-es'
+import SvgIcon from '@/components/SvgIcon/index'
 
 const menuFormRules = {
   title: [{ required: true, message: 'Please input  title', trigger: 'blur' }],

@@ -30,7 +30,7 @@
 </template>
 
 <script setup name="MarkdownIndex">
-import MarkdownEditor from '@/components/MarkdownEditor/index.vue'
+import MarkdownEditor from '@/components/MarkdownEditor/index'
 import { reactive, toRefs } from 'vue'
 
 const state = reactive({

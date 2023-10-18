@@ -8,26 +8,17 @@ import 'normalize.css' // a modern alternative to CSS resets
 
 import '@/styles/index.scss' // global css
 
-import App from './App.vue'
+import App from '@/App'
 import { createPinia } from 'pinia' // pinia
-import router from './router'
+import router from '@/router/index'
 
 import 'virtual:svg-icons-register'
-import SvgIcon from '@/components/SvgIcon/index.vue'
-import Pagination from '@/components/Pagination/index.vue'
 
-import './permission' // permission control
+import '@/permission' // permission control
 
 import directives from '@/directives/index'
 import errorLog from '@/utils/error-log'
 
 const app = createApp(App)
 
-app
-  .component('SvgIcon', SvgIcon)
-  .component('Pagination', Pagination)
-  .use(createPinia())
-  .use(router)
-  .use(directives)
-  .use(errorLog)
-  .mount('#app')
+app.use(createPinia()).use(router).use(directives).use(errorLog).mount('#app')

@@ -13,8 +13,8 @@ export default (mode) => {
       open: true,
       proxy: {
         '/api': {
-          // target: 'https://xxxx', // 开发环境
-          // target: 'http://192.168.0.78:8080', // 测试环境
+          // target: 'http://192.168.0.78:10086', // 开发环境
+          // target: 'https://xxxx', // 测试环境
           // target: 'https://xxxx', // 预发环境
           target: 'http://zhihuifanqiechaodan.com', // 生产环境
           changeOrigin: true,

@@ -23,6 +23,8 @@ import './permission' // permission control
 
 import { useErrorLogStore } from '@/store/errorLog'
 
+import directives from '@/directives/index'
+
 const app = createApp(App)
 
 app
@@ -30,6 +32,7 @@ app
   .component('Pagination', Pagination)
   .use(createPinia())
   .use(router)
+  .use(directives)
   .mount('#app')
 
 const errorLogStore = useErrorLogStore()

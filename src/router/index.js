@@ -4,7 +4,7 @@ import Layout from '@/layout/layout'
 
 import { usePermissionStore } from '@/store/permission'
 
-import systemRouter from './modules/system'
+import systemRouter, { menu } from './modules/system'
 import giveExampleRouter from './modules/give-example'
 
 /**
@@ -59,15 +59,14 @@ export const defaultCreateMenuInfo = {
   type: 1,
   hidden: false,
   title: 'menu',
-  path: systemRouter.find((item) => item.path === 'menu').path,
+  path: menu.path,
   icon: 'menu',
   cache: true,
   affix: false,
   breadcrumb: true,
   activeMenu: '',
   auth: true,
-  buttonPermissions:
-    systemRouter.find((item) => item.path === 'menu').buttonPermissions || []
+  buttonPermissions: Object.values(menu.permissionInfo)
 }
 
 /**

@@ -140,7 +140,7 @@
           v-if="
             menuFormComputed.type === 1 &&
             menuFormComputed.path &&
-            pageButtonPermissions.length
+            permissionList.length
           "
           fill
         >
@@ -149,7 +149,7 @@
           </el-alert>
           <el-form-item label="permissions">
             <div class="page-button-permissions">
-              <el-tag v-for="item in pageButtonPermissions" :key="item.id">{{
+              <el-tag v-for="item in permissionList" :key="item.id">{{
                 item.label
               }}</el-tag>
             </div>
@@ -349,11 +349,11 @@ const menuFormComputed = computed({
   set: (value) => emits('update:menuForm', value)
 })
 
-const pageButtonPermissions = computed(
-  () =>
-    asyncRoutes.find((item) => item.path === props.menuForm.path)
-      ?.buttonPermissions || []
-)
+const permissionList = computed(() => {
+  const route = asyncRoutes.find((item) => item.path === props.menuForm.path)
+
+  return Object.values(route.permissionInfo || {})
+})
 
 const submitForm = async (menuFormRef) => {
   if (!menuFormRef) return
@@ -372,8 +372,8 @@ const submitForm = async (menuFormRef) => {
 
           let field
 
-          if (pageButtonPermissions.value.length) {
-            data.buttonPermissions = pageButtonPermissions.value
+          if (permissionList.value.length) {
+            data.buttonPermissions = permissionList.value
           }
 
           try {

@@ -71,10 +71,7 @@ export function convertToTree(menuList, parentId = 0) {
                       affix: menuItem.affix,
                       breadcrumb: menuItem.breadcrumb,
                       activeMenu: menuItem.activeMenu,
-                      buttonPermissions: menuItem.buttonPermissions.map(
-                        (buttonPermissionsItem) =>
-                          buttonPermissionsItem.buttonId
-                      )
+                      permissions: menuItem.permissions
                     },
                     sort: menuItem.sort,
                     type: menuItem.type
@@ -99,9 +96,7 @@ export function convertToTree(menuList, parentId = 0) {
                   affix: menuItem.affix,
                   breadcrumb: menuItem.breadcrumb,
                   activeMenu: menuItem.activeMenu,
-                  buttonPermissions: menuItem.buttonPermissions.map(
-                    (buttonPermissionsItem) => buttonPermissionsItem.buttonId
-                  )
+                  permissions: menuItem.permissions
                 },
                 sort: menuItem.sort,
                 type: menuItem.type
@@ -156,10 +151,12 @@ export const usePermissionStore = defineStore('permission', {
 
         menuOrCatalogueList.forEach((menuOrCatalogueListItem) => {
           if (menuOrCatalogueListItem.type === 1) {
-            menuOrCatalogueListItem.buttonPermissions = buttonList.filter(
-              (buttonListItem) =>
-                buttonListItem.parentId === menuOrCatalogueListItem.id
-            )
+            menuOrCatalogueListItem.permissions = buttonList
+              .filter(
+                (buttonListItem) =>
+                  buttonListItem.parentId === menuOrCatalogueListItem.id
+              )
+              .map((item) => item.buttonId)
           }
         })
 

@@ -2,7 +2,12 @@
   <div v-loading="loading" class="menu-container">
     <div class="header-wrapper">
       <div class="header-item">
-        <el-button @click="handleMenuCreate" type="primary">添加</el-button>
+        <el-button
+          v-hasPermission="menu.permissionInfo.create.value"
+          @click="handleMenuCreate"
+          type="primary"
+          >添加</el-button
+        >
       </div>
       <div class="header-item">
         <el-checkbox v-model="sortEnabled" label="编辑排序" border />
@@ -42,6 +47,7 @@ import { defaultLayoutRoute } from '@/router'
 import { menuListSort, convertToTree } from '@/utils/index'
 import { ElMessageBox } from 'element-plus'
 import MenuNestedDraggable from './components/MenuNestedDraggable.vue'
+import { menu } from '@/router/modules/system'
 
 const defaultMenuForm = {
   type: 0,
@@ -97,10 +103,12 @@ const initData = async () => {
 
     menuOrCatalogueList.forEach((menuOrCatalogueListItem) => {
       if (menuOrCatalogueListItem.type === 1) {
-        menuOrCatalogueListItem.buttonPermissions = buttonList.filter(
-          (buttonListItem) =>
-            buttonListItem.parentId === menuOrCatalogueListItem.id
-        )
+        menuOrCatalogueListItem.permissions = buttonList
+          .filter(
+            (buttonListItem) =>
+              buttonListItem.parentId === menuOrCatalogueListItem.id
+          )
+          .map((item) => item.buttonId)
       }
     })
 

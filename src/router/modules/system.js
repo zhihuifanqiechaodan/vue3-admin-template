@@ -1,29 +1,33 @@
-const systemRouter = [
-  {
-    path: 'menu',
-    name: 'menu',
-    component: () => import('@/views/system/menu/menu.vue'),
-    buttonPermissions: [
-      {
-        label: '创建',
-        value: 0
-      },
-      {
-        label: '创建1',
-        value: 1
-      }
-    ]
-  },
-  {
-    path: 'role',
-    name: 'role',
-    component: () => import('@/views/system/role/role.vue')
-  },
-  {
-    path: 'user',
-    name: 'user',
-    component: () => import('@/views/system/user/user.vue')
+export const menu = {
+  path: 'menu',
+  name: 'menu',
+  component: () => import('@/views/system/menu/menu.vue'),
+  permissionInfo: {
+    create: {
+      label: '创建',
+      value: 1
+    },
+    delete: {
+      label: '删除',
+      value: 3
+    },
+    edit: {
+      label: '编辑',
+      value: 0
+    }
   }
-]
+}
 
-export default systemRouter
+export const role = {
+  path: 'role',
+  name: 'role',
+  component: () => import('@/views/system/role/role.vue')
+}
+
+export const user = {
+  path: 'user',
+  name: 'user',
+  component: () => import('@/views/system/user/user.vue')
+}
+
+export default [menu, role, user]

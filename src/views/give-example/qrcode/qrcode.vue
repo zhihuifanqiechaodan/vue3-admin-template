@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import QrcodeVue from 'qrcode'
+import QrcodeVue from 'qrcode.vue'
 import { reactive } from 'vue'
 
 const state = reactive({

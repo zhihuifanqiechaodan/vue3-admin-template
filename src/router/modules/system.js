@@ -5,15 +5,19 @@ export const menu = {
   permissionInfo: {
     create: {
       label: '创建',
-      value: 1
+      value: 0
     },
     delete: {
       label: '删除',
-      value: 3
+      value: 1
     },
     edit: {
       label: '编辑',
-      value: 0
+      value: 2
+    },
+    sort: {
+      label: '排序',
+      value: 3
     }
   }
 }

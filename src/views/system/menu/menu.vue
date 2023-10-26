@@ -10,20 +10,64 @@
         >
       </div>
       <div class="header-item">
-        <el-checkbox v-model="sortEnabled" label="编辑排序" border />
-      </div>
-      <div class="header-item">
         <el-button
-          :disabled="!sortEnabled"
-          :loading="updateSortLoading"
-          @click="handleUpdateTreeSort"
+          v-hasPermission="menu.permissionInfo.sort.value"
+          @click="dialogVisible = true"
           type="primary"
-          >更新排序
-        </el-button>
+          >排序</el-button
+        >
       </div>
     </div>
-    <div class="menu-nested-draggable">
-      <MenuNestedDraggable :list="menuList" :enabled="sortEnabled" />
+    <div class="table-wrapper">
+      <el-table :data="menuList" row-key="id" border default-expand-all>
+        <el-table-column prop="title" label="菜单名称">
+          <template #default="scope">
+            <SvgIcon
+              v-if="scope.row.icon"
+              :name="scope.row.icon"
+              class="icon"
+            />
+            <span class="title">{{ scope.row.title }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="type" label="类型" width="100" align="center">
+          <template #default="scope">
+            <el-tag :type="typeEnum[scope.row.type].type">{{
+              typeEnum[scope.row.type].label
+            }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="path" label="路由路径" />
+        <el-table-column prop="type" label="认证" width="100" align="center">
+          <template #default="scope">
+            <el-tag v-if="scope.row.auth" type="success">是</el-tag>
+            <el-tag v-else type="info">否</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="type" label="缓存" width="100" align="center">
+          <template #default="scope">
+            <el-tag v-if="scope.row.cache" type="success">是</el-tag>
+            <el-tag v-else type="info">否</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="type" label="状态" width="100" align="center">
+          <template #default="scope">
+            <el-tag v-if="scope.row.hidden" type="info">隐藏</el-tag>
+            <el-tag v-else type="success">显示</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="address" label="操作" align="center">
+          <template #default="scope">
+            <el-button
+              v-if="scope.row.type !== 2"
+              @click="handleMenuEdit(scope.row)"
+              type="primary"
+              link
+              >编辑</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
     <Drawer
       :isEdit="isEdit"
@@ -31,6 +75,11 @@
       :menuList="originalMenuList"
       v-model:menuDrawerVisible="menuDrawerVisible"
       @initData="initData"
+    />
+    <MenuNestedDraggableDialog
+      @handleUpdateTreeSort="handleUpdateTreeSort"
+      v-model:dialogVisible="dialogVisible"
+      :menuList="menuList"
     />
   </div>
 </template>
@@ -46,8 +95,23 @@ import {
 import { defaultLayoutRoute } from '@/router'
 import { menuListSort, convertToTree } from '@/utils/index'
 import { ElMessageBox } from 'element-plus'
-import MenuNestedDraggable from './components/MenuNestedDraggable'
 import { menu } from '@/router/modules/system'
+import MenuNestedDraggableDialog from './components/MenuNestedDraggableDialog.vue'
+
+const typeEnum = {
+  0: {
+    type: 'warning',
+    label: '目录'
+  },
+  1: {
+    type: 'success',
+    label: '菜单'
+  },
+  2: {
+    type: 'danger',
+    label: '按钮'
+  }
+}
 
 const defaultMenuForm = {
   type: 0,
@@ -72,8 +136,7 @@ const state = reactive({
   menuList: [],
   loading: false,
   originalMenuList: [],
-  updateSortLoading: false,
-  sortEnabled: false
+  dialogVisible: false
 })
 
 const {
@@ -83,8 +146,7 @@ const {
   menuList,
   loading,
   originalMenuList,
-  updateSortLoading,
-  sortEnabled
+  dialogVisible
 } = toRefs(state)
 
 onMounted(() => {
@@ -97,24 +159,24 @@ const initData = async () => {
   try {
     let menuList = await addSystemMenuGetAllMenuList()
 
-    const menuOrCatalogueList = menuList.filter((item) => item.type !== 2)
+    // const menuOrCatalogueList = menuList.filter((item) => item.type !== 2)
 
-    const buttonList = menuList.filter((item) => item.type === 2)
+    // const buttonList = menuList.filter((item) => item.type === 2)
 
-    menuOrCatalogueList.forEach((menuOrCatalogueListItem) => {
-      if (menuOrCatalogueListItem.type === 1) {
-        menuOrCatalogueListItem.permissions = buttonList
-          .filter(
-            (buttonListItem) =>
-              buttonListItem.parentId === menuOrCatalogueListItem.id
-          )
-          .map((item) => item.buttonId)
-      }
-    })
+    // menuOrCatalogueList.forEach((menuOrCatalogueListItem) => {
+    //   if (menuOrCatalogueListItem.type === 1) {
+    //     menuOrCatalogueListItem.permissions = buttonList
+    //       .filter(
+    //         (buttonListItem) =>
+    //           buttonListItem.parentId === menuOrCatalogueListItem.id
+    //       )
+    //       .map((item) => item.buttonId)
+    //   }
+    // })
 
-    state.originalMenuList = menuOrCatalogueList
+    state.originalMenuList = menuList
 
-    state.menuList = menuListSort(convertToTree(menuOrCatalogueList))
+    state.menuList = menuListSort(convertToTree(menuList))
   } catch (error) {
     console.log('🚀 ~ file: menu.vue:81 ~ onMounted ~ error:', error)
   }
@@ -179,7 +241,9 @@ const handleUpdateTreeSort = async () => {
     type: 'warning'
   })
     .then(async () => {
-      state.updateSortLoading = true
+      state.dialogVisible = false
+
+      state.loading = true
 
       updateMenuSort(state.menuList)
 
@@ -199,7 +263,7 @@ const handleUpdateTreeSort = async () => {
         console.log('🚀 ~ file: menu.vue:192 ~ .then ~ error:', error)
       }
 
-      state.updateSortLoading = false
+      state.loading = false
     })
     .catch(() => {})
 }
@@ -233,6 +297,22 @@ provide('handleMenuEdit', handleMenuEdit)
 
   .menu-nested-draggable {
     padding: 20px 0;
+  }
+}
+</style>
+
+<style lang="scss">
+.table-wrapper {
+  .el-table__expand-icon {
+    vertical-align: middle;
+  }
+  .title {
+    padding-left: 5px;
+    vertical-align: middle;
+  }
+
+  .icon {
+    vertical-align: middle;
   }
 }
 </style>

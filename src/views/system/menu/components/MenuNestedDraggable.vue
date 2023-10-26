@@ -1,14 +1,12 @@
 <template>
   <draggable
     @end="onDragEndCallback"
-    :disabled="!props.enabled"
     :move="onMoveCallback"
     :list="props.list"
     :group="{ name: 'g1' }"
     item-key="id"
     ghost-class="ghost"
-    class="dragArea"
-    :class="{ dragArea_open: props.enabled }"
+    class="dragArea dragArea_open"
   >
     <template #item="{ element }">
       <div class="drag-item">
@@ -17,34 +15,16 @@
             <span>标题：</span>
             <span>{{ element.title }}</span>
           </div>
-          <div class="menu-item">图标： <SvgIcon :name="element.icon" /></div>
-          <div class="menu-item ellipsis">
-            <span>路径：</span>
-            <el-tooltip effect="dark" :content="element.path" placement="top">
-              <span class="ellipsis">{{ element.path }}</span>
-            </el-tooltip>
-          </div>
           <div class="menu-item">
             类型：
             <el-tag :type="typeEnum[element.type].type">{{
               typeEnum[element.type].label
             }}</el-tag>
           </div>
-          <div class="menu-item">
-            状态：
-            <el-tag v-if="element.hidden" type="danger">隐藏</el-tag>
-            <el-tag v-else type="success">显示</el-tag>
-          </div>
-          <div class="menu-item">
-            <el-button @click="onDragItemEdit(element)" type="primary"
-              >编辑</el-button
-            >
-          </div>
         </div>
         <MenuNestedDraggable
           v-if="element.type === 0"
           :list="element.children"
-          :disabled="!props.enabled"
         />
       </div>
     </template>
@@ -55,7 +35,6 @@
 import draggable from 'vuedraggable'
 import { defaultLayoutRoute } from '@/router/index'
 import { inject } from 'vue'
-import SvgIcon from '@/components/SvgIcon/index'
 
 const typeEnum = {
   0: {
@@ -110,12 +89,6 @@ const updateMenuParentId = inject('updateMenuParentId')
 const onDragEndCallback = () => {
   updateMenuParentId()
 }
-
-const handleMenuEdit = inject('handleMenuEdit')
-
-const onDragItemEdit = (element) => {
-  handleMenuEdit(element)
-}
 </script>
 
 <style lang="scss" scoped>
@@ -145,7 +118,7 @@ const onDragItemEdit = (element) => {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px;
+      padding: 5px 10px;
 
       .menu-item {
         flex: 1;

@@ -9,6 +9,7 @@
       <error-log />
       <screenfull />
       <size-select />
+      <Language />
       <user />
       <Setting />
     </div>
@@ -24,7 +25,8 @@ import {
   Screenfull,
   SizeSelect,
   User,
-  Setting
+  Setting,
+  Language
 } from '@/layout/components/index'
 </script>
 

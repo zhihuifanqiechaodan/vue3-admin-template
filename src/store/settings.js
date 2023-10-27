@@ -14,7 +14,8 @@ const {
   menuActiveBackgroundColor,
   menuActiveTextColor,
   menuDefaultIcon,
-  menuUniqueOpened
+  menuUniqueOpened,
+  locale
 } = defaultSettings
 
 export const useSettingsStore = defineStore('settings', {
@@ -33,7 +34,7 @@ export const useSettingsStore = defineStore('settings', {
       tagsView: getCookieItem('tagsView', tagsView),
       // 是否显示Logo
       menuLogo: getCookieItem('menuLogo', menuLogo),
-
+      locale: getCookieItem('locale', locale),
       /**
        * 侧边栏菜单
        */

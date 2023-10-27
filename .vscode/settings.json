@@ -13,5 +13,8 @@
     },
     "[ignore]": {
       "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "[svg]": {
+      "editor.defaultFormatter": "jock.svg"
     }
 }

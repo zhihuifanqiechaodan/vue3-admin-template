@@ -13,6 +13,8 @@ export default {
   // 是否显示Logo
   menuLogo: true,
 
+  locale: 'zh-cn',
+
   /**
    * 侧边栏菜单
    */

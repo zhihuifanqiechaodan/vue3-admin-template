@@ -19,6 +19,14 @@ import '@/permission' // permission control
 import directives from '@/directives/index'
 import errorLog from '@/utils/error-log'
 
+import i18n from '@/locales/index'
+
 const app = createApp(App)
 
-app.use(createPinia()).use(router).use(directives).use(errorLog).mount('#app')
+app
+  .use(createPinia())
+  .use(router)
+  .use(directives)
+  .use(errorLog)
+  .use(i18n)
+  .mount('#app')

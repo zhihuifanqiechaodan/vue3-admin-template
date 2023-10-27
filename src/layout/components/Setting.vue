@@ -104,6 +104,8 @@
             v-model="menuWidth"
             type="number"
             :step="10"
+            max="300"
+            min="210"
             size="default"
             class="value"
           >

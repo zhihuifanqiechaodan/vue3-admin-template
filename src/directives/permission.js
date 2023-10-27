@@ -9,7 +9,7 @@ export default (app) => {
 
       const { value } = binding
 
-      if (Number(value)) {
+      if (typeof value === 'number') {
         if (!permissions.some((item) => item === value)) {
           el.parentNode?.removeChild(el)
         }

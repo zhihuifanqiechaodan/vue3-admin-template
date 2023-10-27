@@ -23,7 +23,7 @@ const settingsStore = useSettingsStore()
 const menuWidth = computed(() =>
   settingsStore.menuCollapse
     ? 'calc(64px + 20px)'
-    : `${settingsStore.menuWidth + 20}px`
+    : `${Number(settingsStore.menuWidth) + 20}px`
 )
 </script>
 <style lang="scss" scoped>

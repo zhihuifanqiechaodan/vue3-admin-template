@@ -105,7 +105,7 @@ const handleExportExcel = () => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .export-excel-container {
   margin: 20px;
   background-color: #fff;

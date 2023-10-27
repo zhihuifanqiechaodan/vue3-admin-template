@@ -5,6 +5,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Inspect from 'vite-plugin-inspect'
 
 // https://vitejs.dev/config/
 export default (mode) => {
@@ -41,6 +42,7 @@ export default (mode) => {
     },
     plugins: [
       vue(),
+      Inspect(),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
         iconDirs: [fileURLToPath(new URL('./src/icons', import.meta.url))],

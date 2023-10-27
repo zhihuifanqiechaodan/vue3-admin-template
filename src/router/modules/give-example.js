@@ -43,6 +43,12 @@ export const clipboard = {
   component: () => import('@/views/give-example/clipboard/clipboard')
 }
 
+export const pieChart = {
+  path: 'pie-chart',
+  name: 'pie-chart',
+  component: () => import('@/views/give-example/echart/pie-chart.vue')
+}
+
 export default [
   markdown,
   exportExcel,
@@ -51,5 +57,6 @@ export default [
   uploadExcel,
   domToImage,
   qrcode,
-  clipboard
+  clipboard,
+  pieChart
 ]

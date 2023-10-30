@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "serve": "vite --force --host --mode localhost",
+    "dev": "vite --force --host --mode localhost",
     "preview": "vite preview",
     "build:prod": "vite build --mode production",
     "deploy": "sh deploy.sh",

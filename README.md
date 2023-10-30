@@ -1,3 +1,15 @@
+<p align="center">
+  <strong>vue3-admin-template</strong>
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/vue-3.3.4-brightgreen.svg" >
+    <img src="https://img.shields.io/badge/element--plus-2.3.12-brightgreen.svg" >
+    <img src="https://img.shields.io/badge/vue--router-4.2.4-brightgreen.svg" >
+    <img src="https://img.shields.io/badge/pinia-2.1.6-brightgreen.svg" >
+    <img src="https://img.shields.io/badge/vite-4.3.4-brightgreen.svg" >
+</p>
+
 # 介绍
 
 [vue3-admin-template](https://github.com/zhihuifanqiechaodan/vue3-admin-template.git)  是一个后台前端解决方案，它基于  [vue](https://github.com/vuejs/vue)  和  [element-plus](https://github.com/element-plus/element-plus.git)实现。它使用了最新的前端技术栈，内置了动态路由，权限验证，提供了多种布局方式，它可以帮助你快速搭建企业级中后台产品原型。相信不管你的需求是什么，本项目都能帮助到你。
@@ -17,7 +29,8 @@
   - 权限配置
 
 - 多环境发布
-  - dev sit stage prod
+  - dev
+  - prod
 
 - 全局功能
   - 国际化多语言

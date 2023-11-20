@@ -4,20 +4,16 @@ export const menu = {
   component: () => import('@/views/system/menu/menu'),
   permissionInfo: {
     create: {
-      label: '创建',
+      label: '添加',
       value: 0
     },
-    delete: {
-      label: '删除',
+    sort: {
+      label: '排序',
       value: 1
     },
     edit: {
       label: '编辑',
       value: 2
-    },
-    sort: {
-      label: '排序',
-      value: 3
     }
   }
 }

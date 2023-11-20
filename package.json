@@ -53,7 +53,7 @@
     "script-loader": "^0.7.2",
     "unplugin-auto-import": "^0.15.3",
     "unplugin-vue-components": "^0.24.1",
-    "vite": "^4.4.9",
+    "vite": "^5.0.0",
     "vite-plugin-inspect": "^0.7.40",
     "vite-plugin-svg-icons": "^2.0.1"
   },

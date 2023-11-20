@@ -17,7 +17,7 @@ export default (mode) => {
           // target: 'http://192.168.0.78:10086', // 开发环境
           // target: 'https://xxxx', // 测试环境
           // target: 'https://xxxx', // 预发环境
-          target: 'http://zhihuifanqiechaodan.com', // 生产环境
+          target: 'https://zhihuifanqiechaodan.com', // 生产环境
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         },

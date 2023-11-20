@@ -19,57 +19,9 @@
       </div>
     </div>
     <div class="table-wrapper">
-      <el-table :data="menuList" row-key="id" border default-expand-all>
-        <el-table-column prop="title" label="菜单名称">
-          <template #default="scope">
-            <SvgIcon
-              v-if="scope.row.icon"
-              :name="scope.row.icon"
-              class="icon"
-            />
-            <span class="title">{{ scope.row.title }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="type" label="类型" width="100" align="center">
-          <template #default="scope">
-            <el-tag :type="typeEnum[scope.row.type].type">{{
-              typeEnum[scope.row.type].label
-            }}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="path" label="路由路径" />
-        <el-table-column prop="type" label="认证" width="100" align="center">
-          <template #default="scope">
-            <el-tag v-if="scope.row.auth" type="success">是</el-tag>
-            <el-tag v-else type="info">否</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="type" label="缓存" width="100" align="center">
-          <template #default="scope">
-            <el-tag v-if="scope.row.cache" type="success">是</el-tag>
-            <el-tag v-else type="info">否</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="type" label="状态" width="100" align="center">
-          <template #default="scope">
-            <el-tag v-if="scope.row.hidden" type="info">隐藏</el-tag>
-            <el-tag v-else type="success">显示</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="address" label="操作" align="center">
-          <template #default="scope">
-            <el-button
-              v-if="scope.row.type !== 2"
-              @click="handleMenuEdit(scope.row)"
-              type="primary"
-              link
-              >编辑</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
+      <MenuTable @handleMenuEdit="handleMenuEdit" :tableData="menuList" />
     </div>
-    <Drawer
+    <MenuDialog
       :isEdit="isEdit"
       :menuForm="menuForm"
       :menuList="originalMenuList"
@@ -86,7 +38,6 @@
 
 <script setup>
 import { onMounted, reactive, toRefs, provide } from 'vue'
-import Drawer from './components/Drawer'
 import { cloneDeep as _cloneDeep } from 'lodash-es'
 import {
   addSystemMenuGetAllMenuList,
@@ -97,21 +48,8 @@ import { menuListSort, convertToTree } from '@/utils/index'
 import { ElMessageBox } from 'element-plus'
 import { menu } from '@/router/modules/system'
 import MenuNestedDraggableDialog from './components/MenuNestedDraggableDialog.vue'
-
-const typeEnum = {
-  0: {
-    type: 'warning',
-    label: '目录'
-  },
-  1: {
-    type: 'success',
-    label: '菜单'
-  },
-  2: {
-    type: 'danger',
-    label: '按钮'
-  }
-}
+import MenuTable from './components/MenuTable.vue'
+import MenuDialog from './components/MenuDialog.vue'
 
 const defaultMenuForm = {
   type: 0,
@@ -282,6 +220,7 @@ provide('handleMenuEdit', handleMenuEdit)
 <style lang="scss" scoped>
 .menu-container {
   margin: 20px;
+  margin-top: 0;
   padding: 20px;
   background-color: #fff;
 

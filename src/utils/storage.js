@@ -1,17 +1,101 @@
-import Cookies from 'js-cookie'
+import jsCookie from 'js-cookie'
 
-const TokenKey = 'Fanqie-Token'
+const localStorage = window.localStorage
 
-export const getCookies = (key, defaultValue) =>
-  Cookies.get(key) ? JSON.parse(Cookies.get(key)) : defaultValue
+const sessionStorage = window.sessionStorage
 
-export const setCookies = (key, value) =>
-  Cookies.set(key, JSON.stringify(value))
+/**
+ * @method setLocalStorageItem
+ * @param {string} key
+ * @param {*} value
+ * @returns
+ */
+export const setLocalStorageItem = (key, value) =>
+  localStorage.setItem(key, JSON.stringify(value))
 
-export const removeCookies = (key) => Cookies.remove(key)
+/**
+ * @method getLocalStorageItem
+ * @param {string} key
+ * @param {*} defaultValue
+ * @returns
+ */
+export const getLocalStorageItem = (key, defaultValue = null) => {
+  const value = localStorage.getItem(key)
 
-export const getToken = () => getCookies(TokenKey)
+  return value ? JSON.parse(value) : defaultValue
+}
 
-export const setToken = (token) => setCookies(TokenKey, token)
+/**
+ * @method removeLocalStorageItem
+ * @param {string} key
+ * @returns
+ */
+export const removeLocalStorageItem = (key) => localStorage.removeItem(key)
 
-export const removeToken = () => removeCookies(TokenKey)
+/**
+ * @method clearLocalStorageItem
+ * @returns
+ */
+export const clearLocalStorageItem = () => localStorage.clear()
+
+/**
+ * @method setSessionStorage
+ * @param {string} key
+ * @param {*} value
+ * @returns
+ */
+export const setSessionStorage = (key, value) =>
+  sessionStorage.setItem(key, JSON.stringify(value))
+
+/**
+ * @method getSessionStorage
+ * @param {string} key
+ * @param {*} defaultValue
+ * @returns
+ */
+export const getSessionStorage = (key, defaultValue = null) => {
+  const value = sessionStorage.getItem(key)
+
+  return value ? JSON.parse(value) : defaultValue
+}
+
+/**
+ * @method removeSessionStorage
+ * @param {string} key
+ * @returns
+ */
+export const removeSessionStorage = (key) => sessionStorage.removeItem(key)
+
+/**
+ * @method clearSessionStorage
+ * @returns
+ */
+export const clearSessionStorage = () => sessionStorage.clear()
+
+/**
+ * @method clearSessionStorage
+ * @param {string} key
+ * @param {*} value
+ * @returns
+ */
+export const setCookieItem = (key, value) =>
+  jsCookie.set(key, JSON.stringify(value))
+
+/**
+ * @method getCookieItem
+ * @param {string} key
+ * @param {*} defaultValue
+ * @returns
+ */
+export const getCookieItem = (key, defaultValue = null) => {
+  const value = jsCookie.get(key)
+
+  return value ? JSON.parse(value) : defaultValue
+}
+
+/**
+ * @method removeCookieItem
+ * @param {string} key
+ * @returns
+ */
+export const removeCookieItem = (key) => jsCookie.remove(key)

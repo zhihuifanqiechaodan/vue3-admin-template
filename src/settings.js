@@ -7,11 +7,13 @@ export default {
   // 布局方式 Classic 经典布局 Default 默认布局 Streamline 精简布局
   layoutMode: 'Default',
   // 默认全局尺寸, 可选值 large / default /small
-  size: 'large',
+  size: 'default',
   // 全局设置状态
   showSettings: false,
   // 是否显示Logo
   menuLogo: true,
+
+  locale: 'zh-cn',
 
   /**
    * 侧边栏菜单
@@ -33,7 +35,5 @@ export default {
   // 是否只保持一个子菜单的展开(手风琴)
   menuUniqueOpened: false,
   // The default is only used in the production env，If you want to also use it in dev, you can pass ['production', 'development']
-  errorLog: ['production', 'localhost'],
-  // 是否基于 mockjs vite-plugin-mock 开启mock数据, 关闭后将开启 proxy 代理
-  isMockData: true
+  errorLog: ['production', 'localhost']
 }

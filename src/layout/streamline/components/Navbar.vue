@@ -8,6 +8,7 @@
       <ErrorLog />
       <Screenfull />
       <SizeSelect />
+      <Language />
       <User />
       <Setting />
     </div>
@@ -21,7 +22,8 @@ import {
   SizeSelect,
   User,
   Setting,
-  MenuHorizontal
+  MenuHorizontal,
+  Language
 } from '@/layout/components/index'
 </script>
 <style lang="scss" scoped>

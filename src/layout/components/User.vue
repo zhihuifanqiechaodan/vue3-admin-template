@@ -22,15 +22,20 @@
 <script setup>
 import { computed } from 'vue'
 import { useUserStore } from '@/store/user'
+import { usePermissionStore } from '@/store/permission'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
+const permissionStore = usePermissionStore()
 const userInfo = computed(() => userStore.userInfo)
 
 const logout = async () => {
   await userStore.logout()
+
+  permissionStore.addRoutes = []
+
   router.push(`/login?redirect=${route.fullPath}`)
 }
 </script>

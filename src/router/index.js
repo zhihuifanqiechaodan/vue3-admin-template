@@ -1,36 +1,87 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-/* Layout */
-import Layout from '@/layout/index'
+import Layout from '@/layout/layout'
 
-/* Router Modules */
-// import nestedRouter from './modules/nested'
+import { usePermissionStore } from '@/store/permission'
+
+import systemRouter, { menu } from './modules/system'
+import giveExampleRouter from './modules/give-example'
 
 /**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
- *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
- * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
- * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
+ * 
+ * hidden: true
+ * 
+ * 当你一个路由下面的 children 声明的路由大于1个时，自动会变成嵌套的模式--如组件页面
+ * 只有一个时，会将那个子路由当做根路由显示在侧边栏--如引导页面
+ * 若你想不管路由下面的 children 声明的个数都显示你的根路由
+ * 你可以设置 alwaysShow: true，这样它就会忽略之前定义的规则，一直显示根路由
+ * 
+ * alwaysShow: true
+ * 
+ * 因为路由的设计模式，只能当路由为目录时，才可设置此选项，或者当当前路由只有一个菜单的时候，会自动生成外层目录，如果设置了noRedirect，则不会在breadcrumb中重定向
+ * 
+ * redirect: 'noRedirect'
+ * 
+ * 外层目录的name字段会自动生成，用于退出登录时清空动态添加的路由信息，内层的name字段必须为路由的文件名，缓存页面时需要
+ * 在 3.2.34 或以上的版本中，使用 <script setup> 的单文件组件会自动根据文件名生成对应的 name 选项，无需再页面上手动声明name。
+ * name必须和你的文件名保持一致，否则会导致不缓存, 所以文件名不要使用index
+ * 
+ * name:'router-name'
+ * 
  * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles), 调整为页面动态配置权限，不在需要此字段。
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
-    noCache: true                if set true, the page will no be cached(default is false)
-    affix: true                  if set true, the tag will affix in the tags-view
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+    设置该路由在侧边栏和面包屑中展示的名字
+    title: 'title' 
+    
+    设置该路由的图标
+    icon: 'menu'
+
+    如果设置为true，则不会被 <keep-alive> 缓存(默认 true)
+    noCache: true
+
+    如果设置为true，它则会固定在tags-view中(默认 false, 只在经典布局中展示)
+    affix: false               
+
+    如果设置为false，则不会在breadcrumb面包屑中显示(默认 true，只在经典布局中展示)
+    breadcrumb: false            
+
+    当路由设置了该属性，则会高亮相对应的侧边栏。
+    这在某些场景非常有用，比如：一个文章的列表页路由为：/article/list
+    点击文章进入文章详情页，这时候路由为/article/1，但你想在侧边栏高亮文章列表的路由，就可以进行如下设置
+    activeMenu: '/example/list'如果设置了path，侧边栏会高亮显示你设置的路径
   }
  */
 
 /**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
+ * 超级管理员第一次登录，默认创建菜单以便登录后有页面跳转并且添加页面
+ */
+export const defaultCreateMenuInfo = {
+  type: 1,
+  hidden: false,
+  title: 'menu',
+  path: menu.path,
+  icon: 'menu',
+  cache: true,
+  affix: false,
+  breadcrumb: true,
+  activeMenu: '',
+  auth: true,
+  buttonPermissions: Object.values(menu.permissionInfo)
+}
+
+/**
+ * 默认布局方案
+ */
+export const defaultLayoutRoute = {
+  layout: 'layout',
+  component: Layout,
+  redirect: 'noRedirect'
+}
+
+/**
+ * 代表那些不需要动态判断权限的路由，如登录页、404、等通用页面。
+ * 没有权限要求的页面
+ * 所有角色都可以访问
  */
 export const constantRoutes = [
   {
@@ -40,183 +91,55 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index.vue')
+        component: () => import('@/views/redirect/redirect')
       }
     ]
   },
   {
     path: '/login',
-    component: () => import('@/views/login/index.vue'),
+    component: () => import('@/views/login/login'),
     hidden: true
   },
   {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  // 此写法解决动态路由页面刷新的 warning 警告
-  {
     path: '/:pathMatch(.*)*',
-    component: () => import('@/views/error-page/404.vue'),
+    component: () => import('@/views/error-page/404'),
     hidden: true
   }
 ]
 
 /**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
-
-/**
- * name：外层路由name必填，退出登录的时候要根据 name 清除动态添加的路由信息，内层的 name 用于页面缓存使用
+ * 有权限要求的页面
  */
 export const asyncRoutes = [
   {
-    path: '/clipboard',
-    component: Layout,
-    name: 'Clipboard',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/clipboard/index.vue'),
-        name: 'ClipboardIndex',
-        meta: {
-          title: 'Clipboard',
-          icon: 'icon'
-        }
-      }
-    ]
+    path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
+    name: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template'
   },
   {
-    path: '/markdown',
-    component: Layout,
-    name: 'Markdown',
-    redirect: '/markdown/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/markdown/index.vue'),
-        name: 'MarkdownIndex',
-        meta: {
-          title: 'Markdown',
-          icon: 'icon'
-        }
-      }
-    ]
+    path: 'dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/dashboard/dashboard')
   },
-  {
-    path: '/excel',
-    component: Layout,
-    name: 'Excel',
-    redirect: '/excel/export-excel',
-    meta: {
-      title: 'Excel',
-      icon: 'icon'
-    },
-    children: [
-      {
-        path: 'export-excel',
-        component: () => import('@/views/excel/export-excel.vue'),
-        name: 'ExportExcel',
-        meta: {
-          title: 'Export Excel'
-        }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel.vue'),
-        name: 'SelectExcel',
-        meta: { title: 'Export Selected' }
-      },
-      {
-        path: 'merge-header',
-        component: () => import('@/views/excel/merge-header.vue'),
-        name: 'MergeHeader',
-        meta: { title: 'Merge Header' }
-      },
-      {
-        path: 'upload-excel',
-        component: () => import('@/views/excel/upload-excel.vue'),
-        name: 'UploadExcel',
-        meta: { title: 'Upload Excel' }
-      }
-    ]
-  },
-  {
-    path: '/dom-to-image',
-    name: 'DomToImage',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/dom-to-image/index.vue'),
-        name: 'DomToImageIndex',
-        meta: {
-          title: 'DomToImage',
-          icon: 'icon'
-        }
-      }
-    ]
-  },
-  {
-    path: '/permission',
-    name: 'Permission',
-    component: Layout,
-    redirect: '/permission/role',
-    children: [
-      {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'PermissionRole',
-        meta: { title: 'Permission', icon: 'icon' }
-      }
-    ]
-  },
-  {
-    path: '/qrcode',
-    name: 'Qrcode',
-    component: Layout,
-    redirect: '/qrcode/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/qrcode/index'),
-        name: 'QrcodeIndex',
-        meta: { title: 'Qrcode', icon: 'icon' }
-      }
-    ]
-  },
-  {
-    path: '/external-link',
-    component: Layout,
-    name: 'ExternalLink',
-    children: [
-      {
-        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  }
+  ...systemRouter,
+  ...giveExampleRouter
 ]
+
+export const layoutRoutes = [defaultLayoutRoute]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: constantRoutes
 })
 
-// 重置路由为静态路由
+/**
+ * @method resetRouter
+ */
 export const resetRouter = () => {
+  const permissionStore = usePermissionStore()
+
   router.getRoutes().forEach((route) => {
     const { name } = route
-    if (name && asyncRoutes.find((item) => item.name === name)) {
+    if (name && permissionStore.addRoutes.find((item) => item.name === name)) {
       router.removeRoute(name)
     }
   })

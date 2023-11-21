@@ -3,6 +3,7 @@
     <search />
     <screenfull />
     <size-select />
+    <Language />
     <error-log />
     <user />
     <setting />
@@ -15,7 +16,8 @@ import {
   Screenfull,
   SizeSelect,
   User,
-  Setting
+  Setting,
+  Language
 } from '@/layout/components/index'
 </script>
 <style lang="scss" scoped>

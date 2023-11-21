@@ -9,6 +9,7 @@
       <error-log />
       <screenfull />
       <size-select />
+      <Language />
       <user />
       <Setting />
     </div>
@@ -16,15 +17,16 @@
 </template>
 
 <script setup>
-import Hamburger from './Hamburger.vue'
-import Breadcrumb from './Breadcrumb.vue'
+import Hamburger from './Hamburger'
+import Breadcrumb from './Breadcrumb'
 import {
   Search,
   ErrorLog,
   Screenfull,
   SizeSelect,
   User,
-  Setting
+  Setting,
+  Language
 } from '@/layout/components/index'
 </script>
 

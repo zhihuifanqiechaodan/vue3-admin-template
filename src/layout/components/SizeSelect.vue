@@ -1,10 +1,6 @@
 <template>
   <div @click="handleDropdownClick" class="size-select">
-    <el-dropdown
-      ref="refDropdown"
-      trigger="contextmenu"
-      @command="handleSetSize"
-    >
+    <el-dropdown ref="refDropdown" @command="handleSetSize">
       <svg-icon class="size" name="size" />
       <template #dropdown>
         <el-dropdown-menu>

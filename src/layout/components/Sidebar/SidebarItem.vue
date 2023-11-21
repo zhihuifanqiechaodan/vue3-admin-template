@@ -36,8 +36,8 @@
 <script setup>
 import path from 'path-browserify'
 import { isExternal } from '@/utils/validate'
-import AppLink from './Link.vue'
-import Item from './Item.vue'
+import AppLink from './Link'
+import Item from './Item'
 import { reactive, toRefs } from 'vue'
 const props = defineProps({
   //每一个router Item

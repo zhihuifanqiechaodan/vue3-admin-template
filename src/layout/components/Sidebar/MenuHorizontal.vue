@@ -20,12 +20,12 @@
   </div>
 </template>
 <script setup>
-import Logo from './Logo.vue'
+import Logo from './Logo'
 import { useSettingsStore } from '@/store/settings'
 import { usePermissionStore } from '@/store/permission'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import SidebarItem from '@/layout/components/Sidebar/SidebarItem.vue'
+import SidebarItem from '@/layout/components/Sidebar/SidebarItem'
 
 const settingsStore = useSettingsStore()
 const showLogo = computed(() => settingsStore.menuLogo)

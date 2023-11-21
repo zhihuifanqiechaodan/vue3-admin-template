@@ -1,30 +1,64 @@
+import { cloneDeep as _cloneDeep } from 'lodash-es'
+
 /**
- * Check if an element has a class
- * @param {HTMLElement} elm
- * @param {string} cls
- * @returns {boolean}
+ * @method menuListSort
+ * @param {*} data
+ * @returns
  */
-export function hasClass(ele, cls) {
-  return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'))
+export const menuListSort = (data) => {
+  const sortedList = _cloneDeep(data)
+
+  sortedList.sort((a, b) => b.sort - a.sort)
+
+  sortedList.forEach((item) => {
+    if (item.children) {
+      item.children = menuListSort(item.children)
+    }
+  })
+
+  return sortedList
 }
 
 /**
- * Add class to element
- * @param {HTMLElement} elm
- * @param {string} cls
+ * @method findItemWithPath
+ * @param {*} data
+ * @returns
  */
-export function addClass(ele, cls) {
-  if (!hasClass(ele, cls)) ele.className += ' ' + cls
-}
+export const findItemWithPath = (data) => {
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i]
 
-/**
- * Remove class from element
- * @param {HTMLElement} elm
- * @param {string} cls
- */
-export function removeClass(ele, cls) {
-  if (hasClass(ele, cls)) {
-    const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
-    ele.className = ele.className.replace(reg, ' ')
+    if (item.type === 1) {
+      return item.path
+    } else if (item.children && item.children.length > 0) {
+      const foundPath = findItemWithPath(item.children)
+
+      if (foundPath) {
+        return item.path + '/' + foundPath
+      }
+    }
   }
+}
+
+/**
+ * @method convertToTree
+ * @param {*} nodes
+ * @param {*} parentId
+ * @returns
+ */
+export const convertToTree = (nodes, parentId = 0) => {
+  const result = []
+
+  for (const node of nodes) {
+    if (node.parentId === parentId) {
+      const newNode = { ...node }
+
+      const children = convertToTree(nodes, node.id)
+
+      newNode.children = children
+
+      result.push(newNode)
+    }
+  }
+  return result
 }

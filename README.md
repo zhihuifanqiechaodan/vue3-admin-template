@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/badge/element--plus-2.3.12-brightgreen.svg" >
     <img src="https://img.shields.io/badge/vue--router-4.2.4-brightgreen.svg" >
     <img src="https://img.shields.io/badge/pinia-2.1.6-brightgreen.svg" >
-    <img src="https://img.shields.io/badge/vite-4.3.4-brightgreen.svg" >
+    <img src="https://img.shields.io/badge/vite-5.0.0-brightgreen.svg" >
 </p>
 
 # 介绍

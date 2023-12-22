@@ -56,9 +56,13 @@ const autoRefresh = () => {
             showCancelButton: false,
             type: 'warning'
           }
-        ).then(() => {
-          location.reload()
-        })
+        )
+          .then(() => {
+            location.reload()
+          })
+          .catch(() => {
+            needTip = true // 开启更新提示，防止重复提醒
+          })
       }, 1000 * 30)
       needTip = false // 关闭更新提示，防止重复提醒
     }

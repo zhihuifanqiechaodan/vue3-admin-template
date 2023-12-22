@@ -3,8 +3,9 @@ import settings from '@/settings'
 
 const { unAutoUpdateEnv } = settings
 
-let lastSrcs //上一次获取到的script地址
-let needTip = true // 默认开启提示
+let lastSrcs
+let lastSrcsCopy
+let needTip = true
 
 const scriptReg = /<script.*src=["'](?<src>[^"']+)/gm
 
@@ -37,6 +38,7 @@ const needUpdate = async () => {
       break
     }
   }
+  lastSrcsCopy = lastSrcs
   lastSrcs = newScripts
   return result
 }
@@ -46,7 +48,6 @@ const autoRefresh = () => {
   setTimeout(async () => {
     const willUpdate = await needUpdate()
     if (willUpdate) {
-      // 延时更新，防止部署未完成用户就刷新空白
       setTimeout(() => {
         ElMessageBox.confirm(
           '检测到页面有内容更新，为了功能的正常使用，是否立即刷新？',
@@ -61,10 +62,11 @@ const autoRefresh = () => {
             location.reload()
           })
           .catch(() => {
-            needTip = true // 开启更新提示，防止重复提醒
+            lastSrcs = lastSrcsCopy
+            autoRefresh()
           })
       }, 1000 * 30)
-      needTip = false // 关闭更新提示，防止重复提醒
+      needTip = false
     }
     if (needTip) {
       autoRefresh()

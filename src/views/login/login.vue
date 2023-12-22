@@ -159,6 +159,8 @@ const handleLogin = () => {
         state.loading = false
 
         router.push({ path: state.redirect || '/', query: state.otherQuery })
+
+        window.zhuge.track('购买商品') //事件名称不能超过20个字符
       } catch (error) {
         state.loading = false
       }

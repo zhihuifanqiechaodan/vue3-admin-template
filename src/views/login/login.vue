@@ -62,6 +62,7 @@
         <span style="margin-right: 18px">Username : editor</span>
         <span>Password : any</span>
       </div>
+      <div>test auto update</div>
     </el-form>
   </div>
 </template>

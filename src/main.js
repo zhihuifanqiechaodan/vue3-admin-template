@@ -18,6 +18,7 @@ import '@/permission' // permission control
 
 import directives from '@/directives/index'
 import errorLog from '@/utils/error-log'
+import autoUpdate from '@/utils/auto-update'
 
 import i18n from '@/locales/index'
 
@@ -28,5 +29,6 @@ app
   .use(router)
   .use(directives)
   .use(errorLog)
+  .use(autoUpdate)
   .use(i18n)
   .mount('#app')

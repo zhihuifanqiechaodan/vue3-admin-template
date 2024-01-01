@@ -6,7 +6,8 @@ const { unAutoUpdateEnv } = settings
 let lastSrcs
 let lastSrcsCopy
 let needTip = true
-
+const trainTime = 10
+const delayTime = 30
 const scriptReg = /<script.*src=["'](?<src>[^"']+)/gm
 
 const extractNewScripts = async () => {
@@ -42,7 +43,6 @@ const needUpdate = async () => {
   lastSrcs = newScripts
   return result
 }
-const DURATION = 10000
 
 const autoRefresh = () => {
   setTimeout(async () => {
@@ -62,16 +62,17 @@ const autoRefresh = () => {
             location.reload()
           })
           .catch(() => {
+            needTip = true
             lastSrcs = lastSrcsCopy
             autoRefresh()
           })
-      }, 1000 * 30)
+      }, 1000 * delayTime)
       needTip = false
     }
     if (needTip) {
       autoRefresh()
     }
-  }, DURATION)
+  }, 1000 * trainTime)
 }
 
 export default {

@@ -22,6 +22,9 @@ import autoUpdate from '@/utils/auto-update'
 
 import i18n from '@/locales/index'
 
+import ArcoVue from '@arco-design/web-vue'
+import '@arco-design/web-vue/dist/arco.css'
+
 const app = createApp(App)
 
 app
@@ -31,4 +34,5 @@ app
   .use(errorLog)
   .use(autoUpdate)
   .use(i18n)
+  .use(ArcoVue)
   .mount('#app')

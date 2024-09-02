@@ -14,7 +14,7 @@ export default (mode) => {
       open: true,
       proxy: {
         '/api': {
-          // target: 'http://192.168.0.78:10086', // 开发环境
+          // target: 'http://localhost:9527', // 开发环境
           // target: 'https://xxxx', // 测试环境
           // target: 'https://xxxx', // 预发环境
           target: 'https://zhihuifanqiechaodan.com', // 生产环境

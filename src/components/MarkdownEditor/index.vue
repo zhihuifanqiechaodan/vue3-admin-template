@@ -1,10 +1,11 @@
 <template>
   <div class="markdown-editor" :id="id"></div>
+  <editor />
 </template>
 
 <script setup>
-import '@toast-ui/editor/dist/toastui-editor.css'
-import Editor from '@toast-ui/editor'
+import '@toast-ui/vue-editor/dist/toastui-vue-editor'
+import { Editor } from '@toast-ui/vue-editor'
 import { reactive, toRefs, onMounted, computed, watch, onUnmounted } from 'vue'
 import { ElMessage } from 'element-plus'
 

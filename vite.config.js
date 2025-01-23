@@ -10,6 +10,7 @@ import Inspect from 'vite-plugin-inspect'
 // https://vitejs.dev/config/
 export default (mode) => {
   return defineConfig({
+    base: '/vue3-admin-template/',
     server: {
       open: true,
       proxy: {

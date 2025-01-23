@@ -147,17 +147,11 @@ const handleLogin = () => {
     if (valid) {
       try {
         state.loading = true
-
         const userStore = useUserStore()
-
-        const { token, id, username } = await addSystemLogin(state.loginForm)
-
+        const { token, userInfo } = await addSystemLogin(state.loginForm)
         userStore.setToken({ token })
-
-        userStore.setUserInfo({ userInfo: { id, username } })
-
+        userStore.setUserInfo({ userInfo })
         state.loading = false
-
         router.push({ path: state.redirect || '/', query: state.otherQuery })
       } catch (error) {
         state.loading = false

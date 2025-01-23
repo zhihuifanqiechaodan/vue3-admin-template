@@ -2,7 +2,7 @@
   <div class="dashboard-container">说明</div>
 </template>
 
-<script setup name="Dashboard"></script>
+<script setup></script>
 
 <style lang="scss">
 .dashboard-container {

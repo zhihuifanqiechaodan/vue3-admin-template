@@ -1,10 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-
 import Layout from '@/layout/layout'
-
 import { usePermissionStore } from '@/store/permission'
-
-import systemRouter, { menu } from './modules/system'
 import giveExampleRouter from './modules/give-example'
 
 /**
@@ -23,7 +19,7 @@ import giveExampleRouter from './modules/give-example'
  * 
  * redirect: 'noRedirect'
  * 
- * 外层目录的name字段会自动生成，用于退出登录时清空动态添加的路由信息，内层的name字段必须为路由的文件名，缓存页面时需要
+ * 用于退出登录时清空动态添加的路由信息，内层的name字段必须为路由的文件名，缓存页面时需要
  * 在 3.2.34 或以上的版本中，使用 <script setup> 的单文件组件会自动根据文件名生成对应的 name 选项，无需再页面上手动声明name。
  * name必须和你的文件名保持一致，否则会导致不缓存, 所以文件名不要使用index
  * 
@@ -53,32 +49,6 @@ import giveExampleRouter from './modules/give-example'
  */
 
 /**
- * 超级管理员第一次登录，默认创建菜单以便登录后有页面跳转并且添加页面
- */
-export const defaultCreateMenuInfo = {
-  type: 1,
-  hidden: false,
-  title: 'menu',
-  path: menu.path,
-  icon: 'menu',
-  cache: true,
-  affix: false,
-  breadcrumb: true,
-  activeMenu: '',
-  auth: true,
-  buttonPermissions: Object.values(menu.permissionInfo)
-}
-
-/**
- * 默认布局方案
- */
-export const defaultLayoutRoute = {
-  layout: 'layout',
-  component: Layout,
-  redirect: 'noRedirect'
-}
-
-/**
  * 代表那些不需要动态判断权限的路由，如登录页、404、等通用页面。
  * 没有权限要求的页面
  * 所有角色都可以访问
@@ -104,6 +74,19 @@ export const constantRoutes = [
     path: '/:pathMatch(.*)*',
     component: () => import('@/views/error-page/404'),
     hidden: true
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/dashboard'),
+        name: 'Dashboard',
+        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+      }
+    ]
   }
 ]
 
@@ -111,20 +94,18 @@ export const constantRoutes = [
  * 有权限要求的页面
  */
 export const asyncRoutes = [
-  {
-    path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
-    name: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template'
-  },
-  {
-    path: 'dashboard',
-    name: 'dashboard',
-    component: () => import('@/views/dashboard/dashboard')
-  },
-  ...systemRouter,
   ...giveExampleRouter
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // }
 ]
-
-export const layoutRoutes = [defaultLayoutRoute]
 
 const router = createRouter({
   history: createWebHashHistory(),

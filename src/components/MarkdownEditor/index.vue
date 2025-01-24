@@ -1,11 +1,11 @@
 <template>
   <div class="markdown-editor" :id="id"></div>
-  <editor />
 </template>
 
 <script setup>
-import '@toast-ui/vue-editor/dist/toastui-vue-editor'
-import { Editor } from '@toast-ui/vue-editor'
+import Editor from '@toast-ui/editor'
+import '@toast-ui/editor/dist/toastui-editor.css'
+import '@toast-ui/editor/dist/i18n/zh-cn'
 import { reactive, toRefs, onMounted, computed, watch, onUnmounted } from 'vue'
 import { ElMessage } from 'element-plus'
 
@@ -23,7 +23,7 @@ const props = defineProps({
   },
   language: {
     type: String,
-    default: 'en-US'
+    default: 'zh-CN'
   }
 })
 
@@ -38,6 +38,10 @@ const state = reactive({
 })
 
 const { id } = toRefs(state)
+
+onMounted(() => {
+  initEditor()
+})
 
 const editorOptions = computed(() => {
   const options = Object.assign({}, state.options, props.options)

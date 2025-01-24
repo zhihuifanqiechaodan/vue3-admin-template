@@ -40,13 +40,13 @@ export const giveExample = [
   },
   {
     path: '/markdown',
-    name: 'Markdown',
     component: Layout,
     redirect: '/markdown/index',
     meta: { title: 'Zip', icon: 'zip' },
     children: [
       {
         path: 'index',
+        name: 'markdown',
         component: () => import('@/views/give-example/markdown/markdown'),
         meta: { title: 'Export Zip' }
       }

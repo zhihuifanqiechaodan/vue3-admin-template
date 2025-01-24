@@ -19,7 +19,7 @@ import giveExampleRouter from './modules/give-example'
  * 
  * redirect: 'noRedirect'
  * 
- * 用于退出登录时清空动态添加的路由信息，内层的name字段必须为路由的文件名，缓存页面时需要
+ * 用于退出登录时清空动态添加的路由信息，路由的name字段必须为路由的文件名，缓存页面时需要
  * 在 3.2.34 或以上的版本中，使用 <script setup> 的单文件组件会自动根据文件名生成对应的 name 选项，无需再页面上手动声明name。
  * name必须和你的文件名保持一致，否则会导致不缓存, 所以文件名不要使用index
  * 

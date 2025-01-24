@@ -68,6 +68,13 @@ export default (mode) => {
       Components({
         resolvers: [ElementPlusResolver()]
       })
-    ]
+    ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler' // or 'modern'
+        }
+      }
+    }
   })
 }

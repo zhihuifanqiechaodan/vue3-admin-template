@@ -1,1 +1,0 @@
-import{c as a,u as s,a as c,o as u}from"./index-BEgis-Ki.js";const i={__name:"redirect",setup(n){const e=s(),{params:t,query:r}=e,{path:o}=t;return c().replace({path:"/"+o,query:r}),(_,m)=>(u(),a("div"))}};export{i as default};

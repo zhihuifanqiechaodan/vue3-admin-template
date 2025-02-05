@@ -2,6 +2,77 @@ import Layout from '@/layout/layout'
 
 export const giveExample = [
   {
+    path: '/markdown',
+    name: 'markdown',
+    component: Layout,
+    redirect: '/markdown/index',
+    children: [
+      {
+        path: 'index',
+        name: 'markdownIndex',
+        component: () => import('@/views/give-example/markdown/markdown'),
+        meta: { title: 'Markdown', icon: 'markdown' }
+      }
+    ]
+  },
+  {
+    path: '/dom-to-image',
+    name: 'domToImage',
+    component: Layout,
+    redirect: '/dom-to-image/index',
+    children: [
+      {
+        path: 'index',
+        name: 'domToImageIndex',
+        component: () =>
+          import('@/views/give-example/dom-to-image/dom-to-image'),
+        meta: { title: 'DomToImage', icon: 'dom-to-image' }
+      }
+    ]
+  },
+  {
+    path: '/qrcode',
+    name: 'qrcode',
+    component: Layout,
+    redirect: '/qrcode/index',
+    children: [
+      {
+        path: 'index',
+        name: 'qrcodeIndex',
+        component: () => import('@/views/give-example/qrcode/qrcode'),
+        meta: { title: 'QRCode', icon: 'qrcode' }
+      }
+    ]
+  },
+  {
+    path: '/clipboard',
+    name: 'clipboard',
+    component: Layout,
+    redirect: '/clipboard/index',
+    children: [
+      {
+        path: 'index',
+        name: 'clipboardIndex',
+        component: () => import('@/views/give-example/clipboard/clipboard'),
+        meta: { title: 'Clipboard', icon: 'clipboard' }
+      }
+    ]
+  },
+  {
+    path: '/pie-chart',
+    name: 'PieChart',
+    component: Layout,
+    redirect: '/pie-chart/index',
+    children: [
+      {
+        path: 'index',
+        name: 'PieChartIndex',
+        component: () => import('@/views/give-example/echart/pie-chart'),
+        meta: { title: 'Pie Chart', icon: 'chart' }
+      }
+    ]
+  },
+  {
     path: '/excel',
     name: 'Excel',
     component: Layout,
@@ -35,79 +106,6 @@ export const giveExample = [
         name: 'Uploadxcel',
         component: () => import('@/views/give-example/excel/upload-excel'),
         meta: { title: 'Upload Excel' }
-      }
-    ]
-  },
-  {
-    path: '/markdown',
-    component: Layout,
-    redirect: '/markdown/index',
-    meta: { title: 'Zip', icon: 'zip' },
-    children: [
-      {
-        path: 'index',
-        name: 'markdown',
-        component: () => import('@/views/give-example/markdown/markdown'),
-        meta: { title: 'Export Zip' }
-      }
-    ]
-  },
-  {
-    path: '/dom-to-image',
-    component: Layout,
-    redirect: '/dom-to-image/index',
-    meta: { title: 'Zip', icon: 'zip' },
-    children: [
-      {
-        path: 'index',
-        component: () =>
-          import('@/views/give-example/dom-to-image/dom-to-image'),
-        meta: { title: 'Export Zip' }
-      }
-    ]
-  },
-  {
-    path: '/qrcode',
-    component: Layout,
-    redirect: '/qrcode/index',
-    meta: { title: 'Zip', icon: 'zip' },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/give-example/qrcode/qrcode'),
-        meta: { title: 'Export Zip' }
-      }
-    ]
-  },
-  {
-    path: '/clipboard',
-    component: Layout,
-    redirect: '/clipboard/index',
-    meta: { title: 'Zip', icon: 'zip' },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/give-example/clipboard/clipboard'),
-        meta: { title: 'Export Zip' }
-      }
-    ]
-  },
-  {
-    path: '/pie-chart',
-    name: 'PieChart',
-    component: Layout,
-    redirect: '/pie-chart/index',
-    meta: {
-      title: 'Zip',
-      icon: 'zip',
-      roles: ['admin']
-    },
-    children: [
-      {
-        path: 'index',
-        name: 'PieChartIndex',
-        component: () => import('@/views/give-example/echart/pie-chart'),
-        meta: { title: 'Export Zip' }
       }
     ]
   }

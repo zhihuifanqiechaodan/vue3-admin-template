@@ -1,4 +1,4 @@
-import { base64ToFile } from '@/utils/util'
+import { base64ToFile } from '@/utils/index'
 import html2canvas from 'html2canvas'
 
 export default () => {

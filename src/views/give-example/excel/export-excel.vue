@@ -8,8 +8,8 @@
       <div class="form-item">
         <div class="item-label">Cell Auto-Width：</div>
         <el-radio-group v-model="autoWidth">
-          <el-radio :label="true" border>true</el-radio>
-          <el-radio :label="false" border>false</el-radio>
+          <el-radio :value="true" border>true</el-radio>
+          <el-radio :value="false" border>false</el-radio>
         </el-radio-group>
       </div>
       <div class="form-item">

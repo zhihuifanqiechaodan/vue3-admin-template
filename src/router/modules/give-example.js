@@ -31,6 +31,20 @@ export const giveExample = [
     ]
   },
   {
+    path: '/html2canvas',
+    name: 'html2canvas',
+    component: Layout,
+    redirect: '/html2canvas/index',
+    children: [
+      {
+        path: 'index',
+        name: 'html2canvasIndex',
+        component: () => import('@/views/give-example/html2canvas/html2canvas'),
+        meta: { title: 'Html2canvas', icon: 'dom-to-image' }
+      }
+    ]
+  },
+  {
     path: '/qrcode',
     name: 'qrcode',
     component: Layout,

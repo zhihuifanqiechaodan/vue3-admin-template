@@ -82,7 +82,8 @@ const handleConfirm = () => {
 
   .el-dialog__footer {
     padding: 10px 20px;
-    box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04),
+    box-shadow:
+      0px 12px 32px 4px rgba(0, 0, 0, 0.04),
       0px 8px 20px rgba(0, 0, 0, 0.08);
   }
 }

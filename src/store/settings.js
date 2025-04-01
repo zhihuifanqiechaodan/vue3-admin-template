@@ -62,7 +62,7 @@ export const useSettingsStore = defineStore('settings', {
         menuActiveTextColor
       ),
       // 是否只保持一个子菜单的展开(手风琴)
-      menuUniqueOpened: getCookieItem('menuActiveTextColor', menuUniqueOpened)
+      menuUniqueOpened: getCookieItem('menuUniqueOpened', menuUniqueOpened)
     }
   },
   actions: {

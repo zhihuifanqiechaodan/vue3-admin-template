@@ -16,5 +16,8 @@
     },
     "[svg]": {
       "editor.defaultFormatter": "jock.svg"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }

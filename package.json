@@ -58,7 +58,8 @@
     "unplugin-vue-components": "^28.4.1",
     "vite": "^6.2.4",
     "vite-plugin-inspect": "^11.0.0",
-    "vite-plugin-svg-icons": "^2.0.1"
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vite-plugin-vue-devtools": "^7.7.2"
   },
   "husky": {
     "hooks": {

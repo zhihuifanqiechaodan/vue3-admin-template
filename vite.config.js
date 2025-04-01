@@ -1,11 +1,13 @@
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
+import process from 'node:process'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Inspect from 'vite-plugin-inspect'
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
 export default (mode) => {
@@ -15,9 +17,6 @@ export default (mode) => {
       open: true,
       proxy: {
         '/api': {
-          // target: 'http://localhost:9527', // 开发环境
-          // target: 'https://xxxx', // 测试环境
-          // target: 'https://xxxx', // 预发环境
           target: 'http://zhihuifanqiechaodan.com', // 生产环境
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
@@ -43,6 +42,7 @@ export default (mode) => {
     },
     plugins: [
       vue(),
+      vueDevTools(),
       Inspect(),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹

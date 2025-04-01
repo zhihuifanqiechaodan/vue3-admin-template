@@ -26,11 +26,11 @@ const state = reactive({
 
 const { refDom } = toRefs(state)
 
-const handleDownloadJpeg = () => {
-  domToImageHook.toJpeg(refDom.value)
+const handleDownloadJpeg = async () => {
+  console.log(await domToImageHook.getUrl(refDom.value, { type: 'jpeg' }))
 }
-const handleDownloadPng = () => {
-  domToImageHook.toPng(refDom.value)
+const handleDownloadPng = async () => {
+  console.log(await domToImageHook.getUrl(refDom.value, { type: 'png' }))
 }
 </script>
 

@@ -2,124 +2,87 @@ import Layout from '@/layout/layout'
 
 export const giveExample = [
   {
-    path: '/markdown',
-    name: 'markdown',
+    path: '/giveExample',
+    name: 'giveExample',
     component: Layout,
-    redirect: '/markdown/index',
-    children: [
-      {
-        path: 'index',
-        name: 'markdownIndex',
-        component: () => import('@/views/give-example/markdown/markdown'),
-        meta: { title: 'Markdown', icon: 'markdown' }
-      }
-    ]
-  },
-  {
-    path: '/dom-to-image',
-    name: 'domToImage',
-    component: Layout,
-    redirect: '/dom-to-image/index',
-    children: [
-      {
-        path: 'index',
-        name: 'domToImageIndex',
-        component: () =>
-          import('@/views/give-example/dom-to-image/dom-to-image'),
-        meta: { title: 'DomToImage', icon: 'dom-to-image' }
-      }
-    ]
-  },
-  {
-    path: '/html2canvas',
-    name: 'html2canvas',
-    component: Layout,
-    redirect: '/html2canvas/index',
-    children: [
-      {
-        path: 'index',
-        name: 'html2canvasIndex',
-        component: () => import('@/views/give-example/html2canvas/html2canvas'),
-        meta: { title: 'Html2canvas', icon: 'dom-to-image' }
-      }
-    ]
-  },
-  {
-    path: '/qrcode',
-    name: 'qrcode',
-    component: Layout,
-    redirect: '/qrcode/index',
-    children: [
-      {
-        path: 'index',
-        name: 'qrcodeIndex',
-        component: () => import('@/views/give-example/qrcode/qrcode'),
-        meta: { title: 'QRCode', icon: 'qrcode' }
-      }
-    ]
-  },
-  {
-    path: '/clipboard',
-    name: 'clipboard',
-    component: Layout,
-    redirect: '/clipboard/index',
-    children: [
-      {
-        path: 'index',
-        name: 'clipboardIndex',
-        component: () => import('@/views/give-example/clipboard/clipboard'),
-        meta: { title: 'Clipboard', icon: 'clipboard' }
-      }
-    ]
-  },
-  {
-    path: '/pie-chart',
-    name: 'PieChart',
-    component: Layout,
-    redirect: '/pie-chart/index',
-    children: [
-      {
-        path: 'index',
-        name: 'PieChartIndex',
-        component: () => import('@/views/give-example/echart/pie-chart'),
-        meta: { title: 'Pie Chart', icon: 'chart' }
-      }
-    ]
-  },
-  {
-    path: '/excel',
-    name: 'Excel',
-    component: Layout,
-    redirect: '/excel/export-excel',
+    redirect: '/giveExample/markdown',
     meta: {
-      title: 'Excel',
+      title: 'giveExample',
       icon: 'excel',
       roles: ['admin', 'editor']
     },
     children: [
       {
-        path: 'export-excel',
-        name: 'ExportExcel',
-        component: () => import('@/views/give-example/excel/export-excel'),
-        meta: { title: 'Export Excel' }
+        path: 'markdown',
+        name: 'markdown',
+        component: () => import('@/views/give-example/markdown/markdown'),
+        meta: { title: 'Markdown', icon: 'markdown' }
       },
       {
-        path: 'select-excel',
-        name: 'SelectExcel',
-        component: () => import('@/views/give-example/excel/select-excel'),
-        meta: { title: 'Export Selected' }
+        path: 'dom-to-image',
+        name: 'domToImage',
+        component: () =>
+          import('@/views/give-example/dom-to-image/dom-to-image'),
+        meta: { title: 'DomToImage', icon: 'dom-to-image' }
       },
       {
-        path: 'merge-header',
-        name: 'MergeExcel',
-        component: () => import('@/views/give-example/excel/merge-header'),
-        meta: { title: 'Merge Header' }
+        path: 'html2canvas',
+        name: 'html2canvas',
+        component: () => import('@/views/give-example/html2canvas/html2canvas'),
+        meta: { title: 'Html2canvas', icon: 'dom-to-image' }
       },
       {
-        path: 'upload-excel',
-        name: 'Uploadxcel',
-        component: () => import('@/views/give-example/excel/upload-excel'),
-        meta: { title: 'Upload Excel' }
+        path: 'qrcode',
+        name: 'qrcode',
+        component: () => import('@/views/give-example/qrcode/qrcode'),
+        meta: { title: 'QRCode', icon: 'qrcode' }
+      },
+      {
+        path: 'clipboard',
+        name: 'clipboard',
+        component: () => import('@/views/give-example/clipboard/clipboard'),
+        meta: { title: 'Clipboard', icon: 'clipboard' }
+      },
+      {
+        path: 'pie-chart',
+        name: 'pie-chart',
+        component: () => import('@/views/give-example/echart/pie-chart'),
+        meta: { title: 'PieChart', icon: 'chart' }
+      },
+      {
+        path: 'excel',
+        name: 'excel',
+        meta: { title: 'excel', icon: 'excel' },
+        children: [
+          {
+            path: 'export-excel',
+            name: 'export-excel',
+            component: () => import('@/views/give-example/excel/export-excel'),
+            meta: { title: 'Export Excel' }
+          },
+          {
+            path: 'select-excel',
+            name: 'select-excel',
+            component: () => import('@/views/give-example/excel/select-excel'),
+            meta: { title: 'Export Selected' }
+          },
+          {
+            path: 'merge-header',
+            name: 'merge-header',
+            component: () => import('@/views/give-example/excel/merge-header'),
+            meta: { title: 'Merge Header' }
+          },
+          {
+            path: 'upload-excel',
+            name: 'upload-excel',
+            component: () => import('@/views/give-example/excel/upload-excel'),
+            meta: { title: 'Upload Excel' }
+          }
+        ]
+      },
+      {
+        path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
+        meta: { title: 'External Link', icon: 'link' }
       }
     ]
   }

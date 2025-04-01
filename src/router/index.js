@@ -93,19 +93,7 @@ export const constantRoutes = [
 /**
  * 有权限要求的页面
  */
-export const asyncRoutes = [
-  ...giveExampleRouter
-  // {
-  //   path: 'external-link',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'https://github.com/zhihuifanqiechaodan/vue3-admin-template',
-  //       meta: { title: 'External Link', icon: 'link' }
-  //     }
-  //   ]
-  // }
-]
+export const asyncRoutes = [...giveExampleRouter]
 
 const router = createRouter({
   history: createWebHashHistory(),

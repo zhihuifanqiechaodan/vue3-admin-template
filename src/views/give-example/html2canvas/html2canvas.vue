@@ -9,8 +9,9 @@
       Paul Bakaus and has been completely rewritten, with some bugs fixed and
       some new features (like web font and image support) added.
     </aside>
-    <el-button @click="handleDownloadJpeg" type="primary">下载 jpeg</el-button>
-    <el-button @click="handleDownloadPng" type="primary">下载 Png</el-button>
+    <el-button @click="handleDownloadJpeg" type="primary"
+      >获取JpegFile</el-button
+    >
   </div>
 </template>
 
@@ -26,11 +27,11 @@ const state = reactive({
 
 const { refDom } = toRefs(state)
 
-const handleDownloadJpeg = () => {
-  html2canvasHook.toJpeg(refDom.value)
-}
-const handleDownloadPng = () => {
-  html2canvasHook.toPng(refDom.value)
+const handleDownloadJpeg = async () => {
+  console.log(
+    'handleDownloadJpeg',
+    await html2canvasHook.toJpegFile(refDom.value)
+  )
 }
 </script>
 

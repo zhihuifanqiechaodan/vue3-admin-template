@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/layout/layout'
 import { usePermissionStore } from '@/store/permission'
-import giveExampleRouter from './modules/give-example'
+import exampleRouter from './modules/example'
 
 /**
  * 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
@@ -61,18 +61,18 @@ export const constantRoutes = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/redirect')
+        component: () => import('@/views/system/redirect/redirect')
       }
     ]
   },
   {
     path: '/login',
-    component: () => import('@/views/login/login'),
+    component: () => import('@/views/system/login/login'),
     hidden: true
   },
   {
     path: '/:pathMatch(.*)*',
-    component: () => import('@/views/error-page/404'),
+    component: () => import('@/views/system/error-page/404'),
     hidden: true
   },
   {
@@ -82,8 +82,8 @@ export const constantRoutes = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('@/views/dashboard/dashboard'),
-        name: 'Dashboard',
+        component: () => import('@/views/system/dashboard/dashboard'),
+        name: 'dashboard',
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
@@ -93,7 +93,29 @@ export const constantRoutes = [
 /**
  * 有权限要求的页面
  */
-export const asyncRoutes = [...giveExampleRouter]
+export const asyncRoutes = [
+  ...exampleRouter,
+  {
+    path: '/permission',
+    component: Layout,
+    redirect: '/permission/user',
+    meta: { title: '权限', icon: 'lock' },
+    children: [
+      {
+        path: 'user',
+        component: () => import('@/views/system/permission/user'),
+        name: 'user',
+        meta: { title: 'User', icon: 'dashboard' }
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/system/permission/role'),
+        name: 'role',
+        meta: { title: 'Role', icon: 'dashboard' }
+      }
+    ]
+  }
+]
 
 const router = createRouter({
   history: createWebHashHistory(),

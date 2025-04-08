@@ -145,17 +145,13 @@ const showPwd = () => {
 const handleLogin = () => {
   state.refLoginForm.validate(async (valid) => {
     if (valid) {
-      try {
-        state.loading = true
-        const userStore = useUserStore()
-        const { token, userInfo } = await addSystemLogin(state.loginForm)
-        userStore.setToken({ token })
-        userStore.setUserInfo({ userInfo })
-        state.loading = false
-        router.push({ path: state.redirect || '/', query: state.otherQuery })
-      } catch (error) {
-        state.loading = false
-      }
+      state.loading = true
+      const userStore = useUserStore()
+      const { token, userInfo } = await addSystemLogin(state.loginForm)
+      userStore.setToken({ token })
+      userStore.setUserInfo({ userInfo })
+      state.loading = false
+      router.push({ path: state.redirect || '/', query: state.otherQuery })
     } else {
       return false
     }

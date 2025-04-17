@@ -8,6 +8,11 @@
 export const addSystemLogin = (data) => {
   return Promise.resolve({
     token: 'token',
-    userInfo: { name: '番茄', avatar: '', roles: [data.username] }
+    userInfo: {
+      name: '番茄',
+      avatar: '',
+      roles: [data.username],
+      permissionIds: [101, 102]
+    }
   })
 }

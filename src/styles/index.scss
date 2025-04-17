@@ -62,6 +62,7 @@ aside {
 }
 .multi-ellipsis--l2 {
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 .multi-ellipsis--l2,
 .multi-ellipsis--l3 {
@@ -72,6 +73,7 @@ aside {
 }
 .multi-ellipsis--l3 {
   -webkit-line-clamp: 3;
+  line-clamp: 3;
 }
 
 .app-container {

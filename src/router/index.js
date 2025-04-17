@@ -87,31 +87,49 @@ export const constantRoutes = [
         meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
       }
     ]
-  }
+  },
+  ...exampleRouter
 ]
 
 /**
  * 有权限要求的页面
  */
 export const asyncRoutes = [
-  ...exampleRouter,
   {
     path: '/permission',
     component: Layout,
     redirect: '/permission/user',
-    meta: { title: '权限', icon: 'lock' },
+    meta: { title: 'Permission', icon: 'lock', pageId: 100 },
     children: [
       {
         path: 'user',
         component: () => import('@/views/system/permission/user'),
         name: 'user',
-        meta: { title: 'User', icon: 'dashboard' }
+        meta: {
+          title: 'User',
+          icon: 'dashboard',
+          pageId: 101,
+          buttonIds: [
+            { buttonId: 1010, buttonText: '创建' },
+            { buttonId: 1011, buttonText: '编辑' },
+            { buttonId: 1012, buttonText: '删除' }
+          ]
+        }
       },
       {
         path: 'role',
         component: () => import('@/views/system/permission/role'),
         name: 'role',
-        meta: { title: 'Role', icon: 'dashboard' }
+        meta: {
+          title: 'Role',
+          icon: 'dashboard',
+          pageId: 102,
+          buttonIds: [
+            { buttonId: 1020, buttonText: '创建' },
+            { buttonId: 1021, buttonText: '编辑' },
+            { buttonId: 1022, buttonText: '删除' }
+          ]
+        }
       }
     ]
   }

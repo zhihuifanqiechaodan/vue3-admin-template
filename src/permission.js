@@ -28,8 +28,7 @@ router.beforeEach(async (to, from, next) => {
         NProgress.done()
       } else {
         try {
-          const { roles } = userStore.userInfo
-          const accessRoutes = await permissionStore.generateRoutes(roles)
+          const accessRoutes = await permissionStore.generateRoutes()
           accessRoutes.forEach((route) => {
             router.addRoute(route)
           })

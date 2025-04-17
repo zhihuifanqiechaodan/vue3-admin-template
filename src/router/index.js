@@ -109,11 +109,7 @@ export const asyncRoutes = [
           title: 'User',
           icon: 'dashboard',
           pageId: 101,
-          buttonIds: [
-            { buttonId: 1010, buttonText: '创建' },
-            { buttonId: 1011, buttonText: '编辑' },
-            { buttonId: 1012, buttonText: '删除' }
-          ]
+          buttonIds: [{ buttonId: 1010, buttonText: '添加用户' }]
         }
       },
       {

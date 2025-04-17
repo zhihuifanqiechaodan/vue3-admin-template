@@ -1,7 +1,7 @@
 <template>
   <div class="app-container role-container">
     <div class="feature-wrapper">
-      <el-button type="primary">添加用户</el-button>
+      <el-button v-hasPermission="1010" type="primary">添加用户</el-button>
       <el-button type="primary" @click="getSelectedKeys">获取选中项</el-button>
     </div>
     <el-table :data="tableData" style="width: 100%" border>

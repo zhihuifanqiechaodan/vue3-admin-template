@@ -12,7 +12,7 @@ export const addSystemLogin = (data) => {
       name: '番茄',
       avatar: '',
       roles: [data.username],
-      permissionIds: [101, 102]
+      permissionIds: [101, 102, 1010]
     }
   })
 }

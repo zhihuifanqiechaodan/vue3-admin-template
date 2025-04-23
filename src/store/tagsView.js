@@ -22,7 +22,7 @@ export const useTagsViewStore = defineStore('tagsView', {
     },
     addCachedView(view) {
       if (this.cachedViews.includes(view.name)) return
-      if (!view.meta.cache) {
+      if (!view.meta.noCache) {
         this.cachedViews.push(view.name)
       }
     },

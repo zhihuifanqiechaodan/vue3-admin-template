@@ -29,32 +29,34 @@ const treeData = computed(() => transformRoutesToTree(asyncRoutes))
  * @param {Array} routes 路由数组
  * @returns {Array} 树形结构
  */
-const transformRoutesToTree = (routes) => {
-  return routes.map((route) => {
-    const node = {
-      id: route.meta?.pageId,
-      label: route.meta?.title,
-      children: []
-    }
+ const transformRoutesToTree = (routes) => {
+  return routes
+    .filter((route) => route.meta?.pageId || route.meta?.buttonIds)
+    .map((route) => {
+      const node = {
+        id: route.meta.pageId,
+        label: route.meta.title,
+        children: []
+      }
 
-    // 处理按钮权限
-    if (route.meta?.buttonIds) {
-      node.children = route.meta.buttonIds.map((button) => ({
-        id: button.buttonId,
-        label: button.buttonText
-      }))
-    }
+      // 处理按钮权限
+      if (route.meta.buttonIds) {
+        node.children = route.meta.buttonIds.map((button) => ({
+          id: button.buttonId,
+          label: button.buttonText
+        }))
+      }
 
-    // 递归处理子路由
-    if (route.children) {
-      node.children = [
-        ...node.children,
-        ...transformRoutesToTree(route.children)
-      ]
-    }
+      // 递归处理子路由
+      if (route.children) {
+        const childNodes = transformRoutesToTree(route.children)
+        if (childNodes.length > 0) {
+          node.children = [...node.children, ...childNodes]
+        }
+      }
 
-    return node
-  })
+      return node
+    })
 }
 
 // 暴露方法给父组件

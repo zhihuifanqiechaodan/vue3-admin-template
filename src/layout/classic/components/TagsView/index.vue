@@ -208,8 +208,8 @@ const closeSelectedTag = (view) => {
 }
 
 const closeOthersTags = () => {
-  router.push(selectedTag)
-  tagsViewStore.delOthersViews(selectedTag).then(() => {
+  router.push(selectedTag.value.path)
+  tagsViewStore.delOthersViews(selectedTag.value).then(() => {
     moveToCurrentTag()
   })
 }
